@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.App", "DMWorkshop.App\DMWorkshop.App.csproj", "{A46BA5C5-0B6B-42A1-BCA6-7473525CC8DD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.Model", "DMWorkshop.Model\DMWorkshop.Model.csproj", "{1FBC6065-EAAF-4C19-A703-E3359D79F0FE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.Tests", "DMWorkshop.Tests\DMWorkshop.Tests.csproj", "{21029C57-7788-4DCF-9A59-E4808D57F26B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.Api", "DMWorkshop.Api\DMWorkshop.Api.csproj", "{5A8B3B19-2C65-4E8C-92FD-476314D40332}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.DTO", "DMWorkshop.DTO\DMWorkshop.DTO.csproj", "{60BCE72C-A6E6-40D4-8EBE-DEB9C673DF90}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.Handlers", "DMWorkshop.Handlers\DMWorkshop.Handlers.csproj", "{46ED74DA-B16F-41C9-84F7-1B545273EAAF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.Web", "DMWorkshop.Web\DMWorkshop.Web.csproj", "{BFAAF07B-AB20-4E2F-B203-B60BE7D57E07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A46BA5C5-0B6B-42A1-BCA6-7473525CC8DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A46BA5C5-0B6B-42A1-BCA6-7473525CC8DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A46BA5C5-0B6B-42A1-BCA6-7473525CC8DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A46BA5C5-0B6B-42A1-BCA6-7473525CC8DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1FBC6065-EAAF-4C19-A703-E3359D79F0FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1FBC6065-EAAF-4C19-A703-E3359D79F0FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FBC6065-EAAF-4C19-A703-E3359D79F0FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,10 +27,6 @@ Global
 		{21029C57-7788-4DCF-9A59-E4808D57F26B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21029C57-7788-4DCF-9A59-E4808D57F26B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21029C57-7788-4DCF-9A59-E4808D57F26B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A8B3B19-2C65-4E8C-92FD-476314D40332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A8B3B19-2C65-4E8C-92FD-476314D40332}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A8B3B19-2C65-4E8C-92FD-476314D40332}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A8B3B19-2C65-4E8C-92FD-476314D40332}.Release|Any CPU.Build.0 = Release|Any CPU
 		{60BCE72C-A6E6-40D4-8EBE-DEB9C673DF90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{60BCE72C-A6E6-40D4-8EBE-DEB9C673DF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60BCE72C-A6E6-40D4-8EBE-DEB9C673DF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +35,10 @@ Global
 		{46ED74DA-B16F-41C9-84F7-1B545273EAAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46ED74DA-B16F-41C9-84F7-1B545273EAAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46ED74DA-B16F-41C9-84F7-1B545273EAAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFAAF07B-AB20-4E2F-B203-B60BE7D57E07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFAAF07B-AB20-4E2F-B203-B60BE7D57E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFAAF07B-AB20-4E2F-B203-B60BE7D57E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFAAF07B-AB20-4E2F-B203-B60BE7D57E07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
