@@ -28,8 +28,10 @@ namespace DMWorkshop.Handlers.Creatures
                 command.Scores,
                 Enum.Parse<Size>(command.Size),
                 command.Level,
+                command.CR ?? command.Level,
                 command.Gear,
-                command.Skills.ToDictionary(x => Enum.Parse<Skill>(x.Key), x => x.Value)
+                command.Saves.Select(x => Enum.Parse<Ability>(x)),
+                command.Skills.Select(x => Enum.Parse<Skill>(x))
                 );
 
             return _database.Save("creatures", x => x.Name == creature.Name, creature);

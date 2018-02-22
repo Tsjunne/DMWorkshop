@@ -13,19 +13,21 @@ namespace DMWorkshop.Model.Creatures
         private readonly Dictionary<Ability, AbilityScore> _abilityScores;
         private readonly Dictionary<ItemSlot, Gear> _equipedGear = new Dictionary<ItemSlot, Gear>();
         private readonly Die _hitDie;
-        private readonly int[] _characteristics;
+        private readonly int _proficiency;
 
-        public Creature(string name, IEnumerable<int> characteristics, Size size, int level, IEnumerable<string> gear, Dictionary<Skill, int> skills)
+        public Creature(string name, IEnumerable<int> scores, Size size, int level, double cr, IEnumerable<string> gear, IEnumerable<Ability> saves, IEnumerable<Skill> skills)
         {
-            _abilityScores = characteristics.AsAbilityScores();
-            _hitDie = DetermineHitDie(size);
-
             Name = name;
-            Characteristics = characteristics;
+            Scores = scores;
             Size = size;
             Level = level;
+            CR = cr;
             Gear = gear;
-            Skills = skills ?? new Dictionary<Skill, int>();
+            Saves = saves;
+            Skills = skills;
+            _abilityScores = scores.AsAbilityScores();
+            _hitDie = DetermineHitDie(size);
+            _proficiency = DetermineProficiencyBonus(cr);
             var clothes = new Armor("Clothes", ItemSlot.Chest, 0);
             Equip(clothes);
         }
@@ -48,19 +50,22 @@ namespace DMWorkshop.Model.Creatures
         {
             get
             {
-                int skill;
-                return 10 + (Skills.TryGetValue(Skill.Perception, out skill) ? skill : _abilityScores[Ability.Wisdom].Modifier);
+                return 10 + _abilityScores[Ability.Wisdom].Modifier + (Skills.Contains(Skill.Perception) ? _proficiency : 0);
             }
         }
 
         public int MaxHP => Convert.ToInt32(Math.Floor(_hitDie.Average * Level) + (_abilityScores[Ability.Constitution].Modifier * Level));
         
         public string Name { get; }
-        public IEnumerable<int> Characteristics { get; }
+        public IEnumerable<int> Scores { get; }
+        public IEnumerable<int> Modifiers => _abilityScores.Values.Select(x => x.Modifier);
         public Size Size { get; }
         public int Level { get; }
+        public double CR { get; }
+        public int XP => _xpTable[CR];
         public IEnumerable<string> Gear { get; }
-        public Dictionary<Skill, int> Skills { get; }
+        public IEnumerable<Ability> Saves { get; }
+        public IEnumerable<Skill> Skills { get; }
 
         public int Check(Ability ability)
         {
@@ -118,5 +123,56 @@ namespace DMWorkshop.Model.Creatures
                     throw new ArgumentException("unknown size", nameof(size));
             }
         }
+
+        private int DetermineProficiencyBonus(double cr)
+        {
+            if (cr >= 29) return 9;
+            if (cr >= 25) return 8;
+            if (cr >= 21) return 7;
+            if (cr >= 17) return 6;
+            if (cr >= 13) return 5;
+            if (cr >= 9) return 4;
+            if (cr >= 5) return 3;
+
+            return 2;
+        }
+        
+        private static IDictionary<double, int> _xpTable = new Dictionary<double, int>
+        {
+            { 0, 10},
+            { 0.125, 25},
+            { 0.25, 50},
+            { 0.50, 100},
+            { 1, 200},
+            { 2, 450},
+            { 3, 700},
+            { 4, 1100},
+            { 5, 1800},
+            { 6, 2300},
+            { 7, 2900},
+            { 8, 3900},
+            { 9, 5000},
+            { 10, 5900},
+            { 11, 7200},
+            { 12, 8400},
+            { 13, 10000},
+            { 14, 11500},
+            { 15, 13000},
+            { 16, 15000},
+            { 17, 18000},
+            { 18, 20000},
+            { 19, 22000},
+            { 20, 25000},
+            { 21, 33000},
+            { 22, 41000},
+            { 23, 50000},
+            { 24, 62000},
+            { 25, 75000},
+            { 26, 90000},
+            { 27, 105000},
+            { 28, 120000},
+            { 29, 135000},
+            { 30, 155000}
+        };
     }
 }

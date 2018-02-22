@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.Model", "DMWorks
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.Tests", "DMWorkshop.Tests\DMWorkshop.Tests.csproj", "{21029C57-7788-4DCF-9A59-E4808D57F26B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMWorkshop.Api", "DMWorkshop.Api\DMWorkshop.Api.csproj", "{5A8B3B19-2C65-4E8C-92FD-476314D40332}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.Api", "DMWorkshop.Api\DMWorkshop.Api.csproj", "{5A8B3B19-2C65-4E8C-92FD-476314D40332}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMWorkshop.DTO", "DMWorkshop.DTO\DMWorkshop.DTO.csproj", "{60BCE72C-A6E6-40D4-8EBE-DEB9C673DF90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.DTO", "DMWorkshop.DTO\DMWorkshop.DTO.csproj", "{60BCE72C-A6E6-40D4-8EBE-DEB9C673DF90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DMWorkshop.Handlers", "DMWorkshop.Handlers\DMWorkshop.Handlers.csproj", "{46ED74DA-B16F-41C9-84F7-1B545273EAAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DMWorkshop.Handlers", "DMWorkshop.Handlers\DMWorkshop.Handlers.csproj", "{46ED74DA-B16F-41C9-84F7-1B545273EAAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

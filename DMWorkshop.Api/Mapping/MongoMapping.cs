@@ -16,6 +16,7 @@ namespace DMWorkshop.Api.Mapping
     {
         public static void Configure()
         {
+            BsonSerializer.RegisterSerializer(new EnumSerializer<Ability>(BsonType.String));
             BsonSerializer.RegisterSerializer(new EnumSerializer<Skill>(BsonType.String));
             BsonSerializer.RegisterSerializer(new EnumSerializer<Size>(BsonType.String));
             BsonSerializer.RegisterSerializer(new EnumSerializer<ItemSlot>(BsonType.String));
@@ -23,12 +24,14 @@ namespace DMWorkshop.Api.Mapping
             BsonClassMap.RegisterClassMap<Creature>(m =>
             {
                 m.MapIdMember(c => c.Name).SetIdGenerator(StringObjectIdGenerator.Instance);
-                m.MapMember(c => c.Size).SetSerializer(new EnumSerializer<Size>(BsonType.String));
+                m.MapMember(c => c.Size);
                 m.MapMember(c => c.Level);
-                m.MapMember(c => c.Characteristics);
+                m.MapMember(c => c.CR);
+                m.MapMember(c => c.Scores);
                 m.MapMember(c => c.Gear);
+                m.MapMember(c => c.Saves);
                 m.MapMember(c => c.Skills);
-                m.MapCreator(c => new Creature(c.Name, c.Characteristics, c.Size, c.Level, c.Gear, c.Skills));
+                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Level, c.CR, c.Gear, c.Saves, c.Skills));
             });
 
             BsonClassMap.RegisterClassMap<Gear>(m =>
@@ -39,7 +42,7 @@ namespace DMWorkshop.Api.Mapping
 
             BsonClassMap.RegisterClassMap<Armor>(m =>
             {
-                m.MapMember(x => x.ArmorSlot).SetSerializer(new EnumSerializer<ItemSlot>(BsonType.String));
+                m.MapMember(x => x.ArmorSlot);
                 m.MapMember(x => x.AC);
                 m.MapMember(x => x.DexModLimit);
                 m.MapCreator(x => new Armor(x.Name, x.ArmorSlot, x.AC, x.DexModLimit));

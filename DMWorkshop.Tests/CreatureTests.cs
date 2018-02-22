@@ -22,7 +22,7 @@ namespace DMWorkshop.Tests
                 new Armor("shield", ItemSlot.LeftHand, 2)
             };
 
-            var goblin = new Creature("Goblin", scores, Size.Small, 2, Enumerable.Empty<string>(), new Dictionary<Skill, int>());
+            var goblin = new Creature("Goblin", scores, Size.Small, 2, 0.25, Enumerable.Empty<string>(), Enumerable.Empty<Ability>(), Enumerable.Empty<Skill>());
 
             goblin.Equip(gear);
 
