@@ -24,7 +24,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\components\CreatureCard.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DMWorkshop.Handlers\DMWorkshop.Handlers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\CreatureCard.tsx" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

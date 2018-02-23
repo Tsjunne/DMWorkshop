@@ -3,6 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
 import * as Creatures from '../store/Creatures';
+import { CreatureCard } from './CreatureCard';
 
 type CreatureSetProps =
     Creatures.CreaturesState       
@@ -40,9 +41,7 @@ class CreatureSet extends React.Component<CreatureSetProps, Creatures.CreaturesS
             </thead>
             <tbody>
                 {this.props.creatures.map(creature =>
-                    <tr key={creature.name}>
-                        <td>{creature.name}</td>
-                    </tr>
+                    <CreatureCard creature={creature} />
                 )}
             </tbody>
         </table>;
