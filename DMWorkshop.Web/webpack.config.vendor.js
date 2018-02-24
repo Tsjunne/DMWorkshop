@@ -17,8 +17,6 @@ module.exports = (env) => {
         },
         entry: {
             vendor: [
-                'bootstrap',
-                'bootstrap/dist/css/bootstrap.css',
                 'domain-task',
                 'event-source-polyfill',
                 'history',
@@ -29,6 +27,7 @@ module.exports = (env) => {
                 'redux',
                 'redux-thunk',
                 'react-router-redux',
+                'semantic-ui-react',
                 'jquery'
             ],
         },

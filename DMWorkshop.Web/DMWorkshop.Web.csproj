@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\components\CreatureCard.tsx" />
+    <None Remove="ClientApp\components\MainMenu.tsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\CreatureCard.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\MainMenu.tsx" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
