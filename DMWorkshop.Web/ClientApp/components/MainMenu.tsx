@@ -5,7 +5,7 @@ import { Menu } from 'semantic-ui-react';
 export class MainMenu extends React.Component<{}, {}> {
     public render() {
         return (
-            <Menu>
+            <Menu inverted>
                 <Menu.Item as={NavLink} to={'/creatures'} activeClassName='active'>
                     <span className='glyphicon glyphicon-th-list'></span> Creatures
                 </Menu.Item>
