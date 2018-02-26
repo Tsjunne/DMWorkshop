@@ -1,14 +1,28 @@
 ﻿import * as React from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 
-export class MainMenu extends React.Component<{}, {}> {
+interface MainMenuProps extends React.HTMLProps<HTMLElement> { }
+
+export class MainMenu extends React.Component<MainMenuProps, {}> {
     public render() {
         return (
-            <Menu inverted>
-                <Menu.Item as={NavLink} to={'/creatures'} activeClassName='active'>
-                    <span className='glyphicon glyphicon-th-list'></span> Creatures
-                </Menu.Item>
+            <Menu
+                icon="labeled"
+                borderless
+                widths={3}>
+                <Menu.Item as={NavLink} to="/creatures/">
+                    <Icon name="id card" />
+                    Creatures
+					</Menu.Item>
+                <Menu.Item as={NavLink} to="/encounters/">
+                    <Icon name="sort content descending" />
+                    Encounters
+					</Menu.Item>
+                <Menu.Item as={NavLink} to="/party/">
+                    <Icon name="group" />
+                    Party
+					</Menu.Item>
             </Menu>
         )
     }

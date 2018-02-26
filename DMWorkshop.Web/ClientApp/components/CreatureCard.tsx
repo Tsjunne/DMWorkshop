@@ -12,13 +12,6 @@ type CreatureCardProps =
 export class CreatureCard extends React.Component<CreatureCardProps, {}> {
 
     public render() {
-        return <div className='card' >
-            <div className="card-body">
-                <h5 className="card-title">{this.props.creature.name}</h5>
-                <p className="card-text">
-                    
-                </p>
-            </div>
-        </div>;
+        return <h5>{this.props.creature.name}</h5>;
     }
 }

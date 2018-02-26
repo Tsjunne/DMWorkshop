@@ -27,37 +27,10 @@ class CreatureSet extends React.Component<CreatureSetProps, Creatures.CreaturesS
     public render()
     {
         return (
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%"
-                }}>
-                { /* this header is fixed to the top */}
-                <Menu
-                    borderless
-                    style={{
-                        flexShrink: 0, //don't allow flexbox to shrink it
-                        borderRadius: 0, //clear semantic-ui style
-                        margin: 0 //clear semantic-ui style
-                    }}>
-                    <Menu.Item
-                        header>
-                        Creatures
-					</Menu.Item>
-                </Menu>
-
-                { /* this section fills the rest of the page */}
-                <div
-                    style={{
-                        flexGrow: 1,
-                        overflowX: "hidden",
-                        overflowY: "auto",
-                    }}>
+            <div>
                     {this.props.creatures.map(creature =>
                         <CreatureCard key={creature.name} creature={creature} />
                     )}
-                </div>
             </div>
         );
     }
