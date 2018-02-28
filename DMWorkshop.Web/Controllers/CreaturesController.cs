@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using DMWorkshop.DTO.Creatures;
 using MediatR;
 using System.Threading;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace DMWorkshop.Web.Controllers
 {
@@ -36,6 +38,12 @@ namespace DMWorkshop.Web.Controllers
         public Task<CreatureReadModel> Get(GetCreatureQuery query, CancellationToken cancellationToken)
         {
             return _mediator.Send(query ?? new GetCreatureQuery(), cancellationToken);
+        }
+
+        [HttpGet("{name}/image")]
+        public async Task<IActionResult> GetImage(GetCreatureImageQuery query, CancellationToken cancellationToken)
+        {
+            return new FileStreamResult(await _mediator.Send(query ?? new GetCreatureImageQuery(), cancellationToken), "image/jpeg");
         }
     }
 }

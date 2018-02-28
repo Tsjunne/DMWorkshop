@@ -5,9 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="defaultcreature.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="defaultcreature.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.2" />
     <PackageReference Include="MediatR" Version="4.0.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
+    <PackageReference Include="MongoDB.Driver.GridFS" Version="2.5.0" />
   </ItemGroup>
 
   <ItemGroup>

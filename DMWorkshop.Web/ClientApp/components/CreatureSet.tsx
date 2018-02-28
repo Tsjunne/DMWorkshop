@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Menu } from "semantic-ui-react";
+import { Dimmer, Loader, Card } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
 import * as Creatures from '../store/Creatures';
@@ -28,9 +28,14 @@ class CreatureSet extends React.Component<CreatureSetProps, Creatures.CreaturesS
     {
         return (
             <div>
+                <Dimmer active={this.props.isLoading} inverted>
+                    <Loader inverted>Loading</Loader>
+                </Dimmer>
+                <Card.Group>
                     {this.props.creatures.map(creature =>
                         <CreatureCard key={creature.name} creature={creature} />
                     )}
+                </Card.Group>
             </div>
         );
     }
