@@ -26,12 +26,12 @@ namespace DMWorkshop.Handlers.Creatures
         {
             var bucket = new GridFSBucket(_database, new GridFSBucketOptions
             {
-                BucketName = "images"
+                BucketName = "creatures"
             });
             
             try
             {
-                return await bucket.OpenDownloadStreamByNameAsync(query.Name);
+                return await bucket.OpenDownloadStreamByNameAsync(query.Name, null, cancellationToken);
             }
             catch (GridFSFileNotFoundException)
             {

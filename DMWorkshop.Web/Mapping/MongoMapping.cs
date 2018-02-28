@@ -31,7 +31,8 @@ namespace DMWorkshop.Web.Mapping
                 m.MapMember(c => c.Gear);
                 m.MapMember(c => c.Saves);
                 m.MapMember(c => c.Skills);
-                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Level, c.CR, c.Gear, c.Saves, c.Skills));
+                m.MapMember(c => c.Expertise);
+                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Level, c.CR, c.Gear, c.Saves, c.Skills, c.Expertise));
             });
 
             BsonClassMap.RegisterClassMap<Gear>(m =>

@@ -25,7 +25,7 @@ namespace DMWorkshop.Model.Items
             {
                 var dexMod = abilityScores[Ability.Dexterity].Modifier;
                 var limit = DexModLimit ?? dexMod;
-                return AC + Math.Max(dexMod, limit);
+                return AC + Math.Min(dexMod, limit);
             }
 
             return AC;
