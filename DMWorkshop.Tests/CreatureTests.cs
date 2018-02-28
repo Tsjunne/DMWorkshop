@@ -22,10 +22,10 @@ namespace DMWorkshop.Tests
                 new Armor("shield", ItemSlot.LeftHand, 2)
             };
 
-            var goblin = new Creature("Goblin", scores, Size.Small, 2, 0.25, Enumerable.Empty<string>(), Enumerable.Empty<Ability>(), Enumerable.Empty<Skill>());
+            var goblin = new Creature("Goblin", scores, Size.Small, 2, 0.25, Enumerable.Empty<string>(), Enumerable.Empty<Ability>(), Enumerable.Empty<Skill>(), new[] { Skill.Stealth});
 
             goblin.Equip(gear);
-
+            
             Assert.Equal(7, goblin.MaxHP);
             Assert.Equal(15, goblin.AC);
             Assert.Equal(9, goblin.PassivePerception);

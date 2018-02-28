@@ -41,9 +41,24 @@ namespace DMWorkshop.Web.Controllers
         }
 
         [HttpGet("{name}/image")]
+        [ResponseCache(VaryByHeader = "User-Agent", Duration = 3600)]
         public async Task<IActionResult> GetImage(GetCreatureImageQuery query, CancellationToken cancellationToken)
         {
             return new FileStreamResult(await _mediator.Send(query ?? new GetCreatureImageQuery(), cancellationToken), "image/jpeg");
+        }
+
+        [HttpPost("{name}/image")]
+        public async Task<IActionResult> PostImage(string name, IFormFile image, CancellationToken cancellationToken)
+        {
+            var command = new RegisterCreatureImageCommand
+            {
+                Name = name,
+                Image = image.OpenReadStream()
+            };
+
+            await _mediator.Send(command, cancellationToken);
+
+            return Ok();
         }
     }
 }

@@ -13,6 +13,7 @@ namespace DMWorkshop.DTO.Creatures
         public string Name { get; set; }
         public string[] Gear { get; set; } = new string[] { };
         public string[] Skills { get; set; } = new string[] { };
+        public string[] Expertise { get; set; } = new string[] { };
         public string[] Saves { get; set; } = new string[] { };
         public double? CR { get; set; }
     }

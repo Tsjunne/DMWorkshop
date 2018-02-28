@@ -15,7 +15,7 @@ namespace DMWorkshop.Model.Creatures
         private readonly Die _hitDie;
         private readonly int _proficiency;
 
-        public Creature(string name, IEnumerable<int> scores, Size size, int level, double cr, IEnumerable<string> gear, IEnumerable<Ability> saves, IEnumerable<Skill> skills)
+        public Creature(string name, IEnumerable<int> scores, Size size, int level, double cr, IEnumerable<string> gear, IEnumerable<Ability> saves, IEnumerable<Skill> skills, IEnumerable<Skill> expertise)
         {
             Name = name;
             Scores = scores;
@@ -25,6 +25,7 @@ namespace DMWorkshop.Model.Creatures
             Gear = gear;
             Saves = saves;
             Skills = skills;
+            Expertise = expertise;
             _abilityScores = scores.AsAbilityScores();
             _hitDie = DetermineHitDie(size);
             _proficiency = DetermineProficiencyBonus(cr);
@@ -50,7 +51,12 @@ namespace DMWorkshop.Model.Creatures
         {
             get
             {
-                return 10 + _abilityScores[Ability.Wisdom].Modifier + (Skills.Contains(Skill.Perception) ? _proficiency : 0);
+                var proficiencyBonus = 0;
+
+                if (Skills.Contains(Skill.Perception)) proficiencyBonus = _proficiency;
+                if (Expertise.Contains(Skill.Perception)) proficiencyBonus = _proficiency * 2;
+
+                return 10 + _abilityScores[Ability.Wisdom].Modifier + proficiencyBonus;
             }
         }
 
@@ -66,6 +72,7 @@ namespace DMWorkshop.Model.Creatures
         public IEnumerable<string> Gear { get; }
         public IEnumerable<Ability> Saves { get; }
         public IEnumerable<Skill> Skills { get; }
+        public IEnumerable<Skill> Expertise { get; }
 
         public int Check(Ability ability)
         {

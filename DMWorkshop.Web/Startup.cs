@@ -31,7 +31,9 @@ namespace DMWorkshop.Web
             services.AddMediatR(typeof(RegisterCreatureCommandHandler).Assembly);
             services.AddAutoMapper();
 
-            var client = new MongoClient("mongodb://localhost:27017");
+            var connectionString = Configuration.GetConnectionString("DMWorkshop");
+
+            var client = new MongoClient(connectionString);
             var database = client.GetDatabase("dmworkshop");
             services.AddSingleton(database);
         }
