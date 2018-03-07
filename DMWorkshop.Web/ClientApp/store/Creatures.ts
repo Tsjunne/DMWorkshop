@@ -1,22 +1,12 @@
 ﻿import { fetch, addTask } from 'domain-task';
 import { Action, Reducer, ActionCreator } from 'redux';
 import { AppThunkAction } from './';
+import * as Creature from '../model/Creature';
 
 export interface CreaturesState {
     isLoading: boolean;
     creatureSet?: string;
-    creatures: Creature[];
-}
-
-export interface Creature {
-    name: string;
-    maxHP: number;
-    ac: number;
-    xp: number;
-    passivePerception: number;
-    initiativeModifier: number;
-    scores: number[];
-    modifiers: number[];
+    creatures: Creature.Creature[];
 }
 
 enum ActionTypes {
@@ -33,12 +23,12 @@ interface RequestCreaturesAction {
 interface ReceiveCreaturesAction {
     type: ActionTypes.RECEIVE_CREATURES;
     creatureSet: string;
-    creatures: Creature[];
+    creatures: Creature.Creature[];
 }
 
 export interface AddCreatureAction {
     type: ActionTypes.ADD_CREATURE;
-    creature: Creature;
+    creature: Creature.Creature;
 }
 
 type KnownAction = RequestCreaturesAction | ReceiveCreaturesAction | AddCreatureAction;
@@ -48,7 +38,7 @@ export const actionCreators = {
         // Only load data if it's something we don't already have (and are not already loading)
         if (creatureSet !== getState().creatures.creatureSet) {
             let fetchTask = fetch(`api/Creatures?creatureSet=${creatureSet}`)
-                .then(response => response.json() as Promise<Creature[]>)
+                .then(response => response.json() as Promise<Creature.Creature[]>)
                 .then(data => {
                     dispatch({ type: ActionTypes.RECEIVE_CREATURES, creatureSet: creatureSet, creatures: data });
                 });
@@ -58,7 +48,7 @@ export const actionCreators = {
         }
     },
 
-    addCreature: (creature: Creature) => <AddCreatureAction>{
+    addCreature: (creature: Creature.Creature) => <AddCreatureAction>{
         type: ActionTypes.ADD_CREATURE,
         creature: creature
     }
