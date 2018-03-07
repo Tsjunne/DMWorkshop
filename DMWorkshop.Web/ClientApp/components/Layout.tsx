@@ -1,37 +1,39 @@
 import * as React from 'react';
-import { Segment, Sidebar, Menu, Icon } from "semantic-ui-react";
+import { Grid, Segment, Sidebar, Menu, Icon, Label } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
-import { Switch } from "react-router";
-import { MainMenu } from './MainMenu';
+import { Switch, RouteComponentProps } from "react-router";
+import { ApplicationState } from '../store';
+import { connect } from 'react-redux';
+import * as Encounters from '../store/Encounters';
 
-export class Layout extends React.Component<{}, {}> {
+export default class Layout extends React.Component<{}, {}> {
     public render() {
         return (
-            <div
-                style={{
-                    //see some additional required styles in site.css
-                    display: "flex",
-                    flexDirection: "column",
-                    height: "100%"
-                }}>
-                { /* this is the currently selected view */}
-                <div
-                    style={{
-                        flexGrow: 1,
-                        overflowX: "hidden",
-                        overflowY: "auto",
-                    }}>
-                    <Switch>
-                        {this.props.children}
-                    </Switch>
-                </div>
-                { /* this is the navigation fixed to the bottom */}
-                <MainMenu style={{
-                    flexShrink: 0, //don't allow flexbox to shrink it
-                    borderRadius: 0, //clear semantic-ui style
-                    margin: 0 //clear semantic-ui style
-                }}/>
-            </div>
+            <Sidebar.Pushable as={Segment}>
+                <Sidebar as={Menu} animation='push' width='thin' visible icon='labeled' vertical inverted>
+                    <Menu.Item as={NavLink} to="/creatures/">
+                        <Icon name="id card" />
+                        Creatures
+					</Menu.Item>
+                    <Menu.Item as={NavLink} to="/encounters/">
+                        <Icon name="sort content descending" />
+                        Encounters
+					</Menu.Item>
+                    <Menu.Item as={NavLink} to="/party/">
+                        <Icon name="group" />
+                        Party
+					</Menu.Item>
+                </Sidebar>
+                <Sidebar.Pusher>
+                    <Grid>
+                        <Grid.Column stretched>
+                            <Switch>
+                                {this.props.children}
+                            </Switch>
+                        </Grid.Column>
+                    </Grid>
+                </Sidebar.Pusher>
+            </Sidebar.Pushable>
         );
     }
 }
