@@ -3,11 +3,12 @@ import { Image, Icon, Table, Progress } from "semantic-ui-react";
 import { Slider } from 'react-semantic-ui-range';
 import { NumberPicker } from 'semantic-ui-react-numberpicker';
 import * as Encounters from '../store/Encounters';
+import * as Model from '../model/CreatureInstance';
 
 type CreatureInstanceProps =
     {
-        instance: Encounters.CreatureInstance,
-        changeCreatureHp: (instance: Encounters.CreatureInstance, newHp: number) => Encounters.ChangeCreatureHpAction
+        instance: Model.CreatureInstance,
+        changeCreatureHp: (instance: Model.CreatureInstance, newHp: number) => Encounters.ChangeCreatureHpAction
     }
 
 export class CreatureInstance extends React.Component<CreatureInstanceProps, CreatureInstanceProps> {
