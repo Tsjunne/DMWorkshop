@@ -11,7 +11,7 @@ using DMWorkshop.Handlers.Creatures;
 using MediatR;
 using AutoMapper;
 using MongoDB.Driver;
-using DMWorkshop.Web.Mapping;
+using DMWorkshop.Handlers.Mapping;
 
 namespace DMWorkshop.Web
 {

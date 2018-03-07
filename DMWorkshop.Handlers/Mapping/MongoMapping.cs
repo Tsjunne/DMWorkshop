@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DMWorkshop.Web.Mapping
+namespace DMWorkshop.Handlers.Mapping
 {
     public static class MongoMapping
     {
