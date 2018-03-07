@@ -11,6 +11,7 @@ namespace DMWorkshop.DTO.Creatures
         public int AC { get; set; }
         public int XP { get; set; }
         public int PassivePerception { get; set; }
+        public int InitiativeModifier { get; set; }
         public int[] Scores { get; set; }
         public int[] Modifiers { get; set; }
     }

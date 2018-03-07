@@ -12,6 +12,7 @@ namespace DMWorkshop.Model.Core
         Athletics,
         Deception,
         History,
+        Initiative,
         Insight,
         Intimidation,
         Investigation,

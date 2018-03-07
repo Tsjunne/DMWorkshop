@@ -14,13 +14,15 @@ export interface Creature {
     ac: number;
     xp: number;
     passivePerception: number;
+    initiativeModifier: number;
     scores: number[];
     modifiers: number[];
 }
 
 enum ActionTypes {
-    REQUEST_CREATURES,
-    RECEIVE_CREATURES
+    REQUEST_CREATURES = 'REQUEST_CREATURES',
+    RECEIVE_CREATURES = 'RECEIVE_CREATURES',
+    ADD_CREATURE = 'ADD_CREATURE'
 }
 
 interface RequestCreaturesAction {
@@ -34,7 +36,12 @@ interface ReceiveCreaturesAction {
     creatures: Creature[];
 }
 
-type KnownAction = RequestCreaturesAction | ReceiveCreaturesAction;
+export interface AddCreatureAction {
+    type: ActionTypes.ADD_CREATURE;
+    creature: Creature;
+}
+
+type KnownAction = RequestCreaturesAction | ReceiveCreaturesAction | AddCreatureAction;
 
 export const actionCreators = {
     requestCreatures: (creatureSet: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
@@ -49,6 +56,11 @@ export const actionCreators = {
             addTask(fetchTask); // Ensure server-side prerendering waits for this to complete
             dispatch({ type: ActionTypes.REQUEST_CREATURES, creatureSet: creatureSet });
         }
+    },
+
+    addCreature: (creature: Creature) => <AddCreatureAction>{
+        type: ActionTypes.ADD_CREATURE,
+        creature: creature
     }
 };
 
@@ -73,6 +85,9 @@ export const reducer: Reducer<CreaturesState> = (state: CreaturesState, incoming
                     isLoading: false
                 };
             }
+            break;
+        case ActionTypes.ADD_CREATURE:
+            // Handled by another store
             break;
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above

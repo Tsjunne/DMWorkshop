@@ -47,18 +47,8 @@ namespace DMWorkshop.Model.Creatures
                 return ac;
             }
         }
-        public int PassivePerception
-        {
-            get
-            {
-                var proficiencyBonus = 0;
-
-                if (Skills.Contains(Skill.Perception)) proficiencyBonus = _proficiency;
-                if (Expertise.Contains(Skill.Perception)) proficiencyBonus = _proficiency * 2;
-
-                return 10 + _abilityScores[Ability.Wisdom].Modifier + proficiencyBonus;
-            }
-        }
+        public int PassivePerception => 10 + GetModifier(Ability.Wisdom, Skill.Perception);
+        public int InitiativeModifier => GetModifier(Ability.Dexterity, Skill.Initiative);
 
         public int MaxHP => Convert.ToInt32(Math.Floor(_hitDie.Average * Level) + (_abilityScores[Ability.Constitution].Modifier * Level));
         
@@ -79,6 +69,16 @@ namespace DMWorkshop.Model.Creatures
             var d20 = new Die(20);
 
             return d20.Roll() + _abilityScores[ability].Modifier;
+        }
+
+        public int GetModifier(Ability ability, Skill skill)
+        {
+            var proficiencyBonus = 0;
+
+            if (Skills.Contains(skill)) proficiencyBonus = _proficiency;
+            if (Expertise.Contains(skill)) proficiencyBonus = _proficiency * 2;
+
+            return _abilityScores[ability].Modifier + proficiencyBonus;
         }
 
         public void Equip(params Gear[] gear)
