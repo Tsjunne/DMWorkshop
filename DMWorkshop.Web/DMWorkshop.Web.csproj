@@ -27,6 +27,8 @@
     <None Remove="ClientApp\components\CreatureCard.tsx" />
     <None Remove="ClientApp\components\CreatureInstance.tsx" />
     <None Remove="ClientApp\components\Encounter.tsx" />
+    <None Remove="ClientApp\model\Creature.ts" />
+    <None Remove="ClientApp\model\CreatureInstance.ts" />
     <None Remove="types\react-semantic-ui-range.d.ts" />
     <None Remove="types\semantic-ui-react-numberpicker.d.ts" />
   </ItemGroup>
@@ -44,6 +46,8 @@
     <TypeScriptCompile Include="ClientApp\components\CreatureInstance.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Encounter.tsx" />
     <TypeScriptCompile Include="ClientApp\components\UnderConstruction.tsx" />
+    <TypeScriptCompile Include="ClientApp\model\Creature.ts" />
+    <TypeScriptCompile Include="ClientApp\model\CreatureInstance.ts" />
     <TypeScriptCompile Include="ClientApp\store\Encounters.ts" />
     <TypeScriptCompile Include="types\semantic-ui-react-numberpicker.d.ts" />
     <TypeScriptCompile Include="types\react-semantic-ui-range.d.ts" />
