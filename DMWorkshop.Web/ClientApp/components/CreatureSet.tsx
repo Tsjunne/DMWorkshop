@@ -4,6 +4,7 @@ import { Dimmer, Loader, Card } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
 import * as Creatures from '../store/Creatures';
+import * as Encounters from '../store/Encounters';
 import { CreatureCard } from './CreatureCard';
 
 type CreatureSetProps =
@@ -24,8 +25,7 @@ class CreatureSet extends React.Component<CreatureSetProps, Creatures.CreaturesS
         this.props.requestCreatures('All');
     }
     
-    public render()
-    {
+    public render() {
         return (
             <div>
                 <Dimmer active={this.props.isLoading} inverted>
@@ -33,7 +33,7 @@ class CreatureSet extends React.Component<CreatureSetProps, Creatures.CreaturesS
                 </Dimmer>
                 <Card.Group>
                     {this.props.creatures.map(creature =>
-                        <CreatureCard key={creature.name} creature={creature} />
+                        <CreatureCard key={creature.name} creature={creature} addCreature={this.props.addCreature} />
                     )}
                 </Card.Group>
             </div>

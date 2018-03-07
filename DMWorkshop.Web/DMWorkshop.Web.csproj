@@ -25,7 +25,10 @@
 
   <ItemGroup>
     <None Remove="ClientApp\components\CreatureCard.tsx" />
-    <None Remove="ClientApp\components\MainMenu.tsx" />
+    <None Remove="ClientApp\components\CreatureInstance.tsx" />
+    <None Remove="ClientApp\components\Encounter.tsx" />
+    <None Remove="types\react-semantic-ui-range.d.ts" />
+    <None Remove="types\semantic-ui-react-numberpicker.d.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,8 +41,12 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\CreatureCard.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\CreatureInstance.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Encounter.tsx" />
     <TypeScriptCompile Include="ClientApp\components\UnderConstruction.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\MainMenu.tsx" />
+    <TypeScriptCompile Include="ClientApp\store\Encounters.ts" />
+    <TypeScriptCompile Include="types\semantic-ui-react-numberpicker.d.ts" />
+    <TypeScriptCompile Include="types\react-semantic-ui-range.d.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
