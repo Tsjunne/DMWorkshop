@@ -15,8 +15,8 @@ type EncounterProps =
 class Encounter extends React.Component<EncounterProps, {}> {
     public render() {
         return (
-            <div>
-                <Table>
+            <div style={{ minHeight: '99vh' }}>
+                <Table selectable>
                     <Table.Body>
                         {this.props.creatures.map(instance =>
                             <CreatureInstance key={instance.id} instance={instance} changeCreatureHp={this.props.changeCreatureHp} />
