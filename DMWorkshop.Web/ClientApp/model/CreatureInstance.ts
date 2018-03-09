@@ -38,17 +38,17 @@ export class CreatureInstance {
     }
 
     private clone(): CreatureInstance {
-        return <CreatureInstance>{
-            id: this.id,
-            creature: this.creature,
-            initiative: this.initiative,
-            hp: this.hp,
-            conditions: this.conditions
-        }
+        let clone = new CreatureInstance(this.creature);
+        clone.id = this.id;
+        clone.initiative = this.initiative;
+        clone.hp = this.hp;
+        clone.conditions = this.conditions;
+
+        return clone;
     }
 
     public modifyHp(val: number): CreatureInstance {
-        let clone = this.clone();
+        let clone = this.clone()
         clone.hp = val;
 
         return clone;
