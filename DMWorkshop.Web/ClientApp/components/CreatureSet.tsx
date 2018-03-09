@@ -27,7 +27,7 @@ class CreatureSet extends React.Component<CreatureSetProps, Creatures.CreaturesS
     
     public render() {
         return (
-            <div>
+            <div style={{ height: '100%' }}>
                 <Dimmer active={this.props.isLoading} inverted>
                     <Loader inverted>Loading</Loader>
                 </Dimmer>

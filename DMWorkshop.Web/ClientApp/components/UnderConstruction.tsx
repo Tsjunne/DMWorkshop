@@ -7,7 +7,7 @@ import { ApplicationState } from '../store';
 export default class UnderConstruction extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
         return (
-            <div>
+            <div style={{ height: '100%' }}>
                 <h1>Under construction</h1>
             </div>
         );
