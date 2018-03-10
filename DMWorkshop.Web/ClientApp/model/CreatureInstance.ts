@@ -6,7 +6,7 @@ export enum Condition {
     Charmed = 'Charmed',
     Deafened = 'Deafened',
     Frightened = 'Frightened',
-    Grappeled = 'Grappeled',
+    Grappled = 'Grappled',
     Incapacitated = 'Incapacitated',
     Invisible = 'Invisible',
     Paralized = 'Paralized',
