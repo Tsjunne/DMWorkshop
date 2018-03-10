@@ -12,6 +12,7 @@ export interface EncounterState {
 enum ActionTypes {
     ADD_CREATURE = 'ADD_CREATURE',
     CHANGE_CREATURE_HP = 'CHANGE_CREATURE_HP',
+    CHANGE_CREATURE_CONDITION = 'CHANGE_CREATURE_CONDITION',
     CLEAR_ENCOUNTER = 'CLEAR_ENCOUNTER'
 }
 
@@ -26,11 +27,18 @@ export interface ChangeCreatureHpAction {
     newHp: number;
 }
 
+export interface ChangeCreatureConditionAction {
+    type: ActionTypes.CHANGE_CREATURE_CONDITION;
+    instance: CreatureInstance.CreatureInstance;
+    condition: CreatureInstance.Condition;
+    add: boolean;
+}
+
 interface ClearEncounterAction {
     type: ActionTypes.CLEAR_ENCOUNTER;
 }
 
-type KnownAction = AddCreatureAction | ClearEncounterAction | ChangeCreatureHpAction;
+type KnownAction = AddCreatureAction | ClearEncounterAction | ChangeCreatureHpAction | ChangeCreatureConditionAction;
 
 export const actionCreators = {
     addCreature: (creature: Creature.Creature) => <AddCreatureAction> {
@@ -44,6 +52,12 @@ export const actionCreators = {
         type: ActionTypes.CHANGE_CREATURE_HP,
         instance: instance,
         newHp: newHp
+    },
+    changeCreatureCondition: (instance: CreatureInstance.CreatureInstance, condition: CreatureInstance.Condition, add: boolean) => <ChangeCreatureConditionAction>{
+        type: ActionTypes.CHANGE_CREATURE_CONDITION,
+        instance: instance,
+        condition: condition,
+        add: add
     }
 };
 
@@ -56,14 +70,9 @@ export const reducer: Reducer<EncounterState> = (state: EncounterState, action: 
         case ActionTypes.CLEAR_ENCOUNTER:
             return unloadedState;
         case ActionTypes.CHANGE_CREATURE_HP:
-            return {
-                creatures: state.creatures.map(instance => {
-                    if (instance.id === action.instance.id)
-                        return instance.modifyHp(action.newHp);
-                    else
-                        return instance;
-                })
-            }
+            return newState(state, action.instance, i => i.modifyHp(action.newHp));
+        case ActionTypes.CHANGE_CREATURE_CONDITION:
+            return newState(state, action.instance, i => action.add ? i.addCondition(action.condition) : i.removeCondition(action.condition));
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
             const exhaustiveCheck: never = action;
@@ -73,3 +82,14 @@ export const reducer: Reducer<EncounterState> = (state: EncounterState, action: 
     //  (or default initial state if none was supplied)
     return state || unloadedState;
 };
+
+function newState(state: EncounterState, instance: CreatureInstance.CreatureInstance, modifier: (i: CreatureInstance.CreatureInstance) => CreatureInstance.CreatureInstance) : EncounterState {
+    return {
+        creatures: state.creatures.map(i => {
+            if (i === instance)
+                return modifier(i);
+            else
+                return i;
+        })
+    }
+}
