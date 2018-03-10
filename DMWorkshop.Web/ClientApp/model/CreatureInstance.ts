@@ -2,20 +2,20 @@
 import { Guid } from "guid-typescript";
 
 export enum Condition {
-    Blinded,
-    Charmed,
-    Deafened,
-    Frightened,
-    Grappeled,
-    Incapacitated,
-    Invisible,
-    Paralized,
-    Petrified,
-    Poisened,
-    Prone,
-    Restrained,
-    Stunned,
-    Unconscious
+    Blinded ='Blinded',
+    Charmed = 'Charmed',
+    Deafened = 'Deafened',
+    Frightened = 'Frightened',
+    Grappeled = 'Grappeled',
+    Incapacitated = 'Incapacitated',
+    Invisible = 'Invisible',
+    Paralized = 'Paralized',
+    Petrified = 'Petrified',
+    Poisoned = 'Poisoned',
+    Prone = 'Prone',
+    Restrained = 'Restrained',
+    Stunned = 'Stunned',
+    Unconscious = 'Unconscious'
 }
 
 export class CreatureInstance {
@@ -50,6 +50,22 @@ export class CreatureInstance {
     public modifyHp(val: number): CreatureInstance {
         let clone = this.clone()
         clone.hp = val;
+
+        return clone;
+    }
+
+    public addCondition(condition: Condition): CreatureInstance {
+        if (this.conditions.some(c => c === condition)) return this;
+
+        let clone = this.clone()
+        clone.conditions = clone.conditions.concat(condition);
+
+        return clone;
+    }
+
+    public removeCondition(condition: Condition): CreatureInstance {
+        let clone = this.clone()
+        clone.conditions = clone.conditions.filter(x => x !== condition);
 
         return clone;
     }

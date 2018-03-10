@@ -16,10 +16,12 @@ class Encounter extends React.Component<EncounterProps, {}> {
     public render() {
         return (
             <div style={{ minHeight: '99vh' }}>
-                <Table selectable>
+                <Table>
                     <Table.Body>
                         {this.props.creatures.map(instance =>
-                            <CreatureInstance key={instance.id} instance={instance} changeCreatureHp={this.props.changeCreatureHp} />
+                            <CreatureInstance key={instance.id} instance={instance}
+                                changeCreatureHp={this.props.changeCreatureHp}
+                                changeCreatureCondition={this.props.changeCreatureCondition} />
                         )}
                     </Table.Body>
                 </Table>
