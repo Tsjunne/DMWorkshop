@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import { Image, Icon, Table, Progress, Button } from "semantic-ui-react";
+import { Image, Icon, Table, Progress, Button, Popup } from "semantic-ui-react";
 import { Slider } from 'react-semantic-ui-range';
 import { NumberPicker } from 'semantic-ui-react-numberpicker';
 import * as Encounters from '../store/Encounters';
@@ -9,6 +9,7 @@ type CreatureInstanceProps =
     {
         instance: Model.CreatureInstance,
         changeCreatureHp: (instance: Model.CreatureInstance, newHp: number) => Encounters.ChangeCreatureHpAction
+        changeCreatureCondition: (instance: Model.CreatureInstance, condition: Model.Condition, add: boolean) => Encounters.ChangeCreatureConditionAction
     }
 
 export class CreatureInstance extends React.Component<CreatureInstanceProps, CreatureInstanceProps> {
@@ -26,25 +27,37 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                     <Icon name='plus' /> <b className='large text'>{this.props.instance.hp}</b>{'/' + this.props.instance.creature.maxHP}
                 </Table.Cell>
                 <Table.Cell>
+                    {this.props.instance.conditions.map(condition =>
+                        <Button size='mini' compact basic onClick={() => this.props.changeCreatureCondition(this.props.instance, condition, false)}>
+                            <Image avatar src={'/images/' + condition.toString() + '.svg'} />
+                        </Button>
+                    )}
                     <Slider color={this.determineColor(this.props.instance)} settings={{
                         start: this.props.instance.hp,
                         min: 0,
                         max: this.props.instance.creature.maxHP,
                         step: 1,
                         onChange: (value: number) => this.props.changeCreatureHp(this.props.instance, value)
-                        }
-                    }/>
-                </Table.Cell>
-                <Table.Cell>
-                    {this.props.instance.conditions.map(condition => 
-                        <Icon name='eye'/>
-                        )}
+                    }
+                    } />
                 </Table.Cell>
                 <Table.Cell collapsing>
-                    <Button icon='plus' />
+                    <Popup position='bottom right' wide='very'
+                        trigger={<Button icon='plus'/>}
+                        content={
+                            <Button.Group compact>
+                                <Button circular content={<Image avatar src='/images/charmed.svg' />} onClick={() => this.props.changeCreatureCondition(this.props.instance, Model.Condition.Charmed, true)}/>
+                                <Button circular content={<Image avatar src='/images/stunned.svg' />} onClick={() => this.props.changeCreatureCondition(this.props.instance, Model.Condition.Stunned, true)}/>
+                                <Button circular content={<Image avatar src='/images/poisoned.svg' />} onClick={() => this.props.changeCreatureCondition(this.props.instance, Model.Condition.Poisoned, true)}/>
+                                <Button circular content={<Image avatar src='/images/blinded.svg' />} onClick={() => this.props.changeCreatureCondition(this.props.instance, Model.Condition.Blinded, true)}/>
+                            </Button.Group>
+                        }
+                        on='click'
+                        hideOnScroll
+                    />
                 </Table.Cell>
             </Table.Row>
-            );
+        );
     }
 
     determineColor(instance: Model.CreatureInstance): string {
