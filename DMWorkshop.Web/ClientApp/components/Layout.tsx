@@ -10,7 +10,7 @@ export default class Layout extends React.Component<{}, {}> {
     public render() {
         return (
             <Grid>
-                <Grid.Column stretched width={1}>
+                <Grid.Column stretched width={2}>
                     <Menu width='thin'  icon='labeled' vertical inverted>
                         <Menu.Item as={NavLink} to="/creatures/">
                             <Icon name="id card" />
@@ -27,7 +27,7 @@ export default class Layout extends React.Component<{}, {}> {
                     </Menu>
                 </Grid.Column>
 
-                <Grid.Column stretched width={15}>
+                <Grid.Column stretched width={14}>
                         <Switch>
                             {this.props.children}
                         </Switch>
