@@ -42,14 +42,13 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                     } />
                 </Table.Cell>
                 <Table.Cell collapsing>
-                    <Popup position='bottom right' wide='very'
+                    <Popup position='bottom right' wide='very' 
                         trigger={<Button icon='plus'/>}
                         content={
-                            <Button.Group compact>
-                                <Button circular content={<Image avatar src='/images/charmed.svg' />} onClick={() => this.props.changeCreatureCondition(this.props.instance, Model.Condition.Charmed, true)}/>
-                                <Button circular content={<Image avatar src='/images/stunned.svg' />} onClick={() => this.props.changeCreatureCondition(this.props.instance, Model.Condition.Stunned, true)}/>
-                                <Button circular content={<Image avatar src='/images/poisoned.svg' />} onClick={() => this.props.changeCreatureCondition(this.props.instance, Model.Condition.Poisoned, true)}/>
-                                <Button circular content={<Image avatar src='/images/blinded.svg' />} onClick={() => this.props.changeCreatureCondition(this.props.instance, Model.Condition.Blinded, true)}/>
+                            <Button.Group compact size='mini'>
+                                {this.allConditions().map(c =>
+                                    <Button circular content={<Image avatar src={'/images/' + c + '.svg'} />} onClick={() => this.props.changeCreatureCondition(this.props.instance, c, true)} />
+                                )}
                             </Button.Group>
                         }
                         on='click'
@@ -58,6 +57,25 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                 </Table.Cell>
             </Table.Row>
         );
+    }
+
+    allConditions(): Model.Condition[] {
+        return [
+            Model.Condition.Blinded,
+            Model.Condition.Charmed,
+            Model.Condition.Deafened,
+            Model.Condition.Frightened,
+            Model.Condition.Grappled,
+            Model.Condition.Incapacitated,
+            Model.Condition.Invisible,
+            //Model.Condition.Paralized,
+            Model.Condition.Petrified,
+            Model.Condition.Poisoned,
+            //Model.Condition.Prone,
+            Model.Condition.Restrained,
+            //Model.Condition.Stunned,
+            //Model.Condition.Unconscious
+        ]
     }
 
     determineColor(instance: Model.CreatureInstance): string {
