@@ -4,12 +4,13 @@ import { Card, Image, Icon, Label, Table, Button } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
 import * as Creatures from '../store/Creatures';
+import * as Players from '../store/Players';
 import * as Model from '../model/Creature';
 
 type CreatureCardProps =
     {
         creature: Model.Creature,
-        addCreature: (creature: Model.Creature) => Creatures.AddCreatureAction
+        addCreature: (creature: Model.Creature) => Creatures.AddCreatureAction|Players.AddPlayerAction
     }
 
 export class CreatureCard extends React.Component<CreatureCardProps, {}> {
@@ -18,7 +19,7 @@ export class CreatureCard extends React.Component<CreatureCardProps, {}> {
         return (
             <Card >
                 <Card.Content>
-                    <Image floated='left' size='mini' src={'/api/creatures/' + this.props.creature.name + '/image'} />
+                    <Image floated='left' size='mini' src={'/api/creatures/' + this.props.creature.name + '/portrait'} />
                         <Button floated='right' icon='plus' compact color='green' onClick={() => { this.props.addCreature(this.props.creature) }} />
                     <Card.Header>
                         <h4>{this.props.creature.name}</h4>

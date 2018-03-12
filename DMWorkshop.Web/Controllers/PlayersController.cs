@@ -1,47 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using DMWorkshop.DTO.Characters;
 using MediatR;
-using System.Threading;
-using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DMWorkshop.Web.Controllers
 {
     [Route("api/[controller]")]
-    public class CreaturesController : Controller
+    public class PlayersController : Controller
     {
         private readonly IMediator _mediator;
 
-        public CreaturesController(IMediator mediator)
+        public PlayersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpPost]
-        public Task Register([FromBody] RegisterCreatureCommand command, CancellationToken cancellationToken)
+        [HttpPost("")]
+        public Task Register([FromBody] RegisterPlayerCommand command, CancellationToken cancellationToken)
         {
             return _mediator.Send(command, cancellationToken);
         }
 
         [HttpGet]
-        public Task<IEnumerable<CreatureReadModel>> Find(FindCreaturesQuery query, CancellationToken cancellationToken)
+        public Task<IEnumerable<CreatureReadModel>> Find(FindPartyQuery query, CancellationToken cancellationToken)
         {
-            return _mediator.Send(query ?? new FindCreaturesQuery(), cancellationToken);
+            return _mediator.Send(query ?? new FindPartyQuery(), cancellationToken);
         }
 
         [HttpGet("{name}")]
-        public Task<CreatureReadModel> Get(GetCreatureQuery query, CancellationToken cancellationToken)
+        public Task<CreatureReadModel> Get(GetPlayerQuery query, CancellationToken cancellationToken)
         {
-            return _mediator.Send(query ?? new GetCreatureQuery(), cancellationToken);
+            return _mediator.Send(query ?? new GetPlayerQuery(), cancellationToken);
         }
 
         [HttpGet("{name}/portrait")]
-        [ResponseCache(VaryByHeader = "User-Agent", Duration = 3600)]
+        [ResponseCache(Duration = 3600)]
         public async Task<IActionResult> GetImage(GetPortraitQuery query, CancellationToken cancellationToken)
         {
             return new FileStreamResult(await _mediator.Send(query ?? new GetPortraitQuery(), cancellationToken), "image/jpeg");

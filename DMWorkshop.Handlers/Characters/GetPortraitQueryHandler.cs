@@ -1,4 +1,4 @@
-﻿using DMWorkshop.DTO.Creatures;
+﻿using DMWorkshop.DTO.Characters;
 using MediatR;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -11,22 +11,22 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DMWorkshop.Handlers.Creatures
+namespace DMWorkshop.Handlers.Characters
 {
-    public class GetCreatureImageQueryHandler : IRequestHandler<GetCreatureImageQuery, Stream>
+    public class GetPortraitQueryHandler : IRequestHandler<GetPortraitQuery, Stream>
     {
         private IMongoDatabase _database;
 
-        public GetCreatureImageQueryHandler(IMongoDatabase database)
+        public GetPortraitQueryHandler(IMongoDatabase database)
         {
             _database = database;
         }
 
-        public async Task<Stream> Handle(GetCreatureImageQuery query, CancellationToken cancellationToken)
+        public async Task<Stream> Handle(GetPortraitQuery query, CancellationToken cancellationToken)
         {
             var bucket = new GridFSBucket(_database, new GridFSBucketOptions
             {
-                BucketName = "creatures"
+                BucketName = "portraits"
             });
             
             try

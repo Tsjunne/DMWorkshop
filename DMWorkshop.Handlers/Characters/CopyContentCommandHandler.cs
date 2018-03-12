@@ -1,5 +1,5 @@
-﻿using DMWorkshop.DTO.Creatures;
-using DMWorkshop.Model.Creatures;
+﻿using DMWorkshop.DTO.Characters;
+using DMWorkshop.Model.Characters;
 using DMWorkshop.Model.Items;
 using MediatR;
 using MongoDB.Driver;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DMWorkshop.Handlers.Creatures
+namespace DMWorkshop.Handlers.Characters
 {
     public class CopyContentCommandHandler : IRequestHandler<CopyContentCommand>
     {

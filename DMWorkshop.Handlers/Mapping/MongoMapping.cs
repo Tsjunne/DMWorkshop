@@ -1,5 +1,5 @@
-﻿using DMWorkshop.Model.Core;
-using DMWorkshop.Model.Creatures;
+﻿using DMWorkshop.Model.Characters;
+using DMWorkshop.Model.Core;
 using DMWorkshop.Model.Items;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -20,19 +20,34 @@ namespace DMWorkshop.Handlers.Mapping
             BsonSerializer.RegisterSerializer(new EnumSerializer<Skill>(BsonType.String));
             BsonSerializer.RegisterSerializer(new EnumSerializer<Size>(BsonType.String));
             BsonSerializer.RegisterSerializer(new EnumSerializer<ItemSlot>(BsonType.String));
-
-            BsonClassMap.RegisterClassMap<Creature>(m =>
+            BsonSerializer.RegisterSerializer(new EnumSerializer<Speed>(BsonType.String));
+            
+            BsonClassMap.RegisterClassMap<Character>(m =>
             {
-                m.MapIdMember(c => c.Name).SetIdGenerator(StringObjectIdGenerator.Instance);
+                m.MapIdMember(x => x.Name).SetIdGenerator(StringObjectIdGenerator.Instance);
+                m.SetIsRootClass(true);
                 m.MapMember(c => c.Size);
+                m.MapMember(c => c.Speed);
                 m.MapMember(c => c.Level);
                 m.MapMember(c => c.CR);
                 m.MapMember(c => c.Scores);
                 m.MapMember(c => c.Gear);
-                m.MapMember(c => c.Saves);
                 m.MapMember(c => c.Skills);
                 m.MapMember(c => c.Expertise);
-                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Level, c.CR, c.Gear, c.Saves, c.Skills, c.Expertise));
+            });
+
+            BsonClassMap.RegisterClassMap<Creature>(m =>
+            {
+                m.MapMember(c => c.Saves);
+                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Speed, c.Level, c.CR, c.Gear, c.Saves, c.Skills, c.Expertise));
+            });
+
+            BsonClassMap.RegisterClassMap<Player>(m =>
+            {
+                m.MapMember(c => c.Class);
+                m.MapMember(c => c.Race);
+                m.MapMember(c => c.MaxHP);
+                m.MapCreator(c => new Player(c.Name, c.Scores, c.Class, c.Race, c.MaxHP, c.Level, c.Gear, c.Skills, c.Expertise));
             });
 
             BsonClassMap.RegisterClassMap<Gear>(m =>

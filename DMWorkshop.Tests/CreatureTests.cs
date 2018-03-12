@@ -1,5 +1,5 @@
-﻿using DMWorkshop.Model.Core;
-using DMWorkshop.Model.Creatures;
+﻿using DMWorkshop.Model.Characters;
+using DMWorkshop.Model.Core;
 using DMWorkshop.Model.Items;
 using System;
 using System.Collections.Generic;
@@ -18,17 +18,18 @@ namespace DMWorkshop.Tests
 
             var gear = new[]
             {
-                new Armor("leather armor", ItemSlot.Chest, 1),
-                new Armor("shield", ItemSlot.LeftHand, 2)
+                new Armor("Leather armor", ItemSlot.Chest, 1),
+                new Armor("Shield", ItemSlot.LeftHand, 2)
             };
 
-            var goblin = new Creature("Goblin", scores, Size.Small, 2, 0.25, Enumerable.Empty<string>(), Enumerable.Empty<Ability>(), Enumerable.Empty<Skill>(), new[] { Skill.Stealth});
+            var goblin = new Creature("Goblin", scores, Size.Small, new Dictionary<Speed, int>() { { Speed.Walk, 30} }, 2, 0.25, Enumerable.Empty<string>(), Enumerable.Empty<Ability>(), Enumerable.Empty<Skill>(), new[] { Skill.Stealth});
 
             goblin.Equip(gear);
             
             Assert.Equal(7, goblin.MaxHP);
             Assert.Equal(15, goblin.AC);
             Assert.Equal(9, goblin.PassivePerception);
+            Assert.Equal(6, goblin.GetModifier(Ability.Dexterity, Skill.Stealth));
         }
     }
 }

@@ -24,6 +24,7 @@ export class CreatureInstance {
     initiative: number;
     hp: number;
     conditions: Condition[];
+    number: number;
 
     constructor(creature: Creature.Creature) {
         this.id = Guid.create().toString();
@@ -37,7 +38,7 @@ export class CreatureInstance {
         return Math.floor(Math.random() * die) + 1
     }
 
-    private clone(): CreatureInstance {
+    protected clone(): CreatureInstance {
         let clone = new CreatureInstance(this.creature);
         clone.id = this.id;
         clone.initiative = this.initiative;
@@ -45,6 +46,10 @@ export class CreatureInstance {
         clone.conditions = this.conditions;
 
         return clone;
+    }
+
+    get isPlayer() : boolean {
+        return this instanceof Player;
     }
 
     public modifyHp(val: number): CreatureInstance {
@@ -66,6 +71,18 @@ export class CreatureInstance {
     public removeCondition(condition: Condition): CreatureInstance {
         let clone = this.clone()
         clone.conditions = clone.conditions.filter(x => x !== condition);
+
+        return clone;
+    }
+}
+
+export class Player extends CreatureInstance {
+    protected clone(): CreatureInstance {
+        let clone = new Player(this.creature);
+        clone.id = this.id;
+        clone.initiative = this.initiative;
+        clone.hp = this.hp;
+        clone.conditions = this.conditions;
 
         return clone;
     }
