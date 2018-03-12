@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using DMWorkshop.Handlers.Creatures;
+using DMWorkshop.Handlers.Characters;
 using MediatR;
 using AutoMapper;
 using MongoDB.Driver;

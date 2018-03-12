@@ -4,13 +4,15 @@ import { Guid } from "guid-typescript";
 import { AppThunkAction } from './';
 import * as Creature from '../model/Creature';
 import * as CreatureInstance from '../model/CreatureInstance';
+import * as Encounter from '../model/Encounter';
 
 export interface EncounterState {
-    creatures: CreatureInstance.CreatureInstance[] 
+    encounter: Encounter.EncounterData
 }
 
 enum ActionTypes {
     ADD_CREATURE = 'ADD_CREATURE',
+    ADD_PLAYER = 'ADD_PLAYER',
     CHANGE_CREATURE_HP = 'CHANGE_CREATURE_HP',
     CHANGE_CREATURE_CONDITION = 'CHANGE_CREATURE_CONDITION',
     CLEAR_ENCOUNTER = 'CLEAR_ENCOUNTER'
@@ -19,6 +21,11 @@ enum ActionTypes {
 interface AddCreatureAction {
     type: ActionTypes.ADD_CREATURE;
     creature: Creature.Creature;
+}
+
+export interface AddPlayerAction {
+    type: ActionTypes.ADD_PLAYER;
+    player: Creature.Creature;
 }
 
 export interface ChangeCreatureHpAction {
@@ -38,12 +45,16 @@ interface ClearEncounterAction {
     type: ActionTypes.CLEAR_ENCOUNTER;
 }
 
-type KnownAction = AddCreatureAction | ClearEncounterAction | ChangeCreatureHpAction | ChangeCreatureConditionAction;
+type KnownAction = AddCreatureAction | AddPlayerAction | ClearEncounterAction | ChangeCreatureHpAction | ChangeCreatureConditionAction;
 
 export const actionCreators = {
-    addCreature: (creature: Creature.Creature) => <AddCreatureAction> {
+    addCreature: (creature: Creature.Creature) => <AddCreatureAction>{
         type: ActionTypes.ADD_CREATURE,
         creature: creature
+    },
+    addPlayer: (player: Creature.Creature) => <AddPlayerAction>{
+        type: ActionTypes.ADD_PLAYER,
+        player: player
     },
     clearEncounter: () => <ClearEncounterAction> {
         type: ActionTypes.CLEAR_ENCOUNTER
@@ -61,18 +72,22 @@ export const actionCreators = {
     }
 };
 
-const unloadedState: EncounterState = { creatures: [] };
+const unloadedState: EncounterState = {
+    encounter: { instances: [], modifiedXp: 0, totalXp: 0 }
+};
 
 export const reducer: Reducer<EncounterState> = (state: EncounterState, action: KnownAction) => {
     switch (action.type) {
         case ActionTypes.ADD_CREATURE:
-            return { creatures: state.creatures.concat(new CreatureInstance.CreatureInstance(action.creature)).sort((a, b) => b.initiative - a.initiative) };
+            return { encounter: new Encounter.Encounter(state.encounter).addCreature(action.creature).buildData() };
+        case ActionTypes.ADD_PLAYER:
+            return { encounter: new Encounter.Encounter(state.encounter).addPlayer(action.player).buildData() };
+        case ActionTypes.CHANGE_CREATURE_HP:
+            return { encounter: new Encounter.Encounter(state.encounter).changeHp(action.instance, action.newHp).buildData() };
+        case ActionTypes.CHANGE_CREATURE_CONDITION:
+            return { encounter: new Encounter.Encounter(state.encounter).changeCondition(action.instance, action.condition, action.add).buildData() };
         case ActionTypes.CLEAR_ENCOUNTER:
             return unloadedState;
-        case ActionTypes.CHANGE_CREATURE_HP:
-            return newState(state, action.instance, i => i.modifyHp(action.newHp));
-        case ActionTypes.CHANGE_CREATURE_CONDITION:
-            return newState(state, action.instance, i => action.add ? i.addCondition(action.condition) : i.removeCondition(action.condition));
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
             const exhaustiveCheck: never = action;
@@ -82,14 +97,3 @@ export const reducer: Reducer<EncounterState> = (state: EncounterState, action: 
     //  (or default initial state if none was supplied)
     return state || unloadedState;
 };
-
-function newState(state: EncounterState, instance: CreatureInstance.CreatureInstance, modifier: (i: CreatureInstance.CreatureInstance) => CreatureInstance.CreatureInstance) : EncounterState {
-    return {
-        creatures: state.creatures.map(i => {
-            if (i === instance)
-                return modifier(i);
-            else
-                return i;
-        })
-    }
-}
