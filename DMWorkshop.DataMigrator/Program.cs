@@ -1,5 +1,5 @@
-﻿using DMWorkshop.DTO.Creatures;
-using DMWorkshop.Handlers.Creatures;
+﻿using DMWorkshop.DTO.Characters;
+using DMWorkshop.Handlers.Characters;
 using DMWorkshop.Handlers.Mapping;
 using MongoDB.Driver;
 using System;

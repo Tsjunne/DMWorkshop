@@ -1,5 +1,4 @@
-﻿using DMWorkshop.DTO.Creatures;
-using DMWorkshop.Model.Creatures;
+﻿using DMWorkshop.DTO.Characters;
 using DMWorkshop.Model.Core;
 using MediatR;
 using MongoDB.Driver;
@@ -9,8 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using DMWorkshop.Model.Characters;
 
-namespace DMWorkshop.Handlers.Creatures
+namespace DMWorkshop.Handlers.Characters
 {
     public class RegisterCreatureCommandHandler : IRequestHandler<RegisterCreatureCommand>
     {
@@ -27,6 +27,7 @@ namespace DMWorkshop.Handlers.Creatures
                 command.Name,
                 command.Scores,
                 Enum.Parse<Size>(command.Size),
+                command.Speed.ToDictionary(x => Enum.Parse<Speed>(x.Key), x => x.Value),
                 command.Level,
                 command.CR ?? command.Level,
                 command.Gear,

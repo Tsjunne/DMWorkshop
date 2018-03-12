@@ -1,9 +1,11 @@
 import * as Creatures from './Creatures';
+import * as Players from './Players';
 import * as Encounters from './Encounters';
 
 // The top-level state object
 export interface ApplicationState {
     creatures: Creatures.CreaturesState;
+    players: Players.PlayersState;
     encounters: Encounters.EncounterState;
 }
 
@@ -12,6 +14,7 @@ export interface ApplicationState {
 // acts on the corresponding ApplicationState property type.
 export const reducers = {
     creatures: Creatures.reducer,
+    players: Players.reducer,
     encounters: Encounters.reducer
 };
 

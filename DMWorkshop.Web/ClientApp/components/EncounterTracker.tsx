@@ -4,6 +4,7 @@ import { Table } from "semantic-ui-react";
 import { Slider } from 'react-semantic-ui-range';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
+import * as Encounter from '../model/Encounter';
 import * as Encounters from '../store/Encounters';
 import { CreatureInstance } from './CreatureInstance';
 
@@ -12,13 +13,20 @@ type EncounterProps =
     & typeof Encounters.actionCreators
     & RouteComponentProps<{ }>; 
 
-class Encounter extends React.Component<EncounterProps, {}> {
+class EncounterTracker extends React.Component<EncounterProps, {}> {
     public render() {
         return (
             <div style={{ minHeight: '99vh' }}>
                 <Table>
                     <Table.Body>
-                        {this.props.creatures.map(instance =>
+                        <Table.Row>
+                            <Table.Cell>Total XP: {this.props.encounter.totalXp} ({this.props.encounter.modifiedXp})</Table.Cell>
+                        </Table.Row>
+                    </Table.Body>
+                </Table>
+                <Table>
+                    <Table.Body>
+                        {this.props.encounter.instances.map(instance =>
                             <CreatureInstance key={instance.id} instance={instance}
                                 changeCreatureHp={this.props.changeCreatureHp}
                                 changeCreatureCondition={this.props.changeCreatureCondition} />
@@ -33,4 +41,4 @@ class Encounter extends React.Component<EncounterProps, {}> {
 export default connect(
     (state: ApplicationState) => state.encounters, // Selects which state properties are merged into the component's props
     Encounters.actionCreators                 // Selects which action creators are merged into the component's props
-)(Encounter) as typeof Encounter;
+)(EncounterTracker) as typeof EncounterTracker;
