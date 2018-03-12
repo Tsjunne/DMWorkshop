@@ -14,17 +14,23 @@ type CreatureInstanceProps =
 
 export class CreatureInstance extends React.Component<CreatureInstanceProps, CreatureInstanceProps> {
     public render() {
+        var hpBlock;
+
+        if (this.props.instance.isPlayer)
+            hpBlock = <span/>;
+        else
+            hpBlock = <span><Icon name='plus' /> <b className='large text'>{this.props.instance.hp}</b>{'/' + this.props.instance.creature.maxHP}</span>;
+
         return (
             <Table.Row >
                 <Table.Cell collapsing><Icon name='lightning' /> {this.props.instance.initiative}</Table.Cell>
-                <Table.Cell collapsing><Image size='mini' src={'/api/creatures/' + this.props.instance.creature.name + '/image'} />
-                    <Progress total={this.props.instance.creature.maxHP} value={this.props.instance.hp} indicating attached='bottom' /></Table.Cell>
+                <Table.Cell collapsing><Image size='mini' src={'/api/creatures/' + this.props.instance.creature.name + '/portrait'} /></Table.Cell>
                 <Table.Cell collapsing>{this.props.instance.creature.name}</Table.Cell>
                 <Table.Cell collapsing>
                     <Icon name='shield' /> <b className='large text'>{this.props.instance.creature.ac}</b>
                 </Table.Cell>
                 <Table.Cell collapsing>
-                    <Icon name='plus' /> <b className='large text'>{this.props.instance.hp}</b>{'/' + this.props.instance.creature.maxHP}
+                    {hpBlock}
                 </Table.Cell>
                 <Table.Cell>
                     {this.props.instance.conditions.map(condition =>
@@ -32,7 +38,8 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                             <Image avatar src={'/images/' + condition.toString() + '.svg'} />
                         </Button>
                     )}
-                    <Slider color={this.determineColor(this.props.instance)} settings={{
+                    <Slider color={this.determineColor(this.props.instance)} disabled={this.props.instance.isPlayer}
+                        settings={{
                         start: this.props.instance.hp,
                         min: 0,
                         max: this.props.instance.creature.maxHP,

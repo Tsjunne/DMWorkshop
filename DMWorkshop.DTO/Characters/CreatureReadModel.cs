@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DMWorkshop.DTO.Creatures
+namespace DMWorkshop.DTO.Characters
 {
     public class CreatureReadModel
     {

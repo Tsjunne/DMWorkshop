@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace DMWorkshop.DTO.Creatures
+namespace DMWorkshop.DTO.Characters
 {
-    public class GetCreatureImageQuery : IRequest<Stream>
+    public class GetPortraitQuery : IRequest<Stream>
     {
         public string Name { get; set; }
     }

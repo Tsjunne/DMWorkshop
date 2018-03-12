@@ -37,7 +37,7 @@ export const actionCreators = {
     requestCreatures: (creatureSet: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
         // Only load data if it's something we don't already have (and are not already loading)
         if (creatureSet !== getState().creatures.creatureSet) {
-            let fetchTask = fetch(`api/Creatures?creatureSet=${creatureSet}`)
+            let fetchTask = fetch(`api/creatures?creatureSet=${creatureSet}`)
                 .then(response => response.json() as Promise<Creature.Creature[]>)
                 .then(data => {
                     dispatch({ type: ActionTypes.RECEIVE_CREATURES, creatureSet: creatureSet, creatures: data });
