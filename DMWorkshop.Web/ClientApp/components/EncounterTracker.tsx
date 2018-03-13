@@ -1,10 +1,8 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Table } from "semantic-ui-react";
-import { Slider } from 'react-semantic-ui-range';
+import { Table, Button, Icon } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
-import * as Encounter from '../model/Encounter';
 import * as Encounters from '../store/Encounters';
 import { CreatureInstance } from './CreatureInstance';
 
@@ -21,6 +19,7 @@ class EncounterTracker extends React.Component<EncounterProps, {}> {
                     <Table.Body>
                         <Table.Row>
                             <Table.Cell>Total XP: {this.props.encounter.totalXp} ({this.props.encounter.modifiedXp})</Table.Cell>
+                            <Table.Cell collapsing><Button icon='trash' negative onClick={this.props.clearEncounter}/></Table.Cell>
                         </Table.Row>
                     </Table.Body>
                 </Table>
