@@ -12,7 +12,7 @@ export interface EncounterState {
 
 enum ActionTypes {
     ADD_CREATURE = 'ADD_CREATURE',
-    ADD_PLAYER = 'ADD_PLAYER',
+    ADD_PLAYERS = 'ADD_PLAYERS',
     CHANGE_CREATURE_HP = 'CHANGE_CREATURE_HP',
     CHANGE_CREATURE_CONDITION = 'CHANGE_CREATURE_CONDITION',
     CLEAR_ENCOUNTER = 'CLEAR_ENCOUNTER'
@@ -23,9 +23,9 @@ interface AddCreatureAction {
     creature: Creature.Creature;
 }
 
-export interface AddPlayerAction {
-    type: ActionTypes.ADD_PLAYER;
-    player: Creature.Creature;
+interface AddPlayersAction {
+    type: ActionTypes.ADD_PLAYERS;
+    playerRolls: Creature.CharacterRoll[];
 }
 
 export interface ChangeCreatureHpAction {
@@ -45,16 +45,16 @@ interface ClearEncounterAction {
     type: ActionTypes.CLEAR_ENCOUNTER;
 }
 
-type KnownAction = AddCreatureAction | AddPlayerAction | ClearEncounterAction | ChangeCreatureHpAction | ChangeCreatureConditionAction;
+type KnownAction = AddCreatureAction | AddPlayersAction | ClearEncounterAction | ChangeCreatureHpAction | ChangeCreatureConditionAction;
 
 export const actionCreators = {
     addCreature: (creature: Creature.Creature) => <AddCreatureAction>{
         type: ActionTypes.ADD_CREATURE,
         creature: creature
     },
-    addPlayer: (player: Creature.Creature) => <AddPlayerAction>{
-        type: ActionTypes.ADD_PLAYER,
-        player: player
+    addPlayers: (playerRolls: Creature.CharacterRoll[]) => <AddPlayersAction>{
+        type: ActionTypes.ADD_PLAYERS,
+        playerRolls: playerRolls
     },
     clearEncounter: () => <ClearEncounterAction> {
         type: ActionTypes.CLEAR_ENCOUNTER
@@ -80,8 +80,8 @@ export const reducer: Reducer<EncounterState> = (state: EncounterState, action: 
     switch (action.type) {
         case ActionTypes.ADD_CREATURE:
             return { encounter: new Encounter.Encounter(state.encounter).addCreature(action.creature).buildData() };
-        case ActionTypes.ADD_PLAYER:
-            return { encounter: new Encounter.Encounter(state.encounter).addPlayer(action.player).buildData() };
+        case ActionTypes.ADD_PLAYERS:
+            return { encounter: new Encounter.Encounter(state.encounter).addPlayers(action.playerRolls).buildData() };
         case ActionTypes.CHANGE_CREATURE_HP:
             return { encounter: new Encounter.Encounter(state.encounter).changeHp(action.instance, action.newHp).buildData() };
         case ActionTypes.CHANGE_CREATURE_CONDITION:

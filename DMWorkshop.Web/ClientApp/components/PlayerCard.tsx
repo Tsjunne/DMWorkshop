@@ -7,30 +7,28 @@ import * as Creatures from '../store/Creatures';
 import * as Players from '../store/Players';
 import * as Model from '../model/Creature';
 
-type CreatureCardProps =
+type PlayerCardProps =
     {
-        creature: Model.Creature,
-        addCreature: (creature: Model.Creature) => Creatures.AddCreatureAction
+        player: Model.Creature
     }
 
-export class CreatureCard extends React.Component<CreatureCardProps, {}> {
+export class PlayerCard extends React.Component<PlayerCardProps, {}> {
 
     public render() {
         return (
             <Card >
                 <Card.Content>
-                    <Image floated='left' size='mini' src={'/api/creatures/' + this.props.creature.name + '/portrait'} />
-                        <Button floated='right' icon='plus' compact color='green' onClick={() => { this.props.addCreature(this.props.creature) }} />
+                    <Image floated='left' size='mini' src={'/api/creatures/' + this.props.player.name + '/portrait'} />
                     <Card.Header>
-                        <h4>{this.props.creature.name}</h4>
+                        <h4>{this.props.player.name}</h4>
                     </Card.Header>
                     <Card.Meta>
                         <Table basic='very' fixed singleLine collapsing compact size='small'>
                             <Table.Body>
                                 <Table.Row>
-                                    <Table.Cell><Icon name='plus' /> {this.props.creature.maxHP}</Table.Cell>
-                                    <Table.Cell><Icon name='shield' /> {this.props.creature.ac}</Table.Cell>
-                                    <Table.Cell><Icon name='eye' /> {this.props.creature.passivePerception}</Table.Cell>
+                                    <Table.Cell><Icon name='plus' /> {this.props.player.maxHP}</Table.Cell>
+                                    <Table.Cell><Icon name='shield' /> {this.props.player.ac}</Table.Cell>
+                                    <Table.Cell><Icon name='eye' /> {this.props.player.passivePerception}</Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         </Table>
@@ -47,12 +45,12 @@ export class CreatureCard extends React.Component<CreatureCardProps, {}> {
                                     <Table.Cell><Image avatar src='/images/charisma.svg' /></Table.Cell>
                                 </Table.Row>
                                 <Table.Row textAlign='center'>
-                                    <Table.Cell><b>{this.props.creature.modifiers[0]}</b></Table.Cell>
-                                    <Table.Cell><b>{this.props.creature.modifiers[1]}</b></Table.Cell>
-                                    <Table.Cell><b>{this.props.creature.modifiers[2]}</b></Table.Cell>
-                                    <Table.Cell><b>{this.props.creature.modifiers[3]}</b></Table.Cell>
-                                    <Table.Cell><b>{this.props.creature.modifiers[4]}</b></Table.Cell>
-                                    <Table.Cell><b>{this.props.creature.modifiers[5]}</b></Table.Cell>
+                                    <Table.Cell><b>{this.props.player.modifiers[0]}</b></Table.Cell>
+                                    <Table.Cell><b>{this.props.player.modifiers[1]}</b></Table.Cell>
+                                    <Table.Cell><b>{this.props.player.modifiers[2]}</b></Table.Cell>
+                                    <Table.Cell><b>{this.props.player.modifiers[3]}</b></Table.Cell>
+                                    <Table.Cell><b>{this.props.player.modifiers[4]}</b></Table.Cell>
+                                    <Table.Cell><b>{this.props.player.modifiers[5]}</b></Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         </Table>
