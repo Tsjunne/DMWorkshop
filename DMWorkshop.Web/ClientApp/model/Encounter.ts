@@ -26,16 +26,20 @@ export class Encounter {
     public addCreature(creature: Creature.Creature): Encounter {
         var instance = new CreatureInstance.CreatureInstance(creature);
         this.instances.push(instance);
-        this.instances.sort((a, b) => b.initiative - a.initiative);
 
         return this;
     }
 
-    public addPlayer(player: Creature.Creature): Encounter {
-        var instance = new CreatureInstance.Player(player);
-        this.instances.push(instance);
-        this.instances.sort((a, b) => b.initiative - a.initiative);
+    public addPlayers(playerRolls: Creature.CharacterRoll[]): Encounter {
+        //Remove players from initative table
+        this.instances = this.instances.filter(x => !(x instanceof CreatureInstance.Player))
 
+        //Add players with new initiative
+        playerRolls.map(x => {
+            var instance = new CreatureInstance.Player(x.character, x.roll);
+            this.instances.push(instance);
+        });
+        
         return this;
     }
 
