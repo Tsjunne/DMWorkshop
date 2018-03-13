@@ -12,11 +12,16 @@ namespace DMWorkshop.DataMigrator
         static void Main(string[] args)
         {
             MongoMapping.Configure();
-            
-            var azure = GetDb("mongodb://dmworkshop:wHKTiqFngOxoM1m62wvY1Myetka2gTFGWaubmX3AAsTFdppQn5eagLv5gMKvVnmKqzPH3wnm6gAhVDjNfD0Ueg==@dmworkshop.documents.azure.com:10255/?ssl=true&replicaSet=globaldb");
-            var mongolab = GetDb("***REMOVED***");
 
-            var handler = new CopyContentCommandHandler(azure, mongolab);
+            Console.Write("Source: ");
+            var sourceConnection = Console.ReadLine();
+            Console.Write("Target: ");
+            var targetConnection = Console.ReadLine();
+
+            var source = GetDb(sourceConnection);
+            var target = GetDb(targetConnection);
+
+            var handler = new CopyContentCommandHandler(source, target);
             handler.Handle(new CopyContentCommand(), CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();            
         }
 
