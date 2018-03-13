@@ -28,7 +28,7 @@ namespace DMWorkshop.Handlers.Items
                 command.DexModLimit
                 );
 
-            return _database.Save("gear", x => x.Name == armor.Name, armor);
+            return _database.Save("gear", x => x.Name == armor.Name, armor, cancellationToken);
         }
     }
 }
