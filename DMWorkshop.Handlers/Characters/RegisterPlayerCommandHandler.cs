@@ -35,7 +35,7 @@ namespace DMWorkshop.Handlers.Characters
                 command.Expertise.Select(x => Enum.Parse<Skill>(x))
                 );
 
-            return _database.Save("players", x => x.Name == player.Name, player);
+            return _database.Save("players", x => x.Name == player.Name, player, cancellationToken);
         }
     }
 }
