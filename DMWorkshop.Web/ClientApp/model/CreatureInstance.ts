@@ -77,10 +77,15 @@ export class CreatureInstance {
 }
 
 export class Player extends CreatureInstance {
+    constructor(creature: Creature.Creature, initiative: number) {
+        super(creature)
+
+        this.initiative = initiative;
+    }
+
     protected clone(): CreatureInstance {
-        let clone = new Player(this.creature);
+        let clone = new Player(this.creature, this.initiative);
         clone.id = this.id;
-        clone.initiative = this.initiative;
         clone.hp = this.hp;
         clone.conditions = this.conditions;
 

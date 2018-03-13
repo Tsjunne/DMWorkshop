@@ -9,3 +9,8 @@ export interface Creature {
     scores: number[];
     modifiers: number[];
 }
+
+export interface CharacterRoll {
+    character: Creature,
+    roll: number
+}

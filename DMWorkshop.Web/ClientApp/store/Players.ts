@@ -12,7 +12,7 @@ export interface PlayersState {
 enum ActionTypes {
     REQUEST_PLAYERS = 'REQUEST_PLAYERS',
     RECEIVE_PLAYERS = 'RECEIVE_PLAYERS',
-    ADD_PLAYER = 'ADD_PLAYER'
+    ADD_PLAYERS = 'ADD_PLAYERS'
 }
 
 interface RequestPlayersAction {
@@ -26,12 +26,12 @@ interface ReceivePlayersAction {
     players: Creature.Creature[];
 }
 
-export interface AddPlayerAction {
-    type: ActionTypes.ADD_PLAYER;
-    player: Creature.Creature;
+export interface AddPlayersAction {
+    type: ActionTypes.ADD_PLAYERS;
+    playerRolls: Creature.CharacterRoll[];
 }
 
-type KnownAction = RequestPlayersAction | ReceivePlayersAction | AddPlayerAction;
+type KnownAction = RequestPlayersAction | ReceivePlayersAction | AddPlayersAction;
 
 export const actionCreators = {
     requestPlayers: (party: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
@@ -48,9 +48,9 @@ export const actionCreators = {
         }
     },
 
-    addPlayer: (player: Creature.Creature) => <AddPlayerAction>{
-        type: ActionTypes.ADD_PLAYER,
-        player: player
+    addPlayers: (playerRolls: Creature.CharacterRoll[]) => <AddPlayersAction>{
+        type: ActionTypes.ADD_PLAYERS,
+        playerRolls: playerRolls
     }
 };
 
@@ -71,7 +71,7 @@ export const reducer: Reducer<PlayersState> = (state: PlayersState, incomingActi
                 players: action.players,
                 isLoading: false
             };
-        case ActionTypes.ADD_PLAYER:
+        case ActionTypes.ADD_PLAYERS:
             // Handled by another store
             break;
         default:
