@@ -26,26 +26,17 @@ namespace DMWorkshop.Handlers.Characters
 
         public async Task Handle(CopyContentCommand message, CancellationToken cancellationToken)
         {
-            var gear = await _source.GetCollection<Gear>("gear").AsQueryable()
-                .ToListAsync();
+            await MigrateGear(cancellationToken);
+            await MigrateCreatures(cancellationToken);
+            await MigratePlayers(cancellationToken);
+            await MigratePortraits(cancellationToken);
+        }
 
-            foreach (var item in gear)
-            {
-                await _destination.Save("gear", x => x.Name == item.Name, item);
-            }
-
-            var creatures = await _source.GetCollection<Creature>("creatures").AsQueryable()
-                .ToListAsync(cancellationToken);
-
-            foreach (var creature in creatures)
-            {
-                await _destination.Save("creatures", x => x.Name == creature.Name, creature);
-            }
-
-
+        private async Task MigratePortraits(CancellationToken cancellationToken)
+        {
             var source = new GridFSBucket(_source, new GridFSBucketOptions
             {
-                BucketName = "creatures"
+                BucketName = "portraits"
             });
 
             using (var cursor = await source.FindAsync(Builders<GridFSFileInfo>.Filter.Empty))
@@ -54,16 +45,49 @@ namespace DMWorkshop.Handlers.Characters
 
                 var destination = new GridFSBucket(_destination, new GridFSBucketOptions
                 {
-                    BucketName = "creatures"
+                    BucketName = "portraits"
                 });
 
                 foreach (var file in files)
                 {
                     using (var stream = await source.OpenDownloadStreamByNameAsync(file.Filename, null, cancellationToken))
                     {
-                        await destination.UploadFromStreamAsync(file.Filename, stream);
+                        await destination.UploadFromStreamAsync(file.Filename, stream, null, cancellationToken);
                     }
                 }
+            }
+        }
+
+        private async Task MigratePlayers(CancellationToken cancellationToken)
+        {
+            var players = await _source.GetCollection<Player>("players").AsQueryable()
+                            .ToListAsync(cancellationToken);
+
+            foreach (var player in players)
+            {
+                await _destination.Save("players", x => x.Name == player.Name, player, cancellationToken);
+            }
+        }
+
+        private async Task MigrateCreatures(CancellationToken cancellationToken)
+        {
+            var creatures = await _source.GetCollection<Creature>("creatures").AsQueryable()
+                            .ToListAsync(cancellationToken);
+
+            foreach (var creature in creatures)
+            {
+                await _destination.Save("creatures", x => x.Name == creature.Name, creature, cancellationToken);
+            }
+        }
+
+        private async Task MigrateGear(CancellationToken cancellationToken)
+        {
+            var gear = await _source.GetCollection<Gear>("gear").AsQueryable()
+                .ToListAsync(cancellationToken);
+
+            foreach (var item in gear)
+            {
+                await _destination.Save("gear", x => x.Name == item.Name, item, cancellationToken);
             }
         }
     }
