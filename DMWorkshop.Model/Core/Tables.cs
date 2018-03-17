@@ -1,10 +1,9 @@
-﻿using DMWorkshop.Model.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DMWorkshop.Model.Characters
+namespace DMWorkshop.Model.Core
 {
     public static class Tables
     {

@@ -16,13 +16,13 @@ export default createServerRenderer(params => {
         const urlAfterBasename = params.url.substring(basename.length);
         const store = configureStore(createMemoryHistory());
         store.dispatch(replace(urlAfterBasename));
-
+        
         // Prepare an instance of the application and perform an inital render that will
         // cause any async tasks (e.g., data access) to begin
         const routerContext: any = {};
         const app = (
             <Provider store={ store }>
-                <StaticRouter basename={ basename } context={ routerContext } location={ params.location.path } children={ routes } />
+                <StaticRouter basename={basename} context={routerContext} location={params.location.path} children={routes(store.getState()) } />
             </Provider>
         );
         renderToString(app);

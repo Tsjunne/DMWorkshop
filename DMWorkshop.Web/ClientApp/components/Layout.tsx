@@ -6,7 +6,7 @@ import { ApplicationState } from '../store';
 import { connect } from 'react-redux';
 import * as Encounters from '../store/Encounters';
 
-export default class Layout extends React.Component<{}, {}> {
+class Layout extends React.Component<ApplicationState, {}> {
     public render() {
         return (
             <Grid>
@@ -20,9 +20,10 @@ export default class Layout extends React.Component<{}, {}> {
                             <Icon name="group" />
                             Party
                         </Menu.Item>
-                        <Menu.Item as={NavLink} to="/encounters/">
+                        <Menu.Item as={NavLink} to="/encounter/">
+                            <Label color='red'>{this.props.encounters.encounter.instances.length}</Label>
                             <Icon name="sort content descending" />
-                            Encounters
+                            Encounter
 					    </Menu.Item>
                     </Menu>
                 </Grid.Column>
@@ -36,3 +37,9 @@ export default class Layout extends React.Component<{}, {}> {
         );
     }
 }
+
+
+export default connect(
+    (state: ApplicationState) => state, // Selects which state properties are merged into the component's props
+    Encounters.actionCreators                 // Selects which action creators are merged into the component's props
+)(Layout) as typeof Layout;

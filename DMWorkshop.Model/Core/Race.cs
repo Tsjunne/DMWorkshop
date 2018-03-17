@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DMWorkshop.Model.Characters
+namespace DMWorkshop.Model.Core
 {
     public class Race
     {
@@ -11,7 +11,7 @@ namespace DMWorkshop.Model.Characters
         {
             Name = name;
             Size = size;
-            Speed = new Dictionary<Speed, int> { { Characters.Speed.Walk, speed } };
+            Speed = new Dictionary<Speed, int> { { Core.Speed.Walk, speed } };
         }
 
         public Race(string name, Size size, IDictionary<Speed, int> speed)
