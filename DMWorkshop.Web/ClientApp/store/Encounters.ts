@@ -73,7 +73,7 @@ export const actionCreators = {
 };
 
 const unloadedState: EncounterState = {
-    encounter: { instances: [], modifiedXp: 0, totalXp: 0 }
+    encounter: { instances: [], modifiedXp: 0, totalXp: 0, difficulty: Encounter.Difficulty.Critter }
 };
 
 export const reducer: Reducer<EncounterState> = (state: EncounterState, action: KnownAction) => {

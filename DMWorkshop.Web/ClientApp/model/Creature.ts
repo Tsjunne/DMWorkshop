@@ -4,6 +4,7 @@ export interface Creature {
     maxHP: number;
     ac: number;
     xp: number;
+    level: number;
     passivePerception: number;
     initiativeModifier: number;
     scores: number[];

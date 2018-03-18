@@ -25,7 +25,7 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
             <Table.Row >
                 <Table.Cell collapsing><Icon name='lightning' /> {this.props.instance.initiative}</Table.Cell>
                 <Table.Cell collapsing><Image size='mini' src={'/api/creatures/' + this.props.instance.creature.name + '/portrait'} /></Table.Cell>
-                <Table.Cell collapsing>{this.props.instance.creature.name}</Table.Cell>
+                <Table.Cell collapsing>{this.props.instance.creature.name} {this.props.instance.isPlayer ? "" : this.props.instance.number}</Table.Cell>
                 <Table.Cell collapsing>
                     <Icon name='shield' /> <b className='large text'>{this.props.instance.creature.ac}</b>
                 </Table.Cell>

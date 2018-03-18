@@ -29,6 +29,7 @@ export class CreatureInstance {
     constructor(creature: Creature.Creature) {
         this.id = Guid.create().toString();
         this.creature = creature;
+        this.number = 1;
         this.initiative = this.roll(20) + creature.initiativeModifier;
         this.hp = creature.maxHP;
         this.conditions = [];

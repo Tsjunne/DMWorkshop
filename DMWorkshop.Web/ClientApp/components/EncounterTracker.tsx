@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Table, Button, Icon } from "semantic-ui-react";
+import { Table, Button, Icon, Image } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
 import * as Encounters from '../store/Encounters';
@@ -18,7 +18,11 @@ class EncounterTracker extends React.Component<EncounterProps, {}> {
                 <Table>
                     <Table.Body>
                         <Table.Row>
-                            <Table.Cell>Total XP: {this.props.encounter.totalXp} ({this.props.encounter.modifiedXp})</Table.Cell>
+                            <Table.Cell collapsing><b>XP</b> {this.props.encounter.totalXp} ({this.props.encounter.modifiedXp})</Table.Cell>
+                            <Table.Cell collapsing>
+                                <Image size='mini' src={'/images/' + this.props.encounter.difficulty + '.svg'} />
+                            </Table.Cell>
+                            <Table.Cell />
                             <Table.Cell collapsing><Button icon='trash' negative onClick={this.props.clearEncounter}/></Table.Cell>
                         </Table.Row>
                     </Table.Body>

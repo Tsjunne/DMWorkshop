@@ -20,7 +20,7 @@ export class CreatureCard extends React.Component<CreatureCardProps, {}> {
             <Card >
                 <Card.Content>
                     <Image floated='left' size='mini' src={'/api/creatures/' + this.props.creature.name + '/portrait'} />
-                        <Button floated='right' icon='plus' compact color='green' onClick={() => { this.props.addCreature(this.props.creature) }} />
+                    <Button floated='right' icon='plus' compact color='green' onClick={() => { this.props.addCreature(this.props.creature) }} />
                     <Card.Header>
                         <h4>{this.props.creature.name}</h4>
                     </Card.Header>

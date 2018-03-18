@@ -10,6 +10,7 @@ namespace DMWorkshop.DTO.Characters
         public int MaxHP { get; set; }
         public int AC { get; set; }
         public int XP { get; set; }
+        public int Level { get; set; }
         public int PassivePerception { get; set; }
         public int InitiativeModifier { get; set; }
         public int[] Scores { get; set; }
