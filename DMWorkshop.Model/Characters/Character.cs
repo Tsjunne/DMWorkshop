@@ -42,8 +42,8 @@ namespace DMWorkshop.Model.Characters
                 return ac;
             }
         }
-        public int PassivePerception => 10 + GetModifier(Ability.Wisdom, Skill.Perception);
-        public int InitiativeModifier => GetModifier(Ability.Dexterity, Skill.Initiative);
+        public int PassivePerception => 10 + GetSkillModifier(Ability.Wisdom, Skill.Perception);
+        public int InitiativeModifier => GetSkillModifier(Ability.Dexterity, Skill.Initiative);
 
         public string Name { get; }
         public IEnumerable<int> Scores { get; }
@@ -59,16 +59,10 @@ namespace DMWorkshop.Model.Characters
         public IEnumerable<string> Gear { get; }
         public IEnumerable<Skill> Skills { get; }
         public IEnumerable<Skill> Expertise { get; }
-        
-        public int GetModifier(Ability ability, Skill skill)
-        {
-            var proficiencyBonus = 0;
+        public IDictionary<Vision, int> Vision { get; protected set; }
 
-            if (Skills.Contains(skill)) proficiencyBonus = _proficiency;
-            if (Expertise.Contains(skill)) proficiencyBonus = _proficiency * 2;
-
-            return AbilityScores[ability].Modifier + proficiencyBonus;
-        }
+        public IDictionary<Skill, int> SkillModifiers => Skills.Concat(Expertise).ToDictionary(x => x, x => GetSkillModifier(Tables.StandardSkillAbilities[x], x));
+        public IDictionary<Ability, int> SavingThrows => _saves.ToDictionary(x => x, x => GetSaveModifier(x));
 
         public void Equip(params Gear[] gear)
         {
@@ -98,6 +92,26 @@ namespace DMWorkshop.Model.Characters
                 _equipedGear.Remove(slot);
             }
         }
+
+        private int GetSkillModifier(Ability ability, Skill skill)
+        {
+            var proficiencyBonus = 0;
+
+            if (Skills.Contains(skill)) proficiencyBonus = _proficiency;
+            if (Expertise.Contains(skill)) proficiencyBonus = _proficiency * 2;
+
+            return AbilityScores[ability].Modifier + proficiencyBonus;
+        }
+
+        private int GetSaveModifier(Ability ability)
+        {
+            var proficiencyBonus = 0;
+
+            if (_saves.Contains(ability)) proficiencyBonus = _proficiency;
+
+            return AbilityScores[ability].Modifier + proficiencyBonus;
+        }
+
         private int DetermineProficiencyBonus(double cr)
         {
             if (cr >= 29) return 9;

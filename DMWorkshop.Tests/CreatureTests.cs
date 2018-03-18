@@ -22,14 +22,14 @@ namespace DMWorkshop.Tests
                 new Armor("Shield", ItemSlot.LeftHand, 2)
             };
 
-            var goblin = new Creature("Goblin", scores, Size.Small, new Dictionary<Speed, int>() { { Speed.Walk, 30} }, 2, 0.25, Enumerable.Empty<string>(), Enumerable.Empty<Ability>(), Enumerable.Empty<Skill>(), new[] { Skill.Stealth});
+            var goblin = new Creature("Goblin", scores, Size.Small, new Dictionary<Speed, int>() { { Speed.Walk, 30} }, 2, 0.25, Enumerable.Empty<string>(), Enumerable.Empty<Ability>(), Enumerable.Empty<Skill>(), new[] { Skill.Stealth}, new Dictionary<Vision, int>());
 
             goblin.Equip(gear);
             
             Assert.Equal(7, goblin.MaxHP);
             Assert.Equal(15, goblin.AC);
             Assert.Equal(9, goblin.PassivePerception);
-            Assert.Equal(6, goblin.GetModifier(Ability.Dexterity, Skill.Stealth));
+            Assert.Equal(6, goblin.SkillModifiers[Skill.Stealth]);
         }
     }
 }

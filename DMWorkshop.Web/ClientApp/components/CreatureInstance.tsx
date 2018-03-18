@@ -4,12 +4,14 @@ import { Slider } from 'react-semantic-ui-range';
 import { NumberPicker } from 'semantic-ui-react-numberpicker';
 import * as Encounters from '../store/Encounters';
 import * as Model from '../model/CreatureInstance';
+import { CreatureDetails } from './CreatureDetails';
 
 type CreatureInstanceProps =
     {
         instance: Model.CreatureInstance,
         changeCreatureHp: (instance: Model.CreatureInstance, newHp: number) => Encounters.ChangeCreatureHpAction
         changeCreatureCondition: (instance: Model.CreatureInstance, condition: Model.Condition, add: boolean) => Encounters.ChangeCreatureConditionAction
+        removeCreature: (instance: Model.CreatureInstance) => Encounters.RemoveCreatureAction
     }
 
 export class CreatureInstance extends React.Component<CreatureInstanceProps, CreatureInstanceProps> {
@@ -26,6 +28,9 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                 <Table.Cell collapsing><Icon name='lightning' /> {this.props.instance.initiative}</Table.Cell>
                 <Table.Cell collapsing><Image size='mini' src={'/api/creatures/' + this.props.instance.creature.name + '/portrait'} /></Table.Cell>
                 <Table.Cell collapsing>{this.props.instance.creature.name} {this.props.instance.isPlayer ? "" : this.props.instance.number}</Table.Cell>
+                <Table.Cell collapsing>
+                    <CreatureDetails creature={this.props.instance.creature} />
+                </Table.Cell>
                 <Table.Cell collapsing>
                     <Icon name='shield' /> <b className='large text'>{this.props.instance.creature.ac}</b>
                 </Table.Cell>
@@ -61,6 +66,9 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                         on='click'
                         hideOnScroll
                     />
+                </Table.Cell>
+                <Table.Cell collapsing>
+                    <Button icon='remove circle' color='red' onClick={() => this.props.removeCreature(this.props.instance)}/>
                 </Table.Cell>
             </Table.Row>
         );

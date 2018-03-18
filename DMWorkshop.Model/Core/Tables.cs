@@ -74,26 +74,55 @@ namespace DMWorkshop.Model.Core
 
         public static IDictionary<string, Race> RacesByName = new[]
         {
-            new Race("Dwarf", Size.Medium, 25),
-            new Race("Elf", Size.Medium, 30),
+            new Race("Dwarf", Size.Medium, 25, 60),
+            new Race("Elf", Size.Medium, 30, 60),
             new Race("Halfling", Size.Small, 25),
             new Race("Human", Size.Medium, 30),
             new Race("Dragonborn", Size.Medium, 30),
-            new Race("Gnome", Size.Small, 25),
-            new Race("Half-Elf", Size.Medium, 30),
-            new Race("Half-Orc", Size.Medium, 30),
-            new Race("Thiefling", Size.Medium, 30),
-            new Race("Aasimar", Size.Medium, 30),
+            new Race("Gnome", Size.Small, 25, 60),
+            new Race("Half-Elf", Size.Medium, 30, 60),
+            new Race("Half-Orc", Size.Medium, 30, 60),
+            new Race("Thiefling", Size.Medium, 30, 60),
+            new Race("Aasimar", Size.Medium, 30, 60),
             new Race("Firbolg", Size.Medium, 30),
             new Race("Goliath", Size.Medium, 30),
             new Race("Kenku", Size.Medium, 30),
-            new Race("Lizardfolk", Size.Medium, new Dictionary<Speed, int>
-            {
-                { Speed.Walk, 30 },
-                { Speed.Swim, 30 }
-            }),
-            new Race("Tabaxi", Size.Medium, 30),
-            new Race("Triton", Size.Medium, 30)
+            new Race("Lizardfolk", Size.Medium,
+                new Dictionary<Speed, int>
+                {
+                    { Speed.Walk, 30 },
+                    { Speed.Swim, 30 }
+                }),
+            new Race("Tabaxi", Size.Medium, 30, 60),
+            new Race("Triton", Size.Medium,
+                new Dictionary<Speed, int>
+                {
+                    { Speed.Walk, 30 },
+                    { Speed.Swim, 30 }
+                })
         }.ToDictionary(x => x.Name);
+
+        public static IDictionary<Skill, Ability> StandardSkillAbilities = new Dictionary<Skill, Ability>
+        {
+            {Skill.Acrobatics,Ability.Dexterity },
+            {Skill.AnimalHandling, Ability.Wisdom },
+            {Skill.Arcana, Ability.Intelligence },
+            {Skill.Athletics,Ability.Strength },
+            {Skill.Deception,Ability.Charisma },
+            {Skill.History,Ability.Intelligence },
+            {Skill.Initiative,Ability.Dexterity },
+            {Skill.Insight,Ability.Wisdom },
+            {Skill.Intimidation,Ability.Charisma },
+            {Skill.Investigation,Ability.Intelligence },
+            {Skill.Medicine,Ability.Wisdom },
+            {Skill.Nature,Ability.Intelligence },
+            {Skill.Perception,Ability.Wisdom },
+            {Skill.Performance,Ability.Charisma },
+            {Skill.Persuasion,Ability.Wisdom },
+            {Skill.Religion,Ability.Intelligence },
+            {Skill.SleightOfHand,Ability.Dexterity },
+            {Skill.Stealth,Ability.Dexterity },
+            {Skill.Survival,Ability.Wisdom }
+        };
     }
 }

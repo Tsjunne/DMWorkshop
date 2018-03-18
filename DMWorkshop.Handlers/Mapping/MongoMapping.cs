@@ -22,7 +22,8 @@ namespace DMWorkshop.Handlers.Mapping
             BsonSerializer.RegisterSerializer(new EnumSerializer<Size>(BsonType.String));
             BsonSerializer.RegisterSerializer(new EnumSerializer<ItemSlot>(BsonType.String));
             BsonSerializer.RegisterSerializer(new EnumSerializer<Speed>(BsonType.String));
-            
+            BsonSerializer.RegisterSerializer(new EnumSerializer<Vision>(BsonType.String));
+
             BsonClassMap.RegisterClassMap<Character>(m =>
             {
                 m.MapIdMember(x => x.Name).SetIdGenerator(StringObjectIdGenerator.Instance);
@@ -35,12 +36,13 @@ namespace DMWorkshop.Handlers.Mapping
                 m.MapMember(c => c.Gear);
                 m.MapMember(c => c.Skills);
                 m.MapMember(c => c.Expertise);
+                m.MapMember(c => c.Vision);
             });
 
             BsonClassMap.RegisterClassMap<Creature>(m =>
             {
                 m.MapMember(c => c.Saves);
-                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Speed, c.Level, c.CR, c.Gear, c.Saves, c.Skills, c.Expertise));
+                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Speed, c.Level, c.CR, c.Gear, c.Saves, c.Skills, c.Expertise, c.Vision));
             });
 
             BsonClassMap.RegisterClassMap<Player>(m =>

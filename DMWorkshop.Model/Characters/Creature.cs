@@ -10,12 +10,13 @@ namespace DMWorkshop.Model.Characters
 {
     public class Creature : Character
     {
-        public Creature(string name, IEnumerable<int> scores, Size size, IDictionary<Speed, int> speed, int level, double cr, IEnumerable<string> gear, IEnumerable<Ability> saves, IEnumerable<Skill> skills, IEnumerable<Skill> expertise)
+        public Creature(string name, IEnumerable<int> scores, Size size, IDictionary<Speed, int> speed, int level, double cr, IEnumerable<string> gear, IEnumerable<Ability> saves, IEnumerable<Skill> skills, IEnumerable<Skill> expertise, IDictionary<Vision, int> vision)
             : base(name, scores, level, cr, gear, skills, expertise)
         {
             _saves = saves;
             Speed = speed;
             Size = size;
+            Vision = vision;
         }
 
         public IEnumerable<Ability> Saves => _saves;

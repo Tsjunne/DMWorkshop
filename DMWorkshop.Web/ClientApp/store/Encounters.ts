@@ -12,6 +12,7 @@ export interface EncounterState {
 
 enum ActionTypes {
     ADD_CREATURE = 'ADD_CREATURE',
+    REMOVE_CREATURE = 'REMOVE_CREATURE',
     ADD_PLAYERS = 'ADD_PLAYERS',
     CHANGE_CREATURE_HP = 'CHANGE_CREATURE_HP',
     CHANGE_CREATURE_CONDITION = 'CHANGE_CREATURE_CONDITION',
@@ -21,6 +22,11 @@ enum ActionTypes {
 interface AddCreatureAction {
     type: ActionTypes.ADD_CREATURE;
     creature: Creature.Creature;
+}
+
+export interface RemoveCreatureAction {
+    type: ActionTypes.REMOVE_CREATURE;
+    instance: CreatureInstance.CreatureInstance;
 }
 
 interface AddPlayersAction {
@@ -45,12 +51,16 @@ interface ClearEncounterAction {
     type: ActionTypes.CLEAR_ENCOUNTER;
 }
 
-type KnownAction = AddCreatureAction | AddPlayersAction | ClearEncounterAction | ChangeCreatureHpAction | ChangeCreatureConditionAction;
+type KnownAction = AddCreatureAction | AddPlayersAction | ClearEncounterAction | ChangeCreatureHpAction | ChangeCreatureConditionAction | RemoveCreatureAction;
 
 export const actionCreators = {
     addCreature: (creature: Creature.Creature) => <AddCreatureAction>{
         type: ActionTypes.ADD_CREATURE,
         creature: creature
+    },
+    removeCreature: (instance: CreatureInstance.CreatureInstance) => <RemoveCreatureAction>{
+        type: ActionTypes.REMOVE_CREATURE,
+        instance: instance
     },
     addPlayers: (playerRolls: Creature.CharacterRoll[]) => <AddPlayersAction>{
         type: ActionTypes.ADD_PLAYERS,
@@ -80,6 +90,8 @@ export const reducer: Reducer<EncounterState> = (state: EncounterState, action: 
     switch (action.type) {
         case ActionTypes.ADD_CREATURE:
             return { encounter: new Encounter.Encounter(state.encounter).addCreature(action.creature).buildData() };
+        case ActionTypes.REMOVE_CREATURE:
+            return { encounter: new Encounter.Encounter(state.encounter).removeCreature(action.instance).buildData() };
         case ActionTypes.ADD_PLAYERS:
             return { encounter: new Encounter.Encounter(state.encounter).addPlayers(action.playerRolls).buildData() };
         case ActionTypes.CHANGE_CREATURE_HP:

@@ -20,7 +20,7 @@ class EncounterTracker extends React.Component<EncounterProps, {}> {
                         <Table.Row>
                             <Table.Cell collapsing><b>XP</b> {this.props.encounter.totalXp} ({this.props.encounter.modifiedXp})</Table.Cell>
                             <Table.Cell collapsing>
-                                <Image size='mini' src={'/images/' + this.props.encounter.difficulty + '.svg'} />
+                                <Image size='mini' rounded src={'/images/' + this.props.encounter.difficulty + '.svg'} />
                             </Table.Cell>
                             <Table.Cell />
                             <Table.Cell collapsing><Button icon='trash' negative onClick={this.props.clearEncounter}/></Table.Cell>
@@ -32,7 +32,8 @@ class EncounterTracker extends React.Component<EncounterProps, {}> {
                         {this.props.encounter.instances.map(instance =>
                             <CreatureInstance key={instance.id} instance={instance}
                                 changeCreatureHp={this.props.changeCreatureHp}
-                                changeCreatureCondition={this.props.changeCreatureCondition} />
+                                changeCreatureCondition={this.props.changeCreatureCondition}
+                                removeCreature={this.props.removeCreature}/>
                         )}
                     </Table.Body>
                 </Table>

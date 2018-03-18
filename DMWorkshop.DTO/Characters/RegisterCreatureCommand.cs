@@ -10,6 +10,7 @@ namespace DMWorkshop.DTO.Characters
         public int[] Scores { get; set; }
         public string Size { get; set; }
         public IDictionary<string, int> Speed { get; set; } = new Dictionary<string, int> { { "Walk", 30} };
+        public IDictionary<string, int> Vision { get; set; } = new Dictionary<string, int> { };
         public int Level { get; set; }
         public string Name { get; set; }
         public string[] Gear { get; set; } = new string[] { };

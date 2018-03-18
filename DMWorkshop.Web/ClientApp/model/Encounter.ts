@@ -51,6 +51,11 @@ export class Encounter {
         return this;
     }
 
+    public removeCreature(instance: CreatureInstance.CreatureInstance): Encounter {
+        this.instances = this.instances.filter(x => x != instance)
+        return this;
+    }
+
     public addPlayers(playerRolls: Creature.CharacterRoll[]): Encounter {
         //Remove players from initative table
         this.instances = this.instances.filter(x => !(x instanceof CreatureInstance.Player))
@@ -98,6 +103,9 @@ export class Encounter {
 
     calculateDifficulty(modifiedXp: number): Difficulty {
         var thresholds = this.instances.filter(x => x.isPlayer).map(x => xpThresholds[x.creature.level])
+
+        if (modifiedXp == 0 || thresholds.length == 0) return Difficulty.Critter;
+
         var partyThreshold = thresholds.reduce(function (sum, t) { return { easy: sum.easy + t.easy, medium: sum.medium + t.medium, hard: sum.hard + t.hard, deadly: sum.deadly + t.deadly } });
 
         switch (true) {

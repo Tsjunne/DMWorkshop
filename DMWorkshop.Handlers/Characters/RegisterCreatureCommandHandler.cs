@@ -33,7 +33,8 @@ namespace DMWorkshop.Handlers.Characters
                 command.Gear,
                 command.Saves.Select(x => Enum.Parse<Ability>(x)),
                 command.Skills.Select(x => Enum.Parse<Skill>(x)),
-                command.Expertise.Select(x => Enum.Parse<Skill>(x))
+                command.Expertise.Select(x => Enum.Parse<Skill>(x)),
+                command.Vision.ToDictionary(x => Enum.Parse<Vision>(x.Key), x => x.Value)
                 );
 
             return _database.Save("creatures", x => x.Name == creature.Name, creature, cancellationToken);
