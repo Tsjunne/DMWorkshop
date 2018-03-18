@@ -16,9 +16,11 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
 
         return (
             <Modal size='tiny' trigger={<Button icon='id card outline'/>}>
-                <Modal.Header icon='id card outline'>{this.props.creature.name}</Modal.Header>
-                <Modal.Content image>
-                    <Image wrapped size='tiny' src={'/api/creatures/' + this.props.creature.name + '/portrait'} />
+                <Modal.Header>
+                    <Icon name='id card outline' /> {this.props.creature.name}
+                </Modal.Header>
+                <Modal.Content>
+                    <Image floated='left' size='tiny' src={'/api/creatures/' + this.props.creature.name + '/portrait'} />
                     <Modal.Description>
                         <Table basic='very' fixed singleLine collapsing compact size='small'>
                             <Table.Body>
@@ -57,8 +59,8 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
         var speed = creature.speed['Walk'] + 'ft';
 
         for (let type in creature.speed) {
-            if(type != 'Walk')
-            speed += ', ' + type + ' ' + creature.speed[type] + ' ft'
+            if (type != 'Walk')
+                speed += ', ' + type.toLowerCase() + ' ' + creature.speed[type] + ' ft'
         }
 
         return speed;
@@ -89,7 +91,7 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
         var saves = [];
 
         for (let type in creature.savingThrows) {
-            saves.push(type + ' +' + creature.savingThrows[type])
+            saves.push(type.substr(0, 3) + ' +' + creature.savingThrows[type])
         }
 
         return saves.length > 0 ? saves.reduce((str, x) => str + ', ' + x) : '';
