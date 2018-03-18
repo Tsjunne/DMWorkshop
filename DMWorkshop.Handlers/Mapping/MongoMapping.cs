@@ -1,4 +1,5 @@
-﻿using DMWorkshop.Model.Characters;
+﻿using DMWorkshop.Model.Campaign;
+using DMWorkshop.Model.Characters;
 using DMWorkshop.Model.Core;
 using DMWorkshop.Model.Items;
 using MongoDB.Bson;
@@ -61,8 +62,17 @@ namespace DMWorkshop.Handlers.Mapping
                 m.MapMember(x => x.ArmorSlot);
                 m.MapMember(x => x.AC);
                 m.MapMember(x => x.DexModLimit);
-                m.MapCreator(x => new Armor(x.Name, x.ArmorSlot, x.AC, x.DexModLimit));
+                m.MapMember(x => x.AdditionalModifiers);
+                m.MapCreator(x => new Armor(x.Name, x.ArmorSlot, x.AC, x.DexModLimit, x.AdditionalModifiers));
             });
+
+            BsonClassMap.RegisterClassMap<Party>(m =>
+            {
+                m.MapIdMember(x => x.Name).SetIdGenerator(StringObjectIdGenerator.Instance);
+                m.MapMember(x => x.Members);
+                m.MapCreator(x => new Party(x.Name, x.Members));
+            });
+
         }
     }
 }

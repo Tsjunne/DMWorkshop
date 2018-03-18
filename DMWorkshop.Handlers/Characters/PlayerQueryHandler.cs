@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DMWorkshop.DTO.Characters;
+using DMWorkshop.Model.Campaign;
 using DMWorkshop.Model.Characters;
 using DMWorkshop.Model.Items;
 using MediatR;
@@ -44,9 +45,25 @@ namespace DMWorkshop.Handlers.Characters
         {
             var collection = _database.GetCollection<Player>("players");
 
-            var players = await collection.AsQueryable()
-                .OrderBy(x => x.Name)
-                .ToListAsync(cancellationToken);
+            IList<Player> players;
+
+            if (query.Party == "All")
+            {
+                players = await collection.AsQueryable()
+                    .OrderBy(x => x.Name)
+                    .ToListAsync(cancellationToken);
+            }
+            else
+            {
+                var party = await _database.GetCollection<Party>("parties").AsQueryable()
+                    .Where(x => x.Name == query.Party)
+                    .SingleAsync(cancellationToken);
+
+                players = await collection.AsQueryable()
+                    .Where(x => party.Members.Contains(x.Name))
+                    .OrderBy(x => x.Name)
+                    .ToListAsync(cancellationToken);
+            }
 
             await LoadGear(players.ToArray());
 

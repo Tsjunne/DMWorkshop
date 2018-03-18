@@ -37,13 +37,13 @@ class Party extends React.Component<PartyProps, PartyState> {
     componentWillMount() {
         // This method runs when the component is first added to the page
         //let creatureSet = this.props.match.params.creatureSet || 'All';
-        this.props.requestPlayers('All');
+        this.props.requestPlayers('LMoP');
     }
 
     componentWillReceiveProps(nextProps: PartyProps) {
         // This method runs when incoming props (e.g., route params) change
         //let creatureSet = this.props.match.params.creatureSet || 'All';
-        this.props.requestPlayers('All');
+        this.props.requestPlayers('LMoP');
     }
     
     public render() {

@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using MediatR;
-using DMWorkshop.DTO.Items;
 using System.Threading;
+using System.Threading.Tasks;
+using DMWorkshop.DTO.Campaign;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DMWorkshop.Web.Controllers
 {
     [Route("api/[controller]")]
-    public class ArmorController : Controller
+    public class PartiesController : Controller
     {
         private readonly IMediator _mediator;
 
-        public ArmorController(IMediator mediator)
+        public PartiesController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
-        public Task Register([FromBody] RegisterArmorCommand command, CancellationToken cancellationToken)
+        public Task Register([FromBody] RegisterPartyCommand command, CancellationToken cancellationToken)
         {
             return _mediator.Send(command, cancellationToken);
         }

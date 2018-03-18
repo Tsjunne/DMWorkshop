@@ -11,5 +11,7 @@ namespace DMWorkshop.DTO.Items
         public int AC { get; set; }
         public string Slot { get; set; }
         public int? DexModLimit { get; set; }
+
+        public IEnumerable<string> AdditionalModifiers { get; set; } = new string[] { };
     }
 }
