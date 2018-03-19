@@ -18,5 +18,32 @@ namespace DMWorkshop.DTO.Characters
         public string[] Expertise { get; set; } = new string[] { };
         public string[] Saves { get; set; } = new string[] { };
         public double? CR { get; set; }
+        public IEnumerable<AttackInfo> Attacks { get; set; }
+        public IEnumerable<SpecialAbilityInfo> SpecialAbilities { get; set; }
+    }
+
+    public class DamageInfo
+    {
+        public int DieCount { get; set; }
+        public int DieSize { get; set; }
+        public int DamageBonus { get; set; }
+        public string DamageType { get; set; }
+    }
+
+    public class AttackInfo
+    {
+        public string Name { get; set; }
+        public int Type { get; set; }
+        public bool Finesse { get; set; }
+        public int Range { get; set; } = 5;
+        public int? MaxRange { get; set; }
+        public IEnumerable<DamageInfo> Damage { get; set; }
+        public string Info { get; set; }
+    }
+
+    public class SpecialAbilityInfo
+    {
+        public string Name { get; set; }
+        public string Info { get; set; }
     }
 }

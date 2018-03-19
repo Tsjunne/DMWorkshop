@@ -12,6 +12,7 @@ using MediatR;
 using AutoMapper;
 using MongoDB.Driver;
 using DMWorkshop.Handlers.Mapping;
+using Newtonsoft.Json;
 
 namespace DMWorkshop.Web
 {
@@ -27,9 +28,14 @@ namespace DMWorkshop.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options =>
+                {
+                    var settings = options.SerializerSettings;
+                    settings.NullValueHandling = NullValueHandling.Ignore;
+                });
             services.AddMediatR(typeof(RegisterCreatureCommandHandler).Assembly);
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(RegisterCreatureCommandHandler).Assembly);
 
             var connectionString = Configuration.GetConnectionString("DMWorkshop");
 

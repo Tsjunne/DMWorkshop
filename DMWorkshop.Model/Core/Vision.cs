@@ -4,10 +4,11 @@ using System.Text;
 
 namespace DMWorkshop.Model.Core
 {
-    public enum Vision
+    public enum Senses
     {
         Blindsight,
         Darkvision,
-        Truesight
+        Truesight,
+        Tremorsense
     }
 }

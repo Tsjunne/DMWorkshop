@@ -17,14 +17,14 @@ namespace DMWorkshop.Model.Core
             Name = name;
             Size = size;
             Speed = speed;
-            Vision = new Dictionary<Vision, int>();
+            Vision = new Dictionary<Senses, int>();
 
-            if (darkvision.HasValue) Vision.Add(Core.Vision.Darkvision, darkvision.Value);
+            if (darkvision.HasValue) Vision.Add(Core.Senses.Darkvision, darkvision.Value);
         }
 
         public string Name { get; }
         public Size Size { get; }
         public IDictionary<Speed, int> Speed { get; }
-        public IDictionary<Vision, int> Vision { get; }
+        public IDictionary<Senses, int> Vision { get; }
     }
 }

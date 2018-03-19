@@ -22,8 +22,24 @@ namespace DMWorkshop.Handlers.Mapping
             BsonSerializer.RegisterSerializer(new EnumSerializer<Size>(BsonType.String));
             BsonSerializer.RegisterSerializer(new EnumSerializer<ItemSlot>(BsonType.String));
             BsonSerializer.RegisterSerializer(new EnumSerializer<Speed>(BsonType.String));
-            BsonSerializer.RegisterSerializer(new EnumSerializer<Vision>(BsonType.String));
+            BsonSerializer.RegisterSerializer(new EnumSerializer<Senses>(BsonType.String));
+            BsonSerializer.RegisterSerializer(new EnumSerializer<DamageType>(BsonType.String));
+            BsonSerializer.RegisterSerializer(new EnumSerializer<AttackType>(BsonType.String));
 
+            BsonClassMap.RegisterClassMap<Damage>(m =>
+            {
+                m.AutoMap();
+            });
+
+            BsonClassMap.RegisterClassMap<Attack>(m =>
+            {
+                m.AutoMap();
+            });
+
+            BsonClassMap.RegisterClassMap<SpecialAbility>(m =>
+            {
+                m.AutoMap();
+            });
             BsonClassMap.RegisterClassMap<Character>(m =>
             {
                 m.MapIdMember(x => x.Name).SetIdGenerator(StringObjectIdGenerator.Instance);
@@ -36,13 +52,17 @@ namespace DMWorkshop.Handlers.Mapping
                 m.MapMember(c => c.Gear);
                 m.MapMember(c => c.Skills);
                 m.MapMember(c => c.Expertise);
-                m.MapMember(c => c.Vision);
+                m.MapMember(c => c.Senses);
             });
 
             BsonClassMap.RegisterClassMap<Creature>(m =>
             {
                 m.MapMember(c => c.Saves);
-                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Speed, c.Level, c.CR, c.Gear, c.Saves, c.Skills, c.Expertise, c.Vision));
+                m.MapMember(c => c.Attacks);
+                m.MapMember(c => c.SpecialAbilities);
+                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Speed, c.Level, c.CR, c.Gear, c.Saves, c.Skills, c.Expertise, c.Senses, c.Attacks, c.SpecialAbilities));
+                m.SetIgnoreExtraElements(true);
+                m.SetIgnoreExtraElementsIsInherited(true);
             });
 
             BsonClassMap.RegisterClassMap<Player>(m =>

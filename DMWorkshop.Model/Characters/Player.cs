@@ -19,7 +19,7 @@ namespace DMWorkshop.Model.Characters
             var r = Tables.RacesByName[race];
             Speed = r.Speed;
             Size = r.Size;
-            Vision = r.Vision;
+            Senses = r.Vision;
         }
 
         public Classes Class { get; }

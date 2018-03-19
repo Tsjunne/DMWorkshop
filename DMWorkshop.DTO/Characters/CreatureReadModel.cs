@@ -19,6 +19,8 @@ namespace DMWorkshop.DTO.Characters
         public IDictionary<string, int> Speed { get; set; }
         public IDictionary<string, int> SkillModifiers { get; set; }
         public IDictionary<string, int> SavingThrows { get; set; }
-        public IDictionary<string, int> Vision { get; set; }
+        public IDictionary<string, int> Senses { get; set; }
+        public IEnumerable<AttackInfo> Attacks { get; set; }
+        public IEnumerable<SpecialAbilityInfo> SpecialAbilities { get; set; }
     }
 }

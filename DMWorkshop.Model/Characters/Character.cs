@@ -59,7 +59,7 @@ namespace DMWorkshop.Model.Characters
         public IEnumerable<string> Gear { get; }
         public IEnumerable<Skill> Skills { get; }
         public IEnumerable<Skill> Expertise { get; }
-        public IDictionary<Vision, int> Vision { get; protected set; }
+        public IDictionary<Senses, int> Senses { get; protected set; }
 
         public IDictionary<Skill, int> SkillModifiers => Skills.Concat(Expertise).ToDictionary(x => x, x => GetSkillModifier(Tables.StandardSkillAbilities[x], x));
         public IDictionary<Ability, int> SavingThrows => _saves.ToDictionary(x => x, x => GetSaveModifier(x));

@@ -9,16 +9,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using DMWorkshop.Model.Characters;
+using AutoMapper;
 
 namespace DMWorkshop.Handlers.Characters
 {
     public class RegisterCreatureCommandHandler : IRequestHandler<RegisterCreatureCommand>
     {
         private readonly IMongoDatabase _database;
+        private readonly IMapper _mapper;
 
-        public RegisterCreatureCommandHandler(IMongoDatabase database)
+        public RegisterCreatureCommandHandler(IMongoDatabase database, IMapper mapper)
         {
             _database = database;
+            _mapper = mapper;
         }
 
         public Task Handle(RegisterCreatureCommand command, CancellationToken cancellationToken)
@@ -34,7 +37,9 @@ namespace DMWorkshop.Handlers.Characters
                 command.Saves.Select(x => Enum.Parse<Ability>(x)),
                 command.Skills.Select(x => Enum.Parse<Skill>(x)),
                 command.Expertise.Select(x => Enum.Parse<Skill>(x)),
-                command.Vision.ToDictionary(x => Enum.Parse<Vision>(x.Key), x => x.Value)
+                command.Vision.ToDictionary(x => Enum.Parse<Senses>(x.Key), x => x.Value),
+                _mapper.Map<IEnumerable<Attack>>(command.Attacks),
+                _mapper.Map<IEnumerable<SpecialAbility>>(command.SpecialAbilities)
                 );
 
             return _database.Save("creatures", x => x.Name == creature.Name, creature, cancellationToken);
