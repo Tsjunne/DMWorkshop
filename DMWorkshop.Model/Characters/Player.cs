@@ -25,5 +25,12 @@ namespace DMWorkshop.Model.Characters
         public Classes Class { get; }
         public string Race { get; }
         public int MaxHP { get; }
+
+        public IEnumerable<Attack> Attacks => new Attack[] { };
+        public IEnumerable<SpecialAbility> SpecialAbilities => new SpecialAbility[] { };
+        public IEnumerable<Condition> ConditionImmunities => new Condition[] { };
+        public IEnumerable<DamageType> DamageImmunities => new DamageType[] { };
+        public IEnumerable<DamageType> DamageResistances => new DamageType[] { };
+        public IEnumerable<DamageType> DamageVulnerabilities => new DamageType[] { };
     }
 }
