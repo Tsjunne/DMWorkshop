@@ -12,10 +12,10 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
     public render() {
         var saves = Object.keys(this.props.creature.savingThrows).length > 0 ? <List.Item><b>Saving Throws</b> {this.formatSaves(this.props.creature)} </List.Item> : '';
         var skills = Object.keys(this.props.creature.skillModifiers).length > 0 ? <List.Item><b>Skills</b> {this.formatSkills(this.props.creature)} </List.Item> : '';
-        var senses = Object.keys(this.props.creature.vision).length > 0 ? <List.Item><b>Senses</b> {this.formatSenses(this.props.creature)} </List.Item> : '';
-
+        var senses = Object.keys(this.props.creature.senses).length > 0 ? <List.Item><b>Senses</b> {this.formatSenses(this.props.creature)} </List.Item> : '';
+        
         return (
-            <Modal size='tiny' trigger={<Button icon='id card outline'/>}>
+            <Modal size='small' trigger={<Button icon='id card outline'/>}>
                 <Modal.Header>
                     <Icon name='id card outline' /> {this.props.creature.name}
                 </Modal.Header>
@@ -29,6 +29,7 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
                                     <Table.Cell><Icon name='shield' /> {this.props.creature.ac}</Table.Cell>
                                     <Table.Cell><Icon name='eye' /> {this.props.creature.passivePerception}</Table.Cell>
                                     <Table.Cell><Icon name='paw' /> {this.formatSpeed(this.props.creature)}</Table.Cell>
+                                    <Table.Cell><Icon name='trophy' /> {this.formatCR(this.props.creature.cr) + ' (' + this.props.creature.xp + ' XP)'}</Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         </Table>
@@ -38,9 +39,20 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
                         <List>
                             {saves}
                             {skills}
+                            <TypeList label='Damage Vulnerabilities' types={this.props.creature.damageVulnerabilities} />
+                            <TypeList label='Damage Resistances' types={this.props.creature.damageResistances.map(x => x == 'NonMagical' ? 'bludgeoning, piercing, and slashing damage from non magical attacks' : x)} />
+                            <TypeList label='Damage Immunities' types={this.props.creature.damageImmunities.map(x => x == 'NonMagical' ? 'bludgeoning, piercing, and slashing damage from non magical attacks' : x)} />
+                            <TypeList label='Condition Immunities' types={this.props.creature.conditionImmunities} />
                             {senses}
-                            <List.Item><b>Challenge</b> {this.formatCR(this.props.creature.cr) + ' (' + this.props.creature.xp +' XP)'}</List.Item>
                         </List>
+                        <Divider />
+                        {this.props.creature.specialAbilities.map(sa =>
+                            <SimpleInfo label={sa.name} info={sa.info} />
+                            )}
+                        <Divider horizontal>Actions</Divider>
+                        {this.props.creature.attacks.map(attack =>
+                            attack.type ? <AttackInfo attack={attack} /> : <SimpleInfo label={attack.name} info={attack.info}/>
+                            )}
                     </Modal.Description>
                 </Modal.Content>
             </Modal>
@@ -70,11 +82,11 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
     formatSenses(creature: Creature.Creature): string {
         var senses = [];
 
-        for (let type in creature.vision) {
-            senses.push(type + ' ' + creature.vision[type] + ' ft')
+        for (let type in creature.senses) {
+            senses.push(type + ' ' + creature.senses[type] + ' ft')
         }
 
-        return senses.length > 0 ? senses.reduce((str, x) => str + ', ' + x) : '';
+        return senses.length > 0 ? senses.reduce((str, x) => str + ', ' + x).toLowerCase() : '';
     }
 
     formatSkills(creature: Creature.Creature): string {
@@ -95,5 +107,56 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
         }
 
         return saves.length > 0 ? saves.reduce((str, x) => str + ', ' + x) : '';
+    }
+
+}
+
+class TypeList extends React.Component<{ label:string, types: string[] }>{
+    public render() {
+        return this.props.types.length > 0 ? <List.Item><b>{this.props.label}</b> {this.props.types.reduce((str, x) => str + ', ' + x).toLowerCase()} </List.Item> : <span />;
+    }
+}
+
+class SimpleInfo extends React.Component<{ label: string, info: string }> {
+    public render() {
+        return (
+            <List.Item><i><b>{this.props.label}.</b></i> {this.props.info.split('\n').map(line => <span>{line}<br /></span>)} <br /></List.Item>
+        );
+    }
+}
+
+class AttackInfo extends React.Component<{ attack: Creature.Attack }> {
+    public render() {
+        return (
+            <List.Item><i><b>{this.props.attack.name}.</b> {this.formatAttackType(this.props.attack.type)}:</i> {this.formatAttack(this.props.attack)} <i>Hit: </i>{this.formatHit(this.props.attack)} {this.props.attack.info} <br /><br /></List.Item>
+        );
+    }
+
+    formatAttackType(type: Creature.AttackType): string {
+        var format = type & Creature.AttackType.Ranged ? 'Ranged ' : 'Melee ';
+        format += type & Creature.AttackType.Spell ? 'Spell ' : 'Weapon ';
+        format += 'Attack';
+
+        return format
+    }
+
+    formatAttack(attack: Creature.Attack): string {
+        var format = `+${attack.hit} to hit, `;
+
+        format += attack.type & Creature.AttackType.Ranged ? `range ${attack.range}ft.` : `reach ${attack.range}ft.`
+
+        if (attack.maxRange) {
+            format += `/${attack.maxRange}ft.`
+        }
+
+        format += ', one target.'
+
+        return format;
+    }
+
+    formatHit(attack: Creature.Attack): string {
+        var dmg = attack.damage.map(d => `${d.average} (${d.dieCount}d${d.dieSize}${d.bonus ? (d.bonus > 0 ? '+' : '') + d.bonus : ''}) ${d.type.toLowerCase()} damage.`)
+
+        return dmg.length > 0 ? dmg.reduce((str, x) => str + ', ' + x) : '';
     }
 }

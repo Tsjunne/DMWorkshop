@@ -36,6 +36,7 @@
     <None Remove="ClientApp\model\CreatureInstance.ts" />
     <None Remove="ClientApp\model\Encounter.ts" />
     <None Remove="ClientApp\model\Tables.ts" />
+    <None Remove="types\react-remarkable.d.ts" />
     <None Remove="types\react-semantic-ui-range.d.ts" />
     <None Remove="types\semantic-ui-react-numberpicker.d.ts" />
   </ItemGroup>
@@ -63,8 +64,9 @@
     <TypeScriptCompile Include="ClientApp\model\Encounter.ts" />
     <TypeScriptCompile Include="ClientApp\model\Tables.ts" />
     <TypeScriptCompile Include="ClientApp\store\Encounters.ts" />
-    <TypeScriptCompile Include="types\semantic-ui-react-numberpicker.d.ts" />
     <TypeScriptCompile Include="types\react-semantic-ui-range.d.ts" />
+    <TypeScriptCompile Include="types\semantic-ui-react-numberpicker.d.ts" />
+    <TypeScriptCompile Include="types\react-remarkable.d.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

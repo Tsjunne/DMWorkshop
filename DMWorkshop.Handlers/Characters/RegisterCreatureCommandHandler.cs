@@ -37,9 +37,14 @@ namespace DMWorkshop.Handlers.Characters
                 command.Saves.Select(x => Enum.Parse<Ability>(x)),
                 command.Skills.Select(x => Enum.Parse<Skill>(x)),
                 command.Expertise.Select(x => Enum.Parse<Skill>(x)),
-                command.Vision.ToDictionary(x => Enum.Parse<Senses>(x.Key), x => x.Value),
+                command.Senses.ToDictionary(x => Enum.Parse<Senses>(x.Key), x => x.Value),
                 _mapper.Map<IEnumerable<Attack>>(command.Attacks),
-                _mapper.Map<IEnumerable<SpecialAbility>>(command.SpecialAbilities)
+                _mapper.Map<IEnumerable<SpecialAbility>>(command.SpecialAbilities),
+                string.IsNullOrEmpty(command.CastingAbility) ? default(Ability?) : Enum.Parse<Ability>(command.CastingAbility),
+                command.ConditionImmunities.Select(x => Enum.Parse<Condition>(x)),
+                command.DamageImmunities.Select(x => Enum.Parse<DamageType>(x)),
+                command.DamageResistances.Select(x => Enum.Parse<DamageType>(x)),
+                command.DamageVulnerabilities.Select(x => Enum.Parse<DamageType>(x))
                 );
 
             return _database.Save("creatures", x => x.Name == creature.Name, creature, cancellationToken);

@@ -9,13 +9,14 @@ export enum Condition {
     Grappled = 'Grappled',
     Incapacitated = 'Incapacitated',
     Invisible = 'Invisible',
-    Paralized = 'Paralized',
+    Paralyzed = 'Paralyzed',
     Petrified = 'Petrified',
     Poisoned = 'Poisoned',
     Prone = 'Prone',
     Restrained = 'Restrained',
     Stunned = 'Stunned',
-    Unconscious = 'Unconscious'
+    Unconscious = 'Unconscious',
+    Exhaustion = 'Exhaustion'
 }
 
 export class CreatureInstance {

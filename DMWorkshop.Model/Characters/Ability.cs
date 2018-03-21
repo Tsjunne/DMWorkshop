@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DMWorkshop.Model.Core;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DMWorkshop.Model.Characters
@@ -13,21 +15,15 @@ namespace DMWorkshop.Model.Characters
         Spell = 8
     }
 
-    public enum DamageType
-    {
-        Piercing,
-        Slashing,
-        Bludgeoning,
-        Fire,
-        Acid
-    }
-
     public class Damage
     {
         public int DieCount { get; set; }
         public int DieSize { get; set; }
-        public int DamageBonus { get; set; }
-        public DamageType DamageType { get; set; }
+        public int Bonus { get; set; }
+        public DamageType Type { get; set; }
+        public int Average => Convert.ToInt32(Math.Floor(new Die(DieSize).Average * DieCount)) + Bonus;
+
+        public bool IsPhysical => new[] { DamageType.Bludgeoning, DamageType.Piercing, DamageType.Slashing }.Contains(Type);
     }
 
     public class Attack

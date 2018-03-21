@@ -57,12 +57,19 @@ namespace DMWorkshop.Handlers.Mapping
 
             BsonClassMap.RegisterClassMap<Creature>(m =>
             {
+                m.SetIgnoreExtraElements(true);
+                m.SetIgnoreExtraElementsIsInherited(true);
+
                 m.MapMember(c => c.Saves);
                 m.MapMember(c => c.Attacks);
                 m.MapMember(c => c.SpecialAbilities);
-                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Speed, c.Level, c.CR, c.Gear, c.Saves, c.Skills, c.Expertise, c.Senses, c.Attacks, c.SpecialAbilities));
-                m.SetIgnoreExtraElements(true);
-                m.SetIgnoreExtraElementsIsInherited(true);
+                m.MapMember(c => c.CastingAbility);
+                m.MapMember(c => c.ConditionImmunities);
+                m.MapMember(c => c.DamageImmunities);
+                m.MapMember(c => c.DamageResistances);
+                m.MapMember(c => c.DamageVulnerabilities);
+                m.MapCreator(c => new Creature(c.Name, c.Scores, c.Size, c.Speed, c.Level, c.CR, c.Gear, c.Saves, c.Skills, c.Expertise, c.Senses,
+                    c.Attacks, c.SpecialAbilities, c.CastingAbility, c.ConditionImmunities, c.DamageImmunities, c.DamageResistances, c.DamageVulnerabilities));
             });
 
             BsonClassMap.RegisterClassMap<Player>(m =>

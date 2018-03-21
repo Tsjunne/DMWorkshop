@@ -20,7 +20,22 @@ namespace DMWorkshop.DTO.Characters
         public IDictionary<string, int> SkillModifiers { get; set; }
         public IDictionary<string, int> SavingThrows { get; set; }
         public IDictionary<string, int> Senses { get; set; }
-        public IEnumerable<AttackInfo> Attacks { get; set; }
+        public IEnumerable<AttackReadModel> Attacks { get; set; }
         public IEnumerable<SpecialAbilityInfo> SpecialAbilities { get; set; }
+        public IEnumerable<string> ConditionImmunities { get; set; }
+        public IEnumerable<string> DamageImmunities { get; set; }
+        public IEnumerable<string> DamageResistances { get; set; }
+        public IEnumerable<string> DamageVulnerabilities { get; set; }
+    }
+
+    public class AttackReadModel
+    {
+        public string Name { get; set; }
+        public int Hit { get; set; }
+        public IEnumerable<DamageInfo> Damage { get; set; }
+        public int Type { get; set; }
+        public int Range { get; set; }
+        public int? MaxRange { get; set; }
+        public string Info { get; set; }
     }
 }

@@ -10,7 +10,8 @@ namespace DMWorkshop.Model.Characters
 {
     public class Creature : Character
     {
-        public Creature(string name, IEnumerable<int> scores, Size size, IDictionary<Speed, int> speed, int level, double cr, IEnumerable<string> gear, IEnumerable<Ability> saves, IEnumerable<Skill> skills, IEnumerable<Skill> expertise, IDictionary<Senses, int> senses, IEnumerable<Attack> attacks, IEnumerable<SpecialAbility> specialAbilities)
+        public Creature(string name, IEnumerable<int> scores, Size size, IDictionary<Speed, int> speed, int level, double cr, IEnumerable<string> gear, IEnumerable<Ability> saves, IEnumerable<Skill> skills, IEnumerable<Skill> expertise, IDictionary<Senses, int> senses, IEnumerable<Attack> attacks, IEnumerable<SpecialAbility> specialAbilities, Ability? castingAbility = null, 
+            IEnumerable<Condition> conditionImmunities = null, IEnumerable<DamageType> damageImmunities = null, IEnumerable<DamageType> damageResistances = null, IEnumerable<DamageType> damageVulnerabilities = null)
             : base(name, scores, level, cr, gear, skills, expertise)
         {
             _saves = saves;
@@ -19,11 +20,65 @@ namespace DMWorkshop.Model.Characters
             Senses = senses;
             Attacks = attacks ?? new Attack[] { };
             SpecialAbilities = specialAbilities ?? new SpecialAbility[] { };
+            CastingAbility = castingAbility;
+            ConditionImmunities = conditionImmunities ?? new Condition[] { };
+            DamageImmunities = damageImmunities ?? new DamageType[] { };
+            DamageResistances = damageResistances ?? new DamageType[] { };
+            DamageVulnerabilities = damageVulnerabilities ?? new DamageType[] { };
+
+            if (Attacks.Any(a => a.Type.HasFlag(AttackType.Spell)) && !CastingAbility.HasValue)
+            {
+                throw new ApplicationException("Not a caster");
+            }
         }
 
         public IEnumerable<Ability> Saves => _saves;
         public int MaxHP => Convert.ToInt32(Math.Floor(Tables.DieBySize[Size].Average * Level) + (AbilityScores[Ability.Constitution].Modifier * Level));
         public IEnumerable<Attack> Attacks { get; }
         public IEnumerable<SpecialAbility> SpecialAbilities { get; }
+        public Ability? CastingAbility { get; }
+        public IEnumerable<Condition> ConditionImmunities { get; }
+        public IEnumerable<DamageType> DamageImmunities { get; }
+        public IEnumerable<DamageType> DamageResistances { get; }
+        public IEnumerable<DamageType> DamageVulnerabilities { get; }
+
+        public IEnumerable<ResultingAttack> ModifiedAttacks
+        {
+            get
+            {
+                foreach (var attack in Attacks)
+                {
+                    var ability = attack.Type.HasFlag(AttackType.Spell) ? CastingAbility.Value : attack.Finesse || attack.Type.HasFlag(AttackType.Ranged) ? Ability.Dexterity : Ability.Strength;
+                    yield return new ResultingAttack
+                    {
+                        Name = attack.Name,
+                        Type = attack.Type,
+                        Hit = AbilityScores[ability].Modifier + Proficiency,
+                        Info = attack.Info,
+                        Range = attack.Range,
+                        MaxRange = attack.MaxRange,
+                        Damage = attack.Damage.Select(d => new Damage
+                        {
+                            Type = d.Type,
+                            DieCount = d.DieCount,
+                            DieSize = d.DieSize,
+                            Bonus = d.Bonus + (d.IsPhysical ? AbilityScores[ability].Modifier : 0)
+                        })
+                    };
+                }
+            }
+        }
+    }
+
+    public class ResultingAttack
+    {
+        public string Name { get; set; }
+        public int Hit { get; set; }
+        public IEnumerable<Damage> Damage { get; set; }
+        public AttackType Type { get; set; }
+        public int Range { get; set; }
+        public int? MaxRange { get; set; }
+        public string Info { get; set; }
     }
 }
+

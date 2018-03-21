@@ -11,6 +11,8 @@ namespace DMWorkshop.Handlers.Mapping
     {
         public AutoMapperMapping()
         {
+            CreateMap<Creature, CreatureReadModel>()
+                .ForMember(x => x.Attacks, o => o.MapFrom(x => x.ModifiedAttacks));
         }
     }
 }
