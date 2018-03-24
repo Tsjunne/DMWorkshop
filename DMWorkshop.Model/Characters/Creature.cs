@@ -10,7 +10,8 @@ namespace DMWorkshop.Model.Characters
 {
     public class Creature : Character
     {
-        public Creature(string name, IEnumerable<int> scores, Size size, IDictionary<Speed, int> speed, int level, double cr, IEnumerable<string> gear, IEnumerable<Ability> saves, IEnumerable<Skill> skills, IEnumerable<Skill> expertise, IDictionary<Senses, int> senses, IEnumerable<Attack> attacks, IEnumerable<SpecialAbility> specialAbilities, Ability? castingAbility = null, 
+        public Creature(string name, IEnumerable<int> scores, Size size, IDictionary<Speed, int> speed, int level, double cr, IEnumerable<string> gear, IEnumerable<Ability> saves, IEnumerable<Skill> skills, IEnumerable<Skill> expertise, IDictionary<Senses, int> senses, 
+            IEnumerable<Attack> attacks, IEnumerable<SpecialAbility> specialAbilities, Ability? castingAbility = null, 
             IEnumerable<Condition> conditionImmunities = null, IEnumerable<DamageType> damageImmunities = null, IEnumerable<DamageType> damageResistances = null, IEnumerable<DamageType> damageVulnerabilities = null)
             : base(name, scores, level, cr, gear, skills, expertise)
         {
@@ -57,6 +58,7 @@ namespace DMWorkshop.Model.Characters
                         Info = attack.Info,
                         Range = attack.Range,
                         MaxRange = attack.MaxRange,
+                        Reaction = attack.Reaction,
                         Damage = attack.Damage.Select(d => new Damage
                         {
                             Type = d.Type,
@@ -79,6 +81,7 @@ namespace DMWorkshop.Model.Characters
         public int Range { get; set; }
         public int? MaxRange { get; set; }
         public string Info { get; set; }
+        public bool? Reaction { get; set; }
     }
 }
 

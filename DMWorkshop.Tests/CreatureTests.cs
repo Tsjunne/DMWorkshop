@@ -53,8 +53,8 @@ namespace DMWorkshop.Tests
 
             var attacks = new[]
             {
-                new Attack { Name="Scimitar", Type=AttackType.Melee|AttackType.Weapon, Finesse=true, Damage=new[]{ new Damage { DieCount=1, DieSize=6, Type=DamageType.Slashing} } },
-                new Attack { Name="Shortbow", Type=AttackType.Ranged|AttackType.Weapon, Range=80, MaxRange=320, Damage=new[]{ new Damage { DieCount=1, DieSize=6, Type=DamageType.Piercing} } }
+                new Model.Characters.Attack { Name="Scimitar", Type=AttackType.Melee|AttackType.Weapon, Finesse=true, Damage=new[]{ new Damage { DieCount=1, DieSize=6, Type= DamageType.Slashing} } },
+                new Model.Characters.Attack { Name="Shortbow", Type=AttackType.Ranged|AttackType.Weapon, Range=80, MaxRange=320, Damage=new[]{ new Damage { DieCount=1, DieSize=6, Type= DamageType.Piercing} } }
             };
 
             var goblin = new Creature("Goblin", scores, Size.Small, new Dictionary<Speed, int>() { { Speed.Walk, 30 } }, 2, 0.25, 

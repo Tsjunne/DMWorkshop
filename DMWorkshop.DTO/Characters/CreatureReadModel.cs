@@ -31,11 +31,12 @@ namespace DMWorkshop.DTO.Characters
     public class AttackReadModel
     {
         public string Name { get; set; }
+        public string Info { get; set; }
         public int Hit { get; set; }
         public IEnumerable<DamageInfo> Damage { get; set; }
         public int Type { get; set; }
         public int Range { get; set; }
         public int? MaxRange { get; set; }
-        public string Info { get; set; }
+        public bool? Reaction { get; set; }
     }
 }

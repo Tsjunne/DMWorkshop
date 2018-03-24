@@ -39,13 +39,14 @@ namespace DMWorkshop.DTO.Characters
     public class AttackInfo
     {
         public string Name { get; set; }
+        public string Info { get; set; }
         public int Type { get; set; }
         public bool Finesse { get; set; }
         public int? Hit { get; set; }
         public int Range { get; set; } = 5;
         public int? MaxRange { get; set; }
         public IEnumerable<DamageInfo> Damage { get; set; }
-        public string Info { get; set; }
+        public bool? Reaction { get; set; }
     }
 
     public class SpecialAbilityInfo

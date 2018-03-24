@@ -13,6 +13,7 @@
         Thunder,
         Necrotic,
         Radiant,
-        NonMagical
+        NonMagical,
+        NonSilvered
     }
 }

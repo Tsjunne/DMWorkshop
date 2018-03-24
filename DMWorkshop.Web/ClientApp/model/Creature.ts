@@ -1,4 +1,6 @@
-﻿
+﻿import { Condition } from "ClientApp/model/CreatureInstance";
+
+
 export interface Creature {
     name: string;
     maxHP: number;
@@ -16,10 +18,10 @@ export interface Creature {
     senses: { [type: string]: number };
     attacks: Attack[];
     specialAbilities: SpecialAbility[];
-    conditionImmunities: string[];
-    damageImmunities: string[];
-    damageResistances: string[];
-    damageVulnerabilities: string[];
+    conditionImmunities: Condition[];
+    damageImmunities: DamageType[];
+    damageResistances: DamageType[];
+    damageVulnerabilities: DamageType[];
 }
 
 export interface CharacterRoll {
@@ -40,6 +42,7 @@ export interface Attack {
     maxRange: number;
     info: string;
     damage: Damage[];
+    reaction?: boolean;
 }
 
 export interface Damage {
@@ -62,7 +65,8 @@ export enum DamageType {
     Thunder = "Thunder",
     Necrotic = "Necrotic",
     Radiant = "Radiant",
-    NonMagical = "NonMagical"
+    NonMagical = "NonMagical",
+    NonSilvered = "NonSilvered"
 }
 
 export enum AttackType {

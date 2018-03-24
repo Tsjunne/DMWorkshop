@@ -26,7 +26,7 @@ namespace DMWorkshop.Model.Characters
         public string Race { get; }
         public int MaxHP { get; }
 
-        public IEnumerable<Attack> Attacks => new Attack[] { };
+        public IEnumerable<Action> Attacks => new Action[] { };
         public IEnumerable<SpecialAbility> SpecialAbilities => new SpecialAbility[] { };
         public IEnumerable<Condition> ConditionImmunities => new Condition[] { };
         public IEnumerable<DamageType> DamageImmunities => new DamageType[] { };

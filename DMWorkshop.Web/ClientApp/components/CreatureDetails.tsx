@@ -40,19 +40,17 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
                             {saves}
                             {skills}
                             <TypeList label='Damage Vulnerabilities' types={this.props.creature.damageVulnerabilities} />
-                            <TypeList label='Damage Resistances' types={this.props.creature.damageResistances.map(x => x == 'NonMagical' ? 'bludgeoning, piercing, and slashing damage from non magical attacks' : x)} />
-                            <TypeList label='Damage Immunities' types={this.props.creature.damageImmunities.map(x => x == 'NonMagical' ? 'bludgeoning, piercing, and slashing damage from non magical attacks' : x)} />
+                            <TypeList label='Damage Resistances' types={this.props.creature.damageResistances.map(x => this.formatDamageType(x))} />
+                            <TypeList label='Damage Immunities' types={this.props.creature.damageImmunities.map(x => this.formatDamageType(x))} />
                             <TypeList label='Condition Immunities' types={this.props.creature.conditionImmunities} />
                             {senses}
                         </List>
                         <Divider />
                         {this.props.creature.specialAbilities.map(sa =>
                             <SimpleInfo label={sa.name} info={sa.info} />
-                            )}
-                        <Divider horizontal>Actions</Divider>
-                        {this.props.creature.attacks.map(attack =>
-                            attack.type ? <AttackInfo attack={attack} /> : <SimpleInfo label={attack.name} info={attack.info}/>
-                            )}
+                        )}
+                        <Actions label='Actions' actions={this.props.creature.attacks.filter(a => !a.reaction)} />
+                        <Actions label='Reactions' actions={this.props.creature.attacks.filter(a => a.reaction)} />
                     </Modal.Description>
                 </Modal.Content>
             </Modal>
@@ -109,6 +107,26 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
         return saves.length > 0 ? saves.reduce((str, x) => str + ', ' + x) : '';
     }
 
+    formatDamageType(type: Creature.DamageType): string {
+        if (type == Creature.DamageType.NonMagical) return 'bludgeoning, piercing, and slashing damage from non magical attacks';
+        if (type == Creature.DamageType.NonSilvered) return 'bludgeoning, piercing, and slashing damage from non magical weapons that aren’t silvered';
+
+        return type;
+    }
+}
+
+class Actions extends React.Component<{ label: string, actions: Creature.Attack[] }>{
+    public render() {
+        if (this.props.actions.length == 0) return (<span/>);
+
+        return (
+            <List>
+                <Divider horizontal>{this.props.label}</Divider>
+                {this.props.actions.map(action =>
+                    action.type ? <AttackInfo attack={action} /> : <SimpleInfo label={action.name} info={action.info} />)}
+            </List>
+        );
+    }
 }
 
 class TypeList extends React.Component<{ label:string, types: string[] }>{
@@ -128,7 +146,7 @@ class SimpleInfo extends React.Component<{ label: string, info: string }> {
 class AttackInfo extends React.Component<{ attack: Creature.Attack }> {
     public render() {
         return (
-            <List.Item><i><b>{this.props.attack.name}.</b> {this.formatAttackType(this.props.attack.type)}:</i> {this.formatAttack(this.props.attack)} <i>Hit: </i>{this.formatHit(this.props.attack)} {this.props.attack.info} <br /><br /></List.Item>
+            <List.Item><i><b>{this.props.attack.name}.</b> {this.formatAttackType(this.props.attack.type)}:</i> {this.formatAttack(this.props.attack)} <i>Hit: </i>{this.formatHit(this.props.attack)} {this.props.attack.info ? this.props.attack.info.split('\n').map(line => <span>{line}<br /></span>) : ''} <br /><br /></List.Item>
         );
     }
 
@@ -155,8 +173,8 @@ class AttackInfo extends React.Component<{ attack: Creature.Attack }> {
     }
 
     formatHit(attack: Creature.Attack): string {
-        var dmg = attack.damage.map(d => `${d.average} (${d.dieCount}d${d.dieSize}${d.bonus ? (d.bonus > 0 ? '+' : '') + d.bonus : ''}) ${d.type.toLowerCase()} damage.`)
+        var dmg = attack.damage.map(d => `${d.average} (${d.dieCount}d${d.dieSize}${d.bonus ? (d.bonus > 0 ? '+' : '') + d.bonus : ''}) ${d.type.toLowerCase()} damage`)
 
-        return dmg.length > 0 ? dmg.reduce((str, x) => str + ', ' + x) : '';
+        return dmg.length > 0 ? dmg.reduce((str, x) => str + ' plus ' + x) + '.' : '';
     }
 }
