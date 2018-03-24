@@ -26,21 +26,18 @@ export class CreatureCard extends React.Component<CreatureCardProps, {}> {
                         <h4>{this.props.creature.name}</h4>
                     </Card.Header>
                     <Card.Meta>
-                        <Table basic='very' fixed singleLine collapsing compact size='small'>
-                            <Table.Body>
-                                <Table.Row>
-                                    <Table.Cell><Icon name='plus' /> {this.props.creature.maxHP}</Table.Cell>
-                                    <Table.Cell><Icon name='shield' /> {this.props.creature.ac}</Table.Cell>
-                                    <Table.Cell><Icon name='eye' /> {this.props.creature.passivePerception}</Table.Cell>
-                                </Table.Row>
-                            </Table.Body>
-                        </Table>
+                        <Icon name='trophy' /> {this.formatCR(this.props.creature.cr) + ' (' + this.props.creature.xp + ' XP)'}
                     </Card.Meta>
-                    <Card.Description>
-                        <StatBlock creature={this.props.creature} />
-                    </Card.Description>
                 </Card.Content>
             </Card>
         );
     }
+    formatCR(cr: number): string {
+        if (cr == 0.125) return '1/8';
+        if (cr == 0.25) return '1/4';
+        if (cr == 0.5) return '1/2';
+
+        return cr.toString();
+    }
+
 }

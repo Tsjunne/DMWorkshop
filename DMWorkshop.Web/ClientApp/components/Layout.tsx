@@ -14,7 +14,7 @@ class Layout extends React.Component<ApplicationState, {}> {
                     <Menu width='thin' icon='labeled' vertical inverted>
                         <Menu.Item as={NavLink} to="/creatures/">
                             <Icon name="id card" />
-                            Creatures
+                            Bestiary
 					    </Menu.Item>
                         <Menu.Item as={NavLink} to="/party/">
                             <Icon name="group" />
