@@ -55,7 +55,12 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                 </Table.Cell>
                 <Table.Cell collapsing>
                     <Popup position='bottom right' wide='very' 
-                        trigger={<Button icon='plus'/>}
+                        trigger={<Button content={
+                            <span>
+                                <Icon name='plus' />
+                                <Icon name='heartbeat' />
+                            </span>
+                        } />}
                         content={
                             <Button.Group compact size='mini'>
                                 {this.allConditions().map(c =>

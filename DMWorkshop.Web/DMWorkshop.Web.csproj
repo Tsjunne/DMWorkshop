@@ -46,10 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\CreatureDetails.tsx" />
     <TypeScriptCompile Include="ClientApp\components\PartyRoller.tsx" />
     <TypeScriptCompile Include="ClientApp\components\PlayerCard.tsx" />
