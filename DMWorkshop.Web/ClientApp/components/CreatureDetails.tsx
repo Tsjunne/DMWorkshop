@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import { Modal, Icon, Image, Table, Button, Divider, List } from "semantic-ui-react";
+import { Modal, Icon, Image, Table, Button, Divider, List, Popup } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import * as Creature from '../model/Creature';
 import StatBlock from './StatBlock';
@@ -15,7 +15,9 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
         var senses = Object.keys(this.props.creature.senses).length > 0 ? <List.Item><b>Senses</b> {this.formatSenses(this.props.creature)} </List.Item> : '';
         
         return (
-            <Modal size='small' trigger={<Button icon='id card outline'/>}>
+            <Modal size='small' trigger={
+                <Button icon='id card outline' />
+            }>
                 <Modal.Header>
                     <Icon name='id card outline' /> {this.props.creature.name}
                 </Modal.Header>

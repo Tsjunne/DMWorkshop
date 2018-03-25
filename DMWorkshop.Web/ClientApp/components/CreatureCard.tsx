@@ -1,6 +1,6 @@
 ﻿import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { Card, Image, Icon, Label, Table, Button } from "semantic-ui-react";
+import { Card, Image, Icon, Label, Table, Button, Popup } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
 import * as Creatures from '../store/Creatures';
@@ -21,7 +21,11 @@ export class CreatureCard extends React.Component<CreatureCardProps, {}> {
             <Card >
                 <Card.Content>
                     <Image floated='left' size='mini' src={'/api/creatures/' + this.props.creature.name + '/portrait'} />
-                    <Button floated='right' icon='plus' compact color='green' onClick={() => { this.props.addCreature(this.props.creature) }} />
+                    <Popup
+                        trigger={
+                            <Button floated='right' icon='plus' compact color='green' onClick={() => { this.props.addCreature(this.props.creature) }} />}
+                        content='Add creature to encounter'
+                    />
                     <Card.Header>
                         <h4>{this.props.creature.name}</h4>
                     </Card.Header>

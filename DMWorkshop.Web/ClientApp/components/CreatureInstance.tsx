@@ -56,10 +56,14 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                 <Table.Cell collapsing>
                     <Popup position='bottom right' wide='very' 
                         trigger={<Button content={
-                            <span>
-                                <Icon name='plus' />
-                                <Icon name='heartbeat' />
-                            </span>
+                            <Popup flowing
+                                trigger={
+                                    <span>
+                                        <Icon name='plus' />
+                                        <Icon name='heartbeat' />
+                                    </span>}
+                                content='Add status'
+                            />
                         } />}
                         content={
                             <Button.Group compact size='mini'>
@@ -73,7 +77,9 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                     />
                 </Table.Cell>
                 <Table.Cell collapsing>
+                    <Popup trigger={
                     <Button icon='remove circle' color='red' onClick={() => this.props.removeCreature(this.props.instance)}/>
+                    } content='Remove from encounter'/>
                 </Table.Cell>
             </Table.Row>
         );
