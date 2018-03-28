@@ -26,10 +26,18 @@ namespace DMWorkshop.Model.Items
         {
             if (ArmorSlot == ItemSlot.Chest)
             {
-                var dexMod = abilityScores[Ability.Dexterity].Modifier;
-                var limit = DexModLimit ?? dexMod;
+                int ac;
+                if (DexModLimit == 0)
+                {
+                    ac = AC;
+                }
+                else
+                {
+                    var dexMod = abilityScores[Ability.Dexterity].Modifier;
+                    var limit = DexModLimit ?? dexMod;
 
-                var ac = AC + Math.Min(dexMod, limit);
+                    ac = AC + Math.Min(dexMod, limit);
+                }
 
                 foreach (var modifier in AdditionalModifiers)
                 {
