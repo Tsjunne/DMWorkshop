@@ -14,25 +14,7 @@ type PartyProps =
     & typeof Players.actionCreators    
     & RouteComponentProps<{ creatureSet: string }>; 
 
-interface PartyState {
-    showRollInitiativeModal: boolean,
-    initiativeResult: PlayerRoll[]
-}
-
-interface PlayerRoll {
-    player: Creature.Creature,
-    initiative: number
-}
-
-class Party extends React.Component<PartyProps, PartyState> {
-    constructor(props: PartyProps) {
-        super(props)
-
-        this.state = {
-            showRollInitiativeModal: false,
-            initiativeResult: props.players.map<PlayerRoll>(p => { return { player: p, initiative: 10 } })
-        }
-    }
+class Party extends React.Component<PartyProps, {}> {
 
     componentWillMount() {
         // This method runs when the component is first added to the page

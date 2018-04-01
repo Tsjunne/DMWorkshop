@@ -16,7 +16,7 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
         
         return (
             <Modal size='small' trigger={
-                <Button icon='id card outline' />
+                    <Image floated='left' size='mini' src={'/api/creatures/' + this.props.creature.name + '/portrait'} />
             }>
                 <Modal.Header>
                     <Icon name='id card outline' /> {this.props.creature.name}

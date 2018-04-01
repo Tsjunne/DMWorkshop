@@ -7,6 +7,7 @@ import * as Creatures from '../store/Creatures';
 import * as Players from '../store/Players';
 import * as Model from '../model/Creature';
 import StatBlock from './StatBlock';
+import { CreatureDetails } from './CreatureDetails';
 
 type CreatureCardProps =
     {
@@ -20,7 +21,7 @@ export class CreatureCard extends React.Component<CreatureCardProps, {}> {
         return (
             <Card >
                 <Card.Content>
-                    <Image floated='left' size='mini' src={'/api/creatures/' + this.props.creature.name + '/portrait'} />
+                    <CreatureDetails creature={this.props.creature} />
                     <Popup
                         trigger={
                             <Button floated='right' icon='plus' compact color='green' onClick={() => { this.props.addCreature(this.props.creature) }} />}

@@ -6,6 +6,7 @@ import { ApplicationState } from '../store';
 import * as Creatures from '../store/Creatures';
 import * as Players from '../store/Players';
 import * as Model from '../model/Creature';
+import { CreatureDetails } from './CreatureDetails';
 
 type PlayerCardProps =
     {
@@ -18,7 +19,7 @@ export class PlayerCard extends React.Component<PlayerCardProps, {}> {
         return (
             <Card >
                 <Card.Content>
-                    <Image floated='left' size='mini' src={'/api/creatures/' + this.props.player.name + '/portrait'} />
+                    <CreatureDetails creature={this.props.player} />
                     <Card.Header>
                         <h4>{this.props.player.name}</h4>
                     </Card.Header>
