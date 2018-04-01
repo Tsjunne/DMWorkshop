@@ -26,11 +26,7 @@ namespace DMWorkshop.Model.Characters
             DamageImmunities = damageImmunities ?? new DamageType[] { };
             DamageResistances = damageResistances ?? new DamageType[] { };
             DamageVulnerabilities = damageVulnerabilities ?? new DamageType[] { };
-
-            if (Attacks.Any(a => a.Type.HasFlag(AttackType.Spell)) && !CastingAbility.HasValue)
-            {
-                throw new ApplicationException("Not a caster");
-            }
+            
         }
 
         public IEnumerable<Ability> Saves => _saves;
@@ -49,7 +45,7 @@ namespace DMWorkshop.Model.Characters
             {
                 foreach (var attack in Attacks)
                 {
-                    var ability = attack.Type.HasFlag(AttackType.Spell) ? CastingAbility.Value : attack.Finesse || attack.Type.HasFlag(AttackType.Ranged) ? Ability.Dexterity : Ability.Strength;
+                    var ability = (attack.Type.HasFlag(AttackType.Spell) && CastingAbility.HasValue) ? CastingAbility.Value : attack.Finesse || attack.Type.HasFlag(AttackType.Ranged) ? Ability.Dexterity : Ability.Strength;
                     yield return new ResultingAttack
                     {
                         Name = attack.Name,
@@ -64,7 +60,7 @@ namespace DMWorkshop.Model.Characters
                             Type = d.Type,
                             DieCount = d.DieCount,
                             DieSize = d.DieSize,
-                            Bonus = d.Bonus + (d.IsPhysical ? AbilityScores[ability].Modifier : 0)
+                            Bonus = d.Bonus + (d.IsPhysical || attack.Finesse ? AbilityScores[ability].Modifier : 0)
                         })
                     };
                 }

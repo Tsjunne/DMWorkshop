@@ -43,6 +43,7 @@ export class CreatureInstance {
     protected clone(): CreatureInstance {
         let clone = new CreatureInstance(this.creature);
         clone.id = this.id;
+        clone.number = this.number;
         clone.initiative = this.initiative;
         clone.hp = this.hp;
         clone.conditions = this.conditions;
