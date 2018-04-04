@@ -16,6 +16,7 @@ namespace DMWorkshop.DTO.Characters
         public int InitiativeModifier { get; set; }
         public int[] Scores { get; set; }
         public int[] Modifiers { get; set; }
+        public string Size { get; set; }
         public IDictionary<string, int> Speed { get; set; }
         public IDictionary<string, int> SkillModifiers { get; set; }
         public IDictionary<string, int> SavingThrows { get; set; }

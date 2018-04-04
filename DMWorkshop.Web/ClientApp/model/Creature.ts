@@ -8,6 +8,7 @@ export interface Creature {
     xp: number;
     cr: number;
     level: number;
+    size: string;
     passivePerception: number;
     initiativeModifier: number;
     scores: number[];

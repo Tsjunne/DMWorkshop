@@ -3,11 +3,14 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Table, Button, Icon, Image, Popup } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store';
+import * as Players from '../store/Players';
 import * as Encounters from '../store/Encounters';
 import { CreatureInstance } from './CreatureInstance';
+import { PartyRoller } from './PartyRoller';
 
 type EncounterProps =
     Encounters.EncounterState
+    & Players.PlayersState   
     & typeof Encounters.actionCreators
     & RouteComponentProps<{ }>; 
 
@@ -26,6 +29,9 @@ class EncounterTracker extends React.Component<EncounterProps, {}> {
                                 />
                             </Table.Cell>
                             <Table.Cell />
+                            <Table.Cell collapsing>
+                                <PartyRoller icon='lightning' text='Roll Initiative!' players={this.props.players} onSubmit={this.props.addPlayers} />
+                            </Table.Cell>
                             <Table.Cell collapsing>
                                 <Popup
                                     trigger={
@@ -52,6 +58,6 @@ class EncounterTracker extends React.Component<EncounterProps, {}> {
 }
 
 export default connect(
-    (state: ApplicationState) => state.encounters, // Selects which state properties are merged into the component's props
+    (state: ApplicationState) => Object.assign(state.encounters, state.players), // Selects which state properties are merged into the component's props
     Encounters.actionCreators                 // Selects which action creators are merged into the component's props
 )(EncounterTracker) as typeof EncounterTracker;

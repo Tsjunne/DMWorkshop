@@ -19,7 +19,7 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
                     <Image floated='left' size='mini' src={'/api/creatures/' + this.props.creature.name + '/portrait'} />
             }>
                 <Modal.Header>
-                    <Icon name='id card outline' /> {this.props.creature.name}
+                    <Icon name='id card outline' /> {this.props.creature.name} <i>({this.props.creature.size})</i>
                 </Modal.Header>
                 <Modal.Content>
                     <Image floated='left' size='tiny' src={'/api/creatures/' + this.props.creature.name + '/portrait'} />
