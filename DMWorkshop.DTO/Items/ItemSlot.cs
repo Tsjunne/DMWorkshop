@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DMWorkshop.Model.Items
+namespace DMWorkshop.DTO.Items
 {
     public enum ItemSlot
     {

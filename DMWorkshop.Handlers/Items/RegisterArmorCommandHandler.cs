@@ -25,10 +25,10 @@ namespace DMWorkshop.Handlers.Items
         {
             var armor = new Armor(
                 command.Name,
-                Enum.Parse<ItemSlot>(command.Slot),
+                command.Slot,
                 command.AC,
                 command.DexModLimit,
-                command.AdditionalModifiers.Select(x => Enum.Parse<Ability>(x))
+                command.AdditionalModifiers
                 );
 
             return _database.Save("gear", x => x.Name == armor.Name, armor, cancellationToken);

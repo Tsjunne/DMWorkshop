@@ -1,20 +1,10 @@
-﻿using System;
+﻿using DMWorkshop.DTO.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DMWorkshop.Model.Core
 {
-    public enum Ability
-    {
-        Strength,
-        Dexterity,
-        Constitution,
-        Intelligence,
-        Wisdom,
-        Charisma
-    }
-
     public static class AbilityExtensions
     {
         public static Dictionary<Ability, AbilityScore> AsAbilityScores(this IEnumerable<int> scores)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DMWorkshop.DTO.Core;
 using DMWorkshop.Model.Core;
 
 namespace DMWorkshop.Model.Characters

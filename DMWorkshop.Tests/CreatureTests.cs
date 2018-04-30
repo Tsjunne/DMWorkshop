@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using DMWorkshop.DTO.Characters;
+using DMWorkshop.DTO.Core;
+using DMWorkshop.DTO.Items;
 using DMWorkshop.Handlers.Mapping;
 using DMWorkshop.Model.Characters;
 using DMWorkshop.Model.Core;

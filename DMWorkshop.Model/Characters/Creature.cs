@@ -1,4 +1,5 @@
-﻿using DMWorkshop.Model.Core;
+﻿using DMWorkshop.DTO.Core;
+using DMWorkshop.Model.Core;
 using DMWorkshop.Model.Items;
 using System;
 using System.Collections;

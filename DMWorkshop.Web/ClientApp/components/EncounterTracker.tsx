@@ -10,11 +10,20 @@ import { PartyRoller } from './PartyRoller';
 
 type EncounterProps =
     Encounters.EncounterState
-    & Players.PlayersState   
+    & Players.PlayersState
     & typeof Encounters.actionCreators
+    & typeof Players.actionCreators
     & RouteComponentProps<{ }>; 
 
 class EncounterTracker extends React.Component<EncounterProps, {}> {
+    componentWillMount() {
+        this.props.requestPlayers('LMoP');
+    }
+
+    componentWillReceiveProps(nextProps: EncounterProps) {
+        this.props.requestPlayers('LMoP');
+    }
+
     public render() {
         return (
             <div style={{ minHeight: '99vh' }}>
@@ -59,5 +68,5 @@ class EncounterTracker extends React.Component<EncounterProps, {}> {
 
 export default connect(
     (state: ApplicationState) => Object.assign(state.encounters, state.players), // Selects which state properties are merged into the component's props
-    Encounters.actionCreators                 // Selects which action creators are merged into the component's props
+    Object.assign(Encounters.actionCreators, Players.actionCreators)                // Selects which action creators are merged into the component's props
 )(EncounterTracker) as typeof EncounterTracker;

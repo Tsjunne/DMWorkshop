@@ -1,4 +1,5 @@
-﻿using DMWorkshop.Model.Core;
+﻿using DMWorkshop.DTO.Core;
+using DMWorkshop.Model.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace DMWorkshop.Model.Core
     public class Race
     {
         public Race(string name, Size size, int speed, int? darkvision = null)
-            : this(name, size, new Dictionary<Speed, int> { { Core.Speed.Walk, speed } }, darkvision)
+            : this(name, size, new Dictionary<Speed, int> { { DTO.Core.Speed.Walk, speed } }, darkvision)
         {
         }
 
@@ -19,7 +20,7 @@ namespace DMWorkshop.Model.Core
             Speed = speed;
             Vision = new Dictionary<Senses, int>();
 
-            if (darkvision.HasValue) Vision.Add(Core.Senses.Darkvision, darkvision.Value);
+            if (darkvision.HasValue) Vision.Add(Senses.Darkvision, darkvision.Value);
         }
 
         public string Name { get; }

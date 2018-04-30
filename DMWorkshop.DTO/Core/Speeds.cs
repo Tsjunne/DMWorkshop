@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DMWorkshop.Model.Core
+namespace DMWorkshop.DTO.Core
 {
     public enum Speed
     {

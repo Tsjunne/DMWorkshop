@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DMWorkshop.DTO.Core;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,17 +17,17 @@ namespace DMWorkshop.DTO.Characters
         public int InitiativeModifier { get; set; }
         public int[] Scores { get; set; }
         public int[] Modifiers { get; set; }
-        public string Size { get; set; }
-        public IDictionary<string, int> Speed { get; set; }
-        public IDictionary<string, int> SkillModifiers { get; set; }
-        public IDictionary<string, int> SavingThrows { get; set; }
-        public IDictionary<string, int> Senses { get; set; }
+        public Size Size { get; set; }
+        public IDictionary<Speed, int> Speed { get; set; }
+        public IDictionary<Skill, int> SkillModifiers { get; set; }
+        public IDictionary<Ability, int> SavingThrows { get; set; }
+        public IDictionary<Senses, int> Senses { get; set; }
         public IEnumerable<AttackReadModel> Attacks { get; set; }
         public IEnumerable<SpecialAbilityInfo> SpecialAbilities { get; set; }
-        public IEnumerable<string> ConditionImmunities { get; set; }
-        public IEnumerable<string> DamageImmunities { get; set; }
-        public IEnumerable<string> DamageResistances { get; set; }
-        public IEnumerable<string> DamageVulnerabilities { get; set; }
+        public IEnumerable<Condition> ConditionImmunities { get; set; }
+        public IEnumerable<DamageType> DamageImmunities { get; set; }
+        public IEnumerable<DamageType> DamageResistances { get; set; }
+        public IEnumerable<DamageType> DamageVulnerabilities { get; set; }
     }
 
     public class AttackReadModel

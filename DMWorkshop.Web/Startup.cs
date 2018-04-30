@@ -13,6 +13,8 @@ using AutoMapper;
 using MongoDB.Driver;
 using DMWorkshop.Handlers.Mapping;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Swagger;
+using Newtonsoft.Json.Converters;
 
 namespace DMWorkshop.Web
 {
@@ -33,9 +35,17 @@ namespace DMWorkshop.Web
                 {
                     var settings = options.SerializerSettings;
                     settings.NullValueHandling = NullValueHandling.Ignore;
+                    settings.Converters.Add(new StringEnumConverter(true));
                 });
             services.AddMediatR(typeof(RegisterCreatureCommandHandler).Assembly);
             services.AddAutoMapper(typeof(RegisterCreatureCommandHandler).Assembly);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.DescribeAllEnumsAsStrings();
+                c.DescribeStringEnumsInCamelCase();
+                c.SwaggerDoc("v1", new Info { Title = "DMWorkshop", Version = "v1" });
+            });
 
             var connectionString = Configuration.GetConnectionString("DMWorkshop");
 
@@ -62,7 +72,13 @@ namespace DMWorkshop.Web
             }
 
             app.UseStaticFiles();
-
+            
+            app.UseSwagger();
+            
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DMWorkshop V1");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -31,8 +31,8 @@ namespace DMWorkshop.Handlers.Characters
                 command.MaxHp,
                 command.Level,
                 command.Gear,
-                command.Skills.Select(x => Enum.Parse<Skill>(x)),
-                command.Expertise.Select(x => Enum.Parse<Skill>(x))
+                command.Skills,
+                command.Expertise
                 );
 
             return _database.Save("players", x => x.Name == player.Name, player, cancellationToken);

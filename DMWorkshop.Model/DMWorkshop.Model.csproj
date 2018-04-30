@@ -8,4 +8,8 @@
     <Folder Include="Spells\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DMWorkshop.DTO\DMWorkshop.DTO.csproj" />
+  </ItemGroup>
+
 </Project>

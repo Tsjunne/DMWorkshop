@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DMWorkshop.DTO.Items;
 
 namespace DMWorkshop.Model.Items
 {

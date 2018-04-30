@@ -1,4 +1,6 @@
-﻿using DMWorkshop.Model.Campaign;
+﻿using DMWorkshop.DTO.Core;
+using DMWorkshop.DTO.Items;
+using DMWorkshop.Model.Campaign;
 using DMWorkshop.Model.Characters;
 using DMWorkshop.Model.Core;
 using DMWorkshop.Model.Items;

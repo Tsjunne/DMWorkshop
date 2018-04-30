@@ -1,4 +1,4 @@
-﻿namespace DMWorkshop.Model.Core
+﻿namespace DMWorkshop.DTO.Core
 {
     public enum DamageType
     {
