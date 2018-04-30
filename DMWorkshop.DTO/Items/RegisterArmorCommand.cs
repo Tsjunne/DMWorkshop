@@ -6,13 +6,7 @@ using System.Text;
 
 namespace DMWorkshop.DTO.Items
 {
-    public class RegisterArmorCommand : IRequest
+    public class RegisterArmorCommand : ArmorInfo, IRequest
     {
-        public string Name { get; set; }
-        public int AC { get; set; }
-        public ItemSlot Slot { get; set; }
-        public int? DexModLimit { get; set; }
-
-        public IEnumerable<Ability> AdditionalModifiers { get; set; } = new Ability[] { };
     }
 }

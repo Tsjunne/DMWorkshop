@@ -24,5 +24,11 @@ namespace DMWorkshop.Web.Controllers
         {
             return _mediator.Send(command, cancellationToken);
         }
+
+        [HttpGet]
+        public Task<ArmorInfo[]> Find(FindArmorQuery query, CancellationToken cancellationToken)
+        {
+            return _mediator.Send(query, cancellationToken);
+        }
     }
 }
