@@ -30,7 +30,7 @@ export class Encounter {
         var difficulty = this.calculateDifficulty(modifiedXp);
 
         return {
-            instances: this.instances.sort((a, b) => b.initiative - a.initiative),
+            instances: this.instances.sort(this.determineOrder),
             totalXp: totalXp,
             modifiedXp: modifiedXp,
             difficulty: difficulty
@@ -120,5 +120,13 @@ export class Encounter {
             default:
                 return Difficulty.Critter;
         }
+    }
+
+    determineOrder(a: CreatureInstance.CreatureInstance, b: CreatureInstance.CreatureInstance): number {
+        var order = b.initiative - a.initiative;
+
+        if (order != 0) return order;
+
+        return b.creature.initiativeModifier - a.creature.initiativeModifier;
     }
 }
