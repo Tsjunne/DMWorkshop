@@ -7,6 +7,7 @@ import * as Creatures from '../store/Creatures';
 import * as Players from '../store/Players';
 import * as Model from '../model/Creature';
 import { CreatureDetails } from './CreatureDetails';
+import StatBlock from './StatBlock';
 
 type PlayerCardProps =
     {
@@ -35,26 +36,7 @@ export class PlayerCard extends React.Component<PlayerCardProps, {}> {
                         </Table>
                     </Card.Meta>
                     <Card.Description>
-                        <Table basic='very' fixed singleLine collapsing compact size='small'>
-                            <Table.Body>
-                                <Table.Row>
-                                    <Table.Cell><Image avatar src='/images/strength.svg' /></Table.Cell>
-                                    <Table.Cell><Image avatar src='/images/dexterity.svg' /></Table.Cell>
-                                    <Table.Cell><Image avatar src='/images/constitution.svg' /></Table.Cell>
-                                    <Table.Cell><Image avatar src='/images/intelligence.svg' /></Table.Cell>
-                                    <Table.Cell><Image avatar src='/images/wisdom.svg' /></Table.Cell>
-                                    <Table.Cell><Image avatar src='/images/charisma.svg' /></Table.Cell>
-                                </Table.Row>
-                                <Table.Row textAlign='center'>
-                                    <Table.Cell><b>{this.props.player.modifiers[0]}</b></Table.Cell>
-                                    <Table.Cell><b>{this.props.player.modifiers[1]}</b></Table.Cell>
-                                    <Table.Cell><b>{this.props.player.modifiers[2]}</b></Table.Cell>
-                                    <Table.Cell><b>{this.props.player.modifiers[3]}</b></Table.Cell>
-                                    <Table.Cell><b>{this.props.player.modifiers[4]}</b></Table.Cell>
-                                    <Table.Cell><b>{this.props.player.modifiers[5]}</b></Table.Cell>
-                                </Table.Row>
-                            </Table.Body>
-                        </Table>
+                        <StatBlock creature={this.props.player} />
                     </Card.Description>
                 </Card.Content>
             </Card>

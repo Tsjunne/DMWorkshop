@@ -48,6 +48,7 @@ namespace DMWorkshop.DTO.Characters
         public int? MaxRange { get; set; }
         public IEnumerable<DamageInfo> Damage { get; set; }
         public bool? Reaction { get; set; }
+        public int Bonus { get; set; }
     }
 
     public class SpecialAbilityInfo

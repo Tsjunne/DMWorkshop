@@ -20,15 +20,20 @@ export default class StatBlock extends React.Component<StatBlockProps>{
                         <Table.Cell><Image avatar src='/images/charisma.svg' /></Table.Cell>
                     </Table.Row>
                     <Table.Row textAlign='center'>
-                        <Table.Cell><b>{this.props.creature.modifiers[0]}</b></Table.Cell>
-                        <Table.Cell><b>{this.props.creature.modifiers[1]}</b></Table.Cell>
-                        <Table.Cell><b>{this.props.creature.modifiers[2]}</b></Table.Cell>
-                        <Table.Cell><b>{this.props.creature.modifiers[3]}</b></Table.Cell>
-                        <Table.Cell><b>{this.props.creature.modifiers[4]}</b></Table.Cell>
-                        <Table.Cell><b>{this.props.creature.modifiers[5]}</b></Table.Cell>
+                        <Table.Cell><b>{this.formatModifier(this.props.creature.modifiers[0])}</b></Table.Cell>
+                        <Table.Cell><b>{this.formatModifier(this.props.creature.modifiers[1])}</b></Table.Cell>
+                        <Table.Cell><b>{this.formatModifier(this.props.creature.modifiers[2])}</b></Table.Cell>
+                        <Table.Cell><b>{this.formatModifier(this.props.creature.modifiers[3])}</b></Table.Cell>
+                        <Table.Cell><b>{this.formatModifier(this.props.creature.modifiers[4])}</b></Table.Cell>
+                        <Table.Cell><b>{this.formatModifier(this.props.creature.modifiers[5])}</b></Table.Cell>
                     </Table.Row>
                 </Table.Body>
             </Table>
             );
+    }
+
+    formatModifier(modifier: number): string {
+        var prefix = modifier >= 0 ? '+' : '';
+        return prefix + modifier.toString();
     }
 }

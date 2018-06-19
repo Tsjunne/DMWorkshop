@@ -51,7 +51,7 @@ namespace DMWorkshop.Model.Characters
                     {
                         Name = attack.Name,
                         Type = attack.Type,
-                        Hit = AbilityScores[ability].Modifier + Proficiency,
+                        Hit = attack.Bonus + AbilityScores[ability].Modifier + Proficiency,
                         Info = attack.Info,
                         Range = attack.Range,
                         MaxRange = attack.MaxRange,
@@ -61,7 +61,7 @@ namespace DMWorkshop.Model.Characters
                             Type = d.Type,
                             DieCount = d.DieCount,
                             DieSize = d.DieSize,
-                            Bonus = d.Bonus + (d.IsPhysical || attack.Finesse ? AbilityScores[ability].Modifier : 0)
+                            Bonus = attack.Bonus + d.Bonus + (d.IsPhysical || attack.Finesse ? AbilityScores[ability].Modifier : 0)
                         })
                     };
                 }
