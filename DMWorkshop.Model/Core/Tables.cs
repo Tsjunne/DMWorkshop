@@ -119,7 +119,7 @@ namespace DMWorkshop.Model.Core
             {Skill.Nature,Ability.Intelligence },
             {Skill.Perception,Ability.Wisdom },
             {Skill.Performance,Ability.Charisma },
-            {Skill.Persuasion,Ability.Wisdom },
+            {Skill.Persuasion,Ability.Charisma },
             {Skill.Religion,Ability.Intelligence },
             {Skill.SleightOfHand,Ability.Dexterity },
             {Skill.Stealth,Ability.Dexterity },
