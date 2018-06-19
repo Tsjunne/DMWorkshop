@@ -56,6 +56,24 @@ namespace DMWorkshop.Model.Core
             { Size.Gargantuan, new Die(20)}
         };
 
+        public static IDictionary<Classes, Die> DieByClass = new Dictionary<Classes, Die>
+        {
+            { Classes.Barbarian, new Die(12) },
+            { Classes.Bard, new Die(8) },
+            { Classes.BloodHunter, new Die(10) },
+            { Classes.Cleric, new Die(8) },
+            { Classes.Druid, new Die(8) },
+            { Classes.Fighter, new Die(10) },
+            { Classes.Monk, new Die(8) },
+            { Classes.Paladin, new Die(10) },
+            { Classes.Ranger, new Die(10) },
+            { Classes.Rogue, new Die(8) },
+            { Classes.Sorcerer, new Die(6) },
+            { Classes.Warlock, new Die(8) },
+            { Classes.Wizard, new Die(6) },
+        };
+
+
         public static IDictionary<Classes, IEnumerable<Ability>> SavesByClass = new Dictionary<Classes, IEnumerable<Ability>>
         {
             { Classes.Barbarian, new [] { Ability.Strength, Ability.Constitution } },

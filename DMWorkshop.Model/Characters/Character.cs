@@ -65,6 +65,7 @@ namespace DMWorkshop.Model.Characters
         public IDictionary<Skill, int> SkillModifiers => Skills.Concat(Expertise).ToDictionary(x => x, x => GetSkillModifier(Tables.StandardSkillAbilities[x], x));
         public IDictionary<Ability, int> SavingThrows => _saves.ToDictionary(x => x, x => GetAbilityModifier(x));
 
+        public abstract Die HitDie { get; }
         public void Equip(params Gear[] gear)
         {
             Equip(gear.AsEnumerable());

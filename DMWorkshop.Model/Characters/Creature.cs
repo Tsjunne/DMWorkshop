@@ -67,6 +67,8 @@ namespace DMWorkshop.Model.Characters
                 }
             }
         }
+
+        public override Die HitDie => Tables.DieBySize[Size];
     }
 
     public class ResultingAttack

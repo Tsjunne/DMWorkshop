@@ -28,6 +28,7 @@ namespace DMWorkshop.DTO.Characters
         public IEnumerable<DamageType> DamageImmunities { get; set; }
         public IEnumerable<DamageType> DamageResistances { get; set; }
         public IEnumerable<DamageType> DamageVulnerabilities { get; set; }
+        public int HitDie { get; set; }
     }
 
     public class AttackReadModel

@@ -2,6 +2,7 @@
 using DMWorkshop.DTO.Characters;
 using DMWorkshop.DTO.Items;
 using DMWorkshop.Model.Characters;
+using DMWorkshop.Model.Core;
 using DMWorkshop.Model.Items;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace DMWorkshop.Handlers.Mapping
                 .ForMember(x => x.Attacks, o => o.MapFrom(x => x.ModifiedAttacks));
             CreateMap<Armor, ArmorInfo>()
                 .ForMember(x => x.Slot, o => o.MapFrom(x => x.ArmorSlot));
+            CreateMap<Die, int>().ConvertUsing(d => d.Sides);
         }
     }
 }

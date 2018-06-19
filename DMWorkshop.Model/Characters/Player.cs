@@ -33,5 +33,6 @@ namespace DMWorkshop.Model.Characters
         public IEnumerable<DamageType> DamageImmunities => new DamageType[] { };
         public IEnumerable<DamageType> DamageResistances => new DamageType[] { };
         public IEnumerable<DamageType> DamageVulnerabilities => new DamageType[] { };
+        public override Die HitDie => Tables.DieByClass[Class];
     }
 }
