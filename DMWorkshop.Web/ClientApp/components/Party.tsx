@@ -19,13 +19,14 @@ class Party extends React.Component<PartyProps, {}> {
     componentWillMount() {
         // This method runs when the component is first added to the page
         //let creatureSet = this.props.match.params.creatureSet || 'All';
-        this.props.requestPlayers('LMoP');
+        this.props.requestParties();
+        //this.props.requestPlayers('LMoP');
     }
 
     componentWillReceiveProps(nextProps: PartyProps) {
         // This method runs when incoming props (e.g., route params) change
         //let creatureSet = this.props.match.params.creatureSet || 'All';
-        this.props.requestPlayers('LMoP');
+        //this.props.requestPlayers('LMoP');
     }
     
     public render() {
@@ -37,7 +38,13 @@ class Party extends React.Component<PartyProps, {}> {
                 <Table>
                     <Table.Body>
                         <Table.Row>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell>
+                                <Button.Group>
+                                    {this.props.parties.map(party =>
+                                        <Button content={party.name} basic active={this.props.party === party.name} onClick={() => this.props.requestPlayers(party.name)} />
+                                        )}
+                                </Button.Group>
+                            </Table.Cell>
                             <Table.Cell collapsing>
                                 <PartyRoller icon='lightning' text='Roll Initiative!' players={this.props.players} onSubmit={this.props.addPlayers} /></Table.Cell>
                         </Table.Row>

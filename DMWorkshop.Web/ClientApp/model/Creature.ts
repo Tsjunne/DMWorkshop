@@ -55,19 +55,19 @@ export interface Damage {
 }
 
 export enum DamageType {
-    Piercing = "Piercing",
-    Slashing = "Slashing",
-    Bludgeoning = "Bludgeoning",
-    Fire = "Fire",
-    Acid = "Acid",
-    Poison = "Poison",
-    Cold = "Cold",
-    Lightning = "Lightning",
-    Thunder = "Thunder",
-    Necrotic = "Necrotic",
-    Radiant = "Radiant",
-    NonMagical = "NonMagical",
-    NonSilvered = "NonSilvered"
+    Piercing = "piercing",
+    Slashing = "slashing",
+    Bludgeoning = "bludgeoning",
+    Fire = "fire",
+    Acid = "acid",
+    Poison = "poison",
+    Cold = "cold",
+    Lightning = "lightning",
+    Thunder = "thunder",
+    Necrotic = "necrotic",
+    Radiant = "radiant",
+    NonMagical = "nonMagical",
+    NonSilvered = "nonSilvered"
 }
 
 export enum AttackType {

@@ -17,11 +17,11 @@ type EncounterProps =
 
 class EncounterTracker extends React.Component<EncounterProps, {}> {
     componentWillMount() {
-        this.props.requestPlayers('LMoP');
+        this.props.requestParties();
     }
 
     componentWillReceiveProps(nextProps: EncounterProps) {
-        this.props.requestPlayers('LMoP');
+        this.props.requestParties();
     }
 
     public render() {

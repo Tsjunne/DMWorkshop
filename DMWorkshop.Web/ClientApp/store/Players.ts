@@ -2,17 +2,30 @@
 import { Action, Reducer, ActionCreator } from 'redux';
 import { AppThunkAction } from './';
 import * as Creature from '../model/Creature';
+import * as Campaign from '../model/Campaign';
 
 export interface PlayersState {
     isLoading: boolean;
     party: string;
+    parties: Campaign.Party[];
     players: Creature.Creature[];
 }
 
 enum ActionTypes {
+    REQUEST_PARTIES = 'REQUEST_PARTIES',
+    RECEIVE_PARTIES = 'RECEIVE_PARTIES',
     REQUEST_PLAYERS = 'REQUEST_PLAYERS',
     RECEIVE_PLAYERS = 'RECEIVE_PLAYERS',
     ADD_PLAYERS = 'ADD_PLAYERS'
+}
+
+interface RequestPartiesAction {
+    type: ActionTypes.REQUEST_PARTIES;
+}
+
+interface ReceivePartiesAction {
+    type: ActionTypes.RECEIVE_PARTIES;
+    parties: Campaign.Party[];
 }
 
 interface RequestPlayersAction {
@@ -31,9 +44,22 @@ export interface AddPlayersAction {
     playerRolls: Creature.CharacterRoll[];
 }
 
-type KnownAction = RequestPlayersAction | ReceivePlayersAction | AddPlayersAction;
+type KnownAction = RequestPartiesAction| ReceivePartiesAction | RequestPlayersAction | ReceivePlayersAction | AddPlayersAction;
 
 export const actionCreators = {
+    requestParties: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
+        if (getState().players.parties.length === 0) {
+            let fetchTask = fetch(`api/parties`)
+                .then(response => response.json() as Promise<Campaign.Party[]>)
+                .then(data => {
+                    dispatch({ type: ActionTypes.RECEIVE_PARTIES, parties: data });
+                });
+
+            addTask(fetchTask); // Ensure server-side prerendering waits for this to complete
+            dispatch({ type: ActionTypes.REQUEST_PARTIES });
+        }
+    },
+
     requestPlayers: (party: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
         // Only load data if it's something we don't already have (and are not already loading)
         if (party !== getState().players.party) {
@@ -54,20 +80,41 @@ export const actionCreators = {
     }
 };
 
-const unloadedState: PlayersState = { party: "", players: [], isLoading: false };
+const unloadedState: PlayersState = {
+    party: "",
+    parties: [],
+    players: [],
+    isLoading: false
+};
 
 export const reducer: Reducer<PlayersState> = (state: PlayersState, incomingAction: Action) => {
     const action = incomingAction as KnownAction;
     switch (action.type) {
+        case ActionTypes.REQUEST_PARTIES:
+            return {
+                party: state.party,
+                parties: state.parties,
+                players: state.players,
+                isLoading: true
+            }
+        case ActionTypes.RECEIVE_PARTIES:
+            return {
+                party: state.party,
+                parties: action.parties,
+                players: state.players,
+                isLoading: false
+            }
         case ActionTypes.REQUEST_PLAYERS:
             return {
                 party: action.party,
+                parties: state.parties,
                 players: state.players,
                 isLoading: true
             };
         case ActionTypes.RECEIVE_PLAYERS:
             return {
                 party: action.party,
+                parties: state.parties,
                 players: action.players,
                 isLoading: false
             };

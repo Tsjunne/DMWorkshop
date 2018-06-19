@@ -33,6 +33,7 @@
     <None Remove="ClientApp\components\PlayerCard.tsx" />
     <None Remove="ClientApp\components\PlayerRoller.tsx" />
     <None Remove="ClientApp\components\StatBlock.tsx" />
+    <None Remove="ClientApp\model\Campaign.ts" />
     <None Remove="ClientApp\model\Creature.ts" />
     <None Remove="ClientApp\model\CreatureInstance.ts" />
     <None Remove="ClientApp\model\Encounter.ts" />
@@ -56,6 +57,7 @@
     <TypeScriptCompile Include="ClientApp\components\PlayerRoller.tsx" />
     <TypeScriptCompile Include="ClientApp\components\StatBlock.tsx" />
     <TypeScriptCompile Include="ClientApp\components\UnderConstruction.tsx" />
+    <TypeScriptCompile Include="ClientApp\model\Campaign.ts" />
     <TypeScriptCompile Include="ClientApp\model\Creature.ts" />
     <TypeScriptCompile Include="ClientApp\model\CreatureInstance.ts" />
     <TypeScriptCompile Include="ClientApp\model\Encounter.ts" />

@@ -24,5 +24,11 @@ namespace DMWorkshop.Web.Controllers
         {
             return _mediator.Send(command, cancellationToken);
         }
+
+        [HttpGet]
+        public Task<IEnumerable<PartyReadModel>> Find(GetPartiesQuery query, CancellationToken cancellationToken)
+        {
+            return _mediator.Send(query ?? new GetPartiesQuery(), cancellationToken);
+        }
     }
 }
