@@ -30,7 +30,7 @@ class EncounterTracker extends React.Component<EncounterProps, {}> {
                 <Table compact>
                     <Table.Body>
                         <Table.Row>
-                            <Table.Cell collapsing><b>XP</b> {this.props.encounter.totalXp} ({this.props.encounter.modifiedXp})</Table.Cell>
+                            <Table.Cell collapsing>XP <b className='large text'>{this.props.encounter.totalXp}</b> ({this.props.encounter.modifiedXp})</Table.Cell>
                             <Table.Cell collapsing>
                                 <Popup
                                     trigger={<Image size='mini' rounded src={'/images/' + this.props.encounter.difficulty + '.svg'}/>}
@@ -40,8 +40,6 @@ class EncounterTracker extends React.Component<EncounterProps, {}> {
                             <Table.Cell />
                             <Table.Cell collapsing>
                                 <PartyRoller icon='lightning' text='Roll Initiative!' players={this.props.players} onSubmit={this.props.addPlayers} />
-                            </Table.Cell>
-                            <Table.Cell collapsing>
                                 <Popup
                                     trigger={
                                         <Button icon='trash' negative onClick={this.props.clearEncounter} />} 

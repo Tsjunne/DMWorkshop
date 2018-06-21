@@ -92,8 +92,6 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                         on='click'
                         hideOnScroll
                     />
-                </Table.Cell>
-                <Table.Cell collapsing>
                     <Popup trigger={
                     <Button icon='remove circle' color='red' onClick={() => this.props.removeCreature(this.props.instance)}/>
                     } content='Remove from encounter'/>
