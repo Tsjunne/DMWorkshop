@@ -28,9 +28,9 @@ export class PlayerCard extends React.Component<PlayerCardProps, {}> {
                         <Table basic='very' fixed singleLine collapsing compact size='small'>
                             <Table.Body>
                                 <Table.Row>
-                                    <Table.Cell><Icon name='plus' /> {this.props.player.maxHP}</Table.Cell>
-                                    <Table.Cell><Icon name='shield' /> {this.props.player.ac}</Table.Cell>
-                                    <Table.Cell><Icon name='eye' /> {this.props.player.passivePerception}</Table.Cell>
+                                    <Table.Cell><Icon name='plus' />{this.props.player.maxHP}</Table.Cell>
+                                    <Table.Cell><Icon name='shield' />{this.props.player.ac}</Table.Cell>
+                                    <Table.Cell><Icon name='eye' />{this.props.player.passivePerception}</Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         </Table>

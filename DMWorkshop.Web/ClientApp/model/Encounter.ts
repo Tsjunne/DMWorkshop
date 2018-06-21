@@ -77,6 +77,10 @@ export class Encounter {
         return this.changeInstance(instance, i => add ? i.addCondition(condition) : i.removeCondition(condition));
     }
 
+    public toggleElite(instance: CreatureInstance.CreatureInstance): Encounter {
+        return this.changeInstance(instance, i => i.toggleElite());
+    }
+
     changeInstance(instance: CreatureInstance.CreatureInstance, modifier: (i: CreatureInstance.CreatureInstance) => CreatureInstance.CreatureInstance): Encounter {
         this.instances = this.instances.map(i => {
             if (i === instance)

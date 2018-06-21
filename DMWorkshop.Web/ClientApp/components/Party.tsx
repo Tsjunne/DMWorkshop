@@ -32,10 +32,7 @@ class Party extends React.Component<PartyProps, {}> {
     public render() {
         return (
             <div style={{ height: '99vh' }}>
-                <Dimmer active={this.props.isLoading} inverted>
-                    <Loader inverted>Loading</Loader>
-                </Dimmer>
-                <Table>
+                <Table compact>
                     <Table.Body>
                         <Table.Row>
                             <Table.Cell>
@@ -55,6 +52,9 @@ class Party extends React.Component<PartyProps, {}> {
                         <PlayerCard key={player.name} player={player} />
                     )}
                 </Card.Group>
+                <Dimmer active={this.props.isLoading} inverted>
+                    <Loader inverted>Loading</Loader>
+                </Dimmer>
             </div>
         );
     }

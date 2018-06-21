@@ -8,6 +8,7 @@ export interface Creature {
     xp: number;
     cr: number;
     level: number;
+    hitDie: number;
     size: string;
     passivePerception: number;
     initiativeModifier: number;
@@ -75,4 +76,13 @@ export enum AttackType {
     Ranged = 1 << 1,
     Weapon = 1 << 2,
     Spell = 1 << 3
+}
+
+export enum Ability {
+    Strength,
+    Dexterity,
+    Constitution,
+    Intelligence,
+    Wisdom,
+    Charisma
 }

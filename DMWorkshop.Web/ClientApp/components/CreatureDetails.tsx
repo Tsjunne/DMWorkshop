@@ -27,11 +27,11 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
                         <Table basic='very' fixed singleLine collapsing compact size='small'>
                             <Table.Body>
                                 <Table.Row>
-                                    <Table.Cell><Icon name='plus' /> {this.props.creature.maxHP}</Table.Cell>
-                                    <Table.Cell><Icon name='shield' /> {this.props.creature.ac}</Table.Cell>
-                                    <Table.Cell><Icon name='eye' /> {this.props.creature.passivePerception}</Table.Cell>
-                                    <Table.Cell><Icon name='paw' /> {this.formatSpeed(this.props.creature)}</Table.Cell>
-                                    <Table.Cell><Icon name='trophy' /> {this.formatCR(this.props.creature.cr) + ' (' + this.props.creature.xp + ' XP)'}</Table.Cell>
+                                    <Table.Cell><Icon name='plus' />{this.props.creature.maxHP}</Table.Cell>
+                                    <Table.Cell><Icon name='shield' />{this.props.creature.ac}</Table.Cell>
+                                    <Table.Cell><Icon name='eye' />{this.props.creature.passivePerception}</Table.Cell>
+                                    <Table.Cell><Icon name='paw' />{this.formatSpeed(this.props.creature)}</Table.Cell>
+                                    <Table.Cell><Icon name='trophy' />{this.formatCR(this.props.creature.cr) + ' (' + this.props.creature.xp + ' XP)'}</Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         </Table>

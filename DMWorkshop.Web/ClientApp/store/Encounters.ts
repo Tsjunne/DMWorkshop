@@ -16,7 +16,8 @@ enum ActionTypes {
     ADD_PLAYERS = 'ADD_PLAYERS',
     CHANGE_CREATURE_HP = 'CHANGE_CREATURE_HP',
     CHANGE_CREATURE_CONDITION = 'CHANGE_CREATURE_CONDITION',
-    CLEAR_ENCOUNTER = 'CLEAR_ENCOUNTER'
+    CLEAR_ENCOUNTER = 'CLEAR_ENCOUNTER',
+    TOGGLE_ELITE = 'TOGGLE_ELITE'
 }
 
 interface AddCreatureAction {
@@ -51,7 +52,19 @@ interface ClearEncounterAction {
     type: ActionTypes.CLEAR_ENCOUNTER;
 }
 
-type KnownAction = AddCreatureAction | AddPlayersAction | ClearEncounterAction | ChangeCreatureHpAction | ChangeCreatureConditionAction | RemoveCreatureAction;
+export interface ToggleEliteAction {
+    type: ActionTypes.TOGGLE_ELITE;
+    instance: CreatureInstance.CreatureInstance;
+}
+
+type KnownAction =
+    AddCreatureAction |
+    AddPlayersAction |
+    ClearEncounterAction |
+    ChangeCreatureHpAction |
+    ChangeCreatureConditionAction |
+    RemoveCreatureAction |
+    ToggleEliteAction;
 
 export const actionCreators = {
     addCreature: (creature: Creature.Creature) => <AddCreatureAction>{
@@ -79,6 +92,10 @@ export const actionCreators = {
         instance: instance,
         condition: condition,
         add: add
+    },
+    toggleElite: (instance: CreatureInstance.CreatureInstance) => <ToggleEliteAction>{
+        type: ActionTypes.TOGGLE_ELITE,
+        instance: instance
     }
 };
 
@@ -100,6 +117,8 @@ export const reducer: Reducer<EncounterState> = (state: EncounterState, action: 
             return { encounter: new Encounter.Encounter(state.encounter).changeCondition(action.instance, action.condition, action.add).buildData() };
         case ActionTypes.CLEAR_ENCOUNTER:
             return unloadedState;
+        case ActionTypes.TOGGLE_ELITE:
+            return { encounter: new Encounter.Encounter(state.encounter).toggleElite(action.instance).buildData() };
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
             const exhaustiveCheck: never = action;

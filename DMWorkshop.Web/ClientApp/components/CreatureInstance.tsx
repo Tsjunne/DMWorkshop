@@ -12,6 +12,7 @@ type CreatureInstanceProps =
         changeCreatureHp: (instance: Model.CreatureInstance, newHp: number) => Encounters.ChangeCreatureHpAction
         changeCreatureCondition: (instance: Model.CreatureInstance, condition: Model.Condition, add: boolean) => Encounters.ChangeCreatureConditionAction
         removeCreature: (instance: Model.CreatureInstance) => Encounters.RemoveCreatureAction
+        toggleElite: (instance: Model.CreatureInstance) => Encounters.ToggleEliteAction
     }
 
 export class CreatureInstance extends React.Component<CreatureInstanceProps, CreatureInstanceProps> {
@@ -21,17 +22,34 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
         if (this.props.instance.isPlayer)
             hpBlock = <span/>;
         else
-            hpBlock = <span><Icon name='plus' /> <b className='large text'>{this.props.instance.hp}</b>{'/' + this.props.instance.creature.maxHP}</span>;
+            hpBlock = <span><Icon name='plus' /><b className='large text'>{this.props.instance.hp}</b>{'/' + this.props.instance.maxHp}</span>;
+
+        var eliteControl;
+
+        if (this.props.instance.isPlayer)
+            eliteControl = <span />;
+        else
+            eliteControl = <Icon
+                disabled={this.props.instance.elite ? false : true}
+                name={this.props.instance.elite ? 'star' : 'empty star'}
+                color={this.props.instance.elite ? 'yellow' : 'grey'}
+                size='large' link onClick={() => this.props.toggleElite(this.props.instance)} />;
+
 
         return (
             <Table.Row >
-                <Table.Cell collapsing><Icon name='lightning' /> {this.props.instance.initiative}</Table.Cell>
+                <Table.Cell collapsing>
+                    <Icon name='lightning' /> {this.props.instance.initiative}
+                </Table.Cell>
                 <Table.Cell collapsing>
                     <CreatureDetails creature={this.props.instance.creature} />
                 </Table.Cell>
-                <Table.Cell collapsing>{this.props.instance.creature.name} {this.props.instance.isPlayer ? "" : this.props.instance.number}</Table.Cell>
                 <Table.Cell collapsing>
-                    <Icon name='shield' /> <b className='large text'>{this.props.instance.creature.ac}</b>
+                    {this.props.instance.creature.name} {this.props.instance.isPlayer ? "" : this.props.instance.number}
+                    {eliteControl}
+                </Table.Cell>
+                <Table.Cell collapsing>
+                    <Icon name='shield' /><b className='large text'>{this.props.instance.creature.ac}</b>
                 </Table.Cell>
                 <Table.Cell collapsing>
                     {hpBlock}
@@ -46,7 +64,7 @@ export class CreatureInstance extends React.Component<CreatureInstanceProps, Cre
                         settings={{
                         start: this.props.instance.hp,
                         min: 0,
-                        max: this.props.instance.creature.maxHP,
+                        max: this.props.instance.maxHp,
                         step: 1,
                         onChange: (value: number) => this.props.changeCreatureHp(this.props.instance, value)
                     }

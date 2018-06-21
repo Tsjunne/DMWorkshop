@@ -31,7 +31,7 @@ export class CreatureCard extends React.Component<CreatureCardProps, {}> {
                         <h4>{this.props.creature.name}</h4>
                     </Card.Header>
                     <Card.Meta>
-                        <Icon name='trophy' /> {this.formatCR(this.props.creature.cr) + ' (' + this.props.creature.xp + ' XP)'}
+                        <Icon name='trophy' />{this.formatCR(this.props.creature.cr) + ' (' + this.props.creature.xp + ' XP)'}
                     </Card.Meta>
                 </Card.Content>
             </Card>

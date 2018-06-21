@@ -17,17 +17,17 @@ type EncounterProps =
 
 class EncounterTracker extends React.Component<EncounterProps, {}> {
     componentWillMount() {
-        this.props.requestParties();
+        //this.props.requestParties();
     }
 
     componentWillReceiveProps(nextProps: EncounterProps) {
-        this.props.requestParties();
+        //this.props.requestParties();
     }
 
     public render() {
         return (
             <div style={{ minHeight: '99vh' }}>
-                <Table>
+                <Table compact>
                     <Table.Body>
                         <Table.Row>
                             <Table.Cell collapsing><b>XP</b> {this.props.encounter.totalXp} ({this.props.encounter.modifiedXp})</Table.Cell>
@@ -51,13 +51,14 @@ class EncounterTracker extends React.Component<EncounterProps, {}> {
                         </Table.Row>
                     </Table.Body>
                 </Table>
-                <Table>
+                <Table compact>
                     <Table.Body>
                         {this.props.encounter.instances.map(instance =>
                             <CreatureInstance key={instance.id} instance={instance}
                                 changeCreatureHp={this.props.changeCreatureHp}
                                 changeCreatureCondition={this.props.changeCreatureCondition}
-                                removeCreature={this.props.removeCreature}/>
+                                removeCreature={this.props.removeCreature}
+                                toggleElite={this.props.toggleElite}/>
                         )}
                     </Table.Body>
                 </Table>
