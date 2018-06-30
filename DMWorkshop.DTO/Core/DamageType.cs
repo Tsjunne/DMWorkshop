@@ -14,6 +14,7 @@
         Necrotic,
         Radiant,
         NonMagical,
-        NonSilvered
+        NonSilvered,
+        Psychic
     }
 }
