@@ -2,27 +2,41 @@
 import { Action, Reducer, ActionCreator } from 'redux';
 import { AppThunkAction } from './';
 import * as Creature from '../model/Creature';
+import * as Campaign from '../model/Campaign';
 
 export interface CreaturesState {
     isLoading: boolean;
-    creatureSet?: string;
+    monsterList?: string;
     creatures: Creature.Creature[];
+    monsterLists: Campaign.CreatureList[];
 }
 
 enum ActionTypes {
+    REQUEST_MONSTERLISTS = 'REQUEST_MONSTERLISTS',
+    RECEIVE_MONSTERLISTS = 'RECEIVE_MONSTERLISTS',
     REQUEST_CREATURES = 'REQUEST_CREATURES',
     RECEIVE_CREATURES = 'RECEIVE_CREATURES',
     ADD_CREATURE = 'ADD_CREATURE'
 }
 
+interface RequestMonsterListsAction {
+    type: ActionTypes.REQUEST_MONSTERLISTS;
+}
+
+interface ReceiveMonsterListsAction {
+    type: ActionTypes.RECEIVE_MONSTERLISTS;
+    monsterLists: Campaign.CreatureList[];
+}
+
+
 interface RequestCreaturesAction {
     type: ActionTypes.REQUEST_CREATURES;
-    creatureSet: string;
+    monsterList: string;
 }
 
 interface ReceiveCreaturesAction {
     type: ActionTypes.RECEIVE_CREATURES;
-    creatureSet: string;
+    monsterList: string;
     creatures: Creature.Creature[];
 }
 
@@ -31,20 +45,33 @@ export interface AddCreatureAction {
     creature: Creature.Creature;
 }
 
-type KnownAction = RequestCreaturesAction | ReceiveCreaturesAction | AddCreatureAction;
+type KnownAction = RequestMonsterListsAction | ReceiveMonsterListsAction | RequestCreaturesAction | ReceiveCreaturesAction | AddCreatureAction;
 
 export const actionCreators = {
-    requestCreatures: (creatureSet: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
-        // Only load data if it's something we don't already have (and are not already loading)
-        if (creatureSet !== getState().creatures.creatureSet) {
-            let fetchTask = fetch(`api/creatures?creatureSet=${creatureSet}`)
-                .then(response => response.json() as Promise<Creature.Creature[]>)
+    requestMonsterLists: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
+        if (getState().creatures.monsterLists.length === 0) {
+            let fetchTask = fetch(`api/monsterLists`)
+                .then(response => response.json() as Promise<Campaign.CreatureList[]>)
                 .then(data => {
-                    dispatch({ type: ActionTypes.RECEIVE_CREATURES, creatureSet: creatureSet, creatures: data });
+                    dispatch({ type: ActionTypes.RECEIVE_MONSTERLISTS, monsterLists: data });
                 });
 
             addTask(fetchTask); // Ensure server-side prerendering waits for this to complete
-            dispatch({ type: ActionTypes.REQUEST_CREATURES, creatureSet: creatureSet });
+            dispatch({ type: ActionTypes.REQUEST_MONSTERLISTS });
+        }
+    },
+
+    requestCreatures: (monsterList: string): AppThunkAction<KnownAction> => (dispatch, getState) => {
+        // Only load data if it's something we don't already have (and are not already loading)
+        if (monsterList !== getState().creatures.monsterList) {
+            let fetchTask = fetch(`api/creatures?monsterList=${monsterList}`)
+                .then(response => response.json() as Promise<Creature.Creature[]>)
+                .then(data => {
+                    dispatch({ type: ActionTypes.RECEIVE_CREATURES, monsterList: monsterList, creatures: data });
+                });
+
+            addTask(fetchTask); // Ensure server-side prerendering waits for this to complete
+            dispatch({ type: ActionTypes.REQUEST_CREATURES, monsterList: monsterList });
         }
     },
 
@@ -54,23 +81,39 @@ export const actionCreators = {
     }
 };
 
-const unloadedState: CreaturesState = { creatures: [], isLoading: false };
+const unloadedState: CreaturesState = { monsterLists: [], creatures: [], isLoading: false };
 
 export const reducer: Reducer<CreaturesState> = (state: CreaturesState, incomingAction: Action) => {
     const action = incomingAction as KnownAction;
     switch (action.type) {
+        case ActionTypes.REQUEST_MONSTERLISTS:
+            return {
+                monsterList: state.monsterList,
+                monsterLists: state.monsterLists,
+                creatures: state.creatures,
+                isLoading: true
+            }
+        case ActionTypes.RECEIVE_MONSTERLISTS:
+            return {
+                monsterList: state.monsterList,
+                monsterLists: action.monsterLists,
+                creatures: state.creatures,
+                isLoading: false
+            }
         case ActionTypes.REQUEST_CREATURES:
             return {
-                creatureSet: action.creatureSet,
+                monsterList: action.monsterList,
+                monsterLists: state.monsterLists,
                 creatures: state.creatures,
                 isLoading: true
             };
         case ActionTypes.RECEIVE_CREATURES:
             // Only accept the incoming data if it matches the most recent request. This ensures we correctly
             // handle out-of-order responses.
-            if (action.creatureSet === state.creatureSet) {
+            if (action.monsterList === state.monsterList) {
                 return {
-                    creatureSet: action.creatureSet,
+                    monsterList: action.monsterList,
+                    monsterLists: state.monsterLists,
                     creatures: action.creatures,
                     isLoading: false
                 };

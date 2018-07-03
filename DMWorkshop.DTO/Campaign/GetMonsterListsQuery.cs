@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DMWorkshop.DTO.Campaign
 {
-    public class GetPartiesQuery : IRequest<IEnumerable<CreatureListReadModel>>
+    public class GetMonsterListsQuery : IRequest<IEnumerable<CreatureListReadModel>>
     {
     }
 }

@@ -47,7 +47,7 @@ namespace DMWorkshop.Handlers.Characters
 
             IList<Player> players;
 
-            if (query.Party == "All")
+            if (string.IsNullOrEmpty(query.Party))
             {
                 players = await collection.AsQueryable()
                     .OrderBy(x => x.Name)

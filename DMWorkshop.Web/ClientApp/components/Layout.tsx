@@ -12,11 +12,11 @@ class Layout extends React.Component<ApplicationState, {}> {
             <Grid>
                 <Grid.Column stretched width={2}>
                     <Menu width='thin' icon='labeled' vertical inverted>
-                        <Menu.Item as={NavLink} to="/creatures/">
+                        <Menu.Item as={NavLink} to={`/creatures/${this.props.creatures.monsterList}`}>
                             <Icon name="id card" />
                             Bestiary
 					    </Menu.Item>
-                        <Menu.Item as={NavLink} to="/party/">
+                        <Menu.Item as={NavLink} to={`/party/${this.props.players.party}`}>
                             <Icon name="group" />
                             Party
                         </Menu.Item>

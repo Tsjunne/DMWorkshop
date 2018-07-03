@@ -9,9 +9,9 @@ import { ApplicationState } from './store';
 
 export const routes = (appState: ApplicationState) => (
     <Layout encounters={appState.encounters} creatures={appState.creatures} players={appState.players}>
-        <Route path='/creatures/:creatureSet?' component={CreatureSet} />
+        <Route path='/creatures/:monsterList?' component={CreatureSet} />
         <Route path='/encounter/' component={EncounterTracker} />
-        <Route path='/party/' component={Party} />
+        <Route path='/party/:party?' component={Party} />
         <Redirect from="/" to="/creatures/" />
     </Layout>
 );

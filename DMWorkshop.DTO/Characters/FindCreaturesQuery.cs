@@ -7,6 +7,6 @@ namespace DMWorkshop.DTO.Characters
 {
     public class FindCreaturesQuery : IRequest<IEnumerable<CreatureReadModel>>
     {
-        public string CreatureSet { get; set; }
+        public string MonsterList { get; set; }
     }
 }

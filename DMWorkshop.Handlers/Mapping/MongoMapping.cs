@@ -104,6 +104,13 @@ namespace DMWorkshop.Handlers.Mapping
                 m.MapCreator(x => new Party(x.Name, x.Members));
             });
 
+            BsonClassMap.RegisterClassMap<MonsterList>(m =>
+            {
+                m.MapIdMember(x => x.Name).SetIdGenerator(StringObjectIdGenerator.Instance);
+                m.MapMember(x => x.Members);
+                m.MapCreator(x => new MonsterList(x.Name, x.Members));
+            });
+
         }
     }
 }

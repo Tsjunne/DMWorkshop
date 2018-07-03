@@ -7,7 +7,7 @@ import * as Campaign from '../model/Campaign';
 export interface PlayersState {
     isLoading: boolean;
     party: string;
-    parties: Campaign.Party[];
+    parties: Campaign.CreatureList[];
     players: Creature.Creature[];
 }
 
@@ -25,7 +25,7 @@ interface RequestPartiesAction {
 
 interface ReceivePartiesAction {
     type: ActionTypes.RECEIVE_PARTIES;
-    parties: Campaign.Party[];
+    parties: Campaign.CreatureList[];
 }
 
 interface RequestPlayersAction {
@@ -50,7 +50,7 @@ export const actionCreators = {
     requestParties: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
         if (getState().players.parties.length === 0) {
             let fetchTask = fetch(`api/parties`)
-                .then(response => response.json() as Promise<Campaign.Party[]>)
+                .then(response => response.json() as Promise<Campaign.CreatureList[]>)
                 .then(data => {
                     dispatch({ type: ActionTypes.RECEIVE_PARTIES, parties: data });
                 });

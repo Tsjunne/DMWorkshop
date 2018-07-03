@@ -10,25 +10,25 @@ using Microsoft.AspNetCore.Mvc;
 namespace DMWorkshop.Web.Controllers
 {
     [Route("api/[controller]")]
-    public class PartiesController : Controller
+    public class MonsterListsController : Controller
     {
         private readonly IMediator _mediator;
 
-        public PartiesController(IMediator mediator)
+        public MonsterListsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
-        public Task Register([FromBody] RegisterPartyCommand command, CancellationToken cancellationToken)
+        public Task Register([FromBody] RegisterMonsterListCommand command, CancellationToken cancellationToken)
         {
             return _mediator.Send(command, cancellationToken);
         }
 
         [HttpGet]
-        public Task<IEnumerable<CreatureListReadModel>> Find(GetPartiesQuery query, CancellationToken cancellationToken)
+        public Task<IEnumerable<CreatureListReadModel>> Find(GetMonsterListsQuery query, CancellationToken cancellationToken)
         {
-            return _mediator.Send(query ?? new GetPartiesQuery(), cancellationToken);
+            return _mediator.Send(query ?? new GetMonsterListsQuery(), cancellationToken);
         }
     }
 }

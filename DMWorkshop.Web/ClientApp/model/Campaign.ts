@@ -1,4 +1,4 @@
-﻿export interface Party {
+﻿export interface CreatureList {
     name: string,
     members: string[]
 }

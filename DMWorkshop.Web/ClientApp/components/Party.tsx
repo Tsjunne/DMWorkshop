@@ -12,21 +12,21 @@ import { PartyRoller } from './PartyRoller';
 type PartyProps =
     Players.PlayersState       
     & typeof Players.actionCreators    
-    & RouteComponentProps<{ creatureSet: string }>; 
+    & RouteComponentProps<{ party: string }>; 
 
 class Party extends React.Component<PartyProps, {}> {
 
     componentWillMount() {
         // This method runs when the component is first added to the page
-        //let creatureSet = this.props.match.params.creatureSet || 'All';
         this.props.requestParties();
-        //this.props.requestPlayers('LMoP');
+        let party = this.props.match.params.party || '';
+        this.props.requestPlayers(party);
     }
 
     componentWillReceiveProps(nextProps: PartyProps) {
         // This method runs when incoming props (e.g., route params) change
-        //let creatureSet = this.props.match.params.creatureSet || 'All';
-        //this.props.requestPlayers('LMoP');
+        let party = nextProps.match.params.party || '';
+        this.props.requestPlayers(party);
     }
     
     public render() {
@@ -38,7 +38,7 @@ class Party extends React.Component<PartyProps, {}> {
                             <Table.Cell>
                                 <Button.Group>
                                     {this.props.parties.map(party =>
-                                        <Button content={party.name} basic active={this.props.party === party.name} onClick={() => this.props.requestPlayers(party.name)} />
+                                        <Button as={Link} content={party.name} basic active={this.props.party === party.name} to={`/party/${party.name}`} />
                                         )}
                                 </Button.Group>
                             </Table.Cell>
