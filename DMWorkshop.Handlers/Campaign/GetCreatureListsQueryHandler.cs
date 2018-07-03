@@ -31,17 +31,17 @@ namespace DMWorkshop.Handlers.Campaign
             var parties = await collection.AsQueryable()
                 .ToListAsync(cancellationToken);
 
-            return _mapper.Map< IEnumerable<CreatureListReadModel>>(parties);
+            return _mapper.Map<IEnumerable<CreatureListReadModel>>(parties);
         }
 
         public async Task<IEnumerable<CreatureListReadModel>> Handle(GetMonsterListsQuery request, CancellationToken cancellationToken)
         {
             var collection = _database.GetCollection<MonsterList>("monsterLists");
 
-            var parties = await collection.AsQueryable()
+            var monsterLists = await collection.AsQueryable()
                 .ToListAsync(cancellationToken);
 
-            return _mapper.Map<IEnumerable<CreatureListReadModel>>(parties);
+            return _mapper.Map<IEnumerable<CreatureListReadModel>>(monsterLists);
         }
     }
 }

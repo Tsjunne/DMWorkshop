@@ -43,27 +43,18 @@ namespace DMWorkshop.Handlers.Characters
 
         public async Task<IEnumerable<CreatureReadModel>> Handle(FindPartyQuery query, CancellationToken cancellationToken)
         {
+            var party = await _database.GetCollection<Party>("parties").AsQueryable()
+                .Where(x => x.Name == query.Party)
+                .SingleOrDefaultAsync(cancellationToken);
+
             var collection = _database.GetCollection<Player>("players");
+            var q = collection.AsQueryable();
 
-            IList<Player> players;
+            q = party == null ? q : q.Where(x => party.Members.Contains(x.Name));
 
-            if (string.IsNullOrEmpty(query.Party))
-            {
-                players = await collection.AsQueryable()
+            var players = await q
                     .OrderBy(x => x.Name)
                     .ToListAsync(cancellationToken);
-            }
-            else
-            {
-                var party = await _database.GetCollection<Party>("parties").AsQueryable()
-                    .Where(x => x.Name == query.Party)
-                    .SingleAsync(cancellationToken);
-
-                players = await collection.AsQueryable()
-                    .Where(x => party.Members.Contains(x.Name))
-                    .OrderBy(x => x.Name)
-                    .ToListAsync(cancellationToken);
-            }
 
             await LoadGear(players.ToArray());
 

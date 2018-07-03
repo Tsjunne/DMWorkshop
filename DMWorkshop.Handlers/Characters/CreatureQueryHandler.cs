@@ -9,6 +9,7 @@ using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,28 +44,19 @@ namespace DMWorkshop.Handlers.Characters
 
         public async Task<IEnumerable<CreatureReadModel>> Handle(FindCreaturesQuery query, CancellationToken cancellationToken)
         {
+            var monsterList = await _database.GetCollection<MonsterList>("monsterLists").AsQueryable()
+                .Where(x => x.Name == query.MonsterList)
+                .SingleOrDefaultAsync(cancellationToken);
+
             var collection = _database.GetCollection<Creature>("creatures");
+            var q = collection.AsQueryable();
 
-            IList<Creature> creatures;
+            q = monsterList == null ? q : q.Where(x => monsterList.Members.Contains(x.Name));
 
-            if (string.IsNullOrEmpty(query.MonsterList))
-            {
-                creatures = await collection.AsQueryable()
+            var creatures = await q
                     .OrderBy(x => x.Name)
                     .ToListAsync(cancellationToken);
-            }
-            else
-            {
-                var monsterList = await _database.GetCollection<MonsterList>("monsterLists").AsQueryable()
-                    .Where(x => x.Name == query.MonsterList)
-                    .SingleAsync(cancellationToken);
-
-                creatures = await collection.AsQueryable()
-                    .Where(x => monsterList.Members.Contains(x.Name))
-                    .OrderBy(x => x.Name)
-                    .ToListAsync(cancellationToken);
-            }
-
+            
             await LoadGear(creatures.ToArray());
 
             return _mapper.Map<IEnumerable<CreatureReadModel>>(creatures);

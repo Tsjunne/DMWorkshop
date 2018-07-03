@@ -81,7 +81,12 @@ export const actionCreators = {
     }
 };
 
-const unloadedState: CreaturesState = { monsterLists: [], creatures: [], isLoading: false };
+const unloadedState: CreaturesState = {
+    monsterList: "",
+    monsterLists: [],
+    creatures: [],
+    isLoading: false
+};
 
 export const reducer: Reducer<CreaturesState> = (state: CreaturesState, incomingAction: Action) => {
     const action = incomingAction as KnownAction;
