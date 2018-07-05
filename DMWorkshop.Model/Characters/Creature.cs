@@ -44,27 +44,27 @@ namespace DMWorkshop.Model.Characters
         {
             get
             {
-                foreach (var attack in Attacks)
-                {
-                    var ability = (attack.Type.HasFlag(AttackType.Spell) && CastingAbility.HasValue) ? CastingAbility.Value : attack.Finesse || attack.Type.HasFlag(AttackType.Ranged) ? Ability.Dexterity : Ability.Strength;
-                    yield return new ResultingAttack
-                    {
-                        Name = attack.Name,
-                        Type = attack.Type,
-                        Hit = attack.Bonus + AbilityScores[ability].Modifier + Proficiency,
-                        Info = attack.Info,
-                        Range = attack.Range,
-                        MaxRange = attack.MaxRange,
-                        Reaction = attack.Reaction,
-                        Damage = attack.Damage.Select(d => new Damage
-                        {
-                            Type = d.Type,
-                            DieCount = d.DieCount,
-                            DieSize = d.DieSize,
-                            Bonus = attack.Bonus + d.Bonus + (d.IsPhysical || attack.Finesse ? AbilityScores[ability].Modifier : 0)
-                        })
-                    };
-                }
+                var modified = from attack in Attacks
+                               let ability = (attack.Type.HasFlag(AttackType.Spell) && CastingAbility.HasValue) ? CastingAbility.Value : attack.Finesse || attack.Type.HasFlag(AttackType.Ranged) ? Ability.Dexterity : Ability.Strength
+                               select new ResultingAttack
+                               {
+                                   Name = attack.Name,
+                                   Type = attack.Type,
+                                   Hit = attack.Bonus + AbilityScores[ability].Modifier + Proficiency,
+                                   Info = attack.Info,
+                                   Range = attack.Range,
+                                   MaxRange = attack.MaxRange,
+                                   Reaction = attack.Reaction,
+                                   Damage = attack.Damage.Select(d => new Damage
+                                   {
+                                       Type = d.Type,
+                                       DieCount = d.DieCount,
+                                       DieSize = d.DieSize,
+                                       Bonus = attack.Bonus + d.Bonus + ( d.IsPhysical ? AbilityScores[ability].Modifier : 0)
+                                   })
+                               };
+
+                return modified;
             }
         }
 
