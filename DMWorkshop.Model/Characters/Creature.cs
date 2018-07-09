@@ -55,12 +55,12 @@ namespace DMWorkshop.Model.Characters
                                    Range = attack.Range,
                                    MaxRange = attack.MaxRange,
                                    Reaction = attack.Reaction,
-                                   Damage = attack.Damage.Select(d => new Damage
+                                   Damage = attack.Damage.Select((d, i) => new Damage
                                    {
                                        Type = d.Type,
                                        DieCount = d.DieCount,
                                        DieSize = d.DieSize,
-                                       Bonus = attack.Bonus + d.Bonus + ( d.IsPhysical ? AbilityScores[ability].Modifier : 0)
+                                       Bonus = d.Bonus + (i == 0 ? attack.Bonus + AbilityScores[ability].Modifier : 0)
                                    })
                                };
 
