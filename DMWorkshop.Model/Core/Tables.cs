@@ -101,7 +101,7 @@ namespace DMWorkshop.Model.Core
             new Race("Gnome", Size.Small, 25, 60),
             new Race("Half-Elf", Size.Medium, 30, 60),
             new Race("Half-Orc", Size.Medium, 30, 60),
-            new Race("Thiefling", Size.Medium, 30, 60),
+            new Race("Tiefling", Size.Medium, 30, 60),
             new Race("Aasimar", Size.Medium, 30, 60),
             new Race("Firbolg", Size.Medium, 30),
             new Race("Goliath", Size.Medium, 30),
