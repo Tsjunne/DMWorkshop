@@ -15,6 +15,7 @@
         Radiant,
         NonMagical,
         NonSilvered,
-        Psychic
+        Psychic,
+        Spells
     }
 }
