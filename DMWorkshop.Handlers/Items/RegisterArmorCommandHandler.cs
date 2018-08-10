@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DMWorkshop.Handlers.Items
 {
-    public class RegisterArmorCommandHandler : IRequestHandler<RegisterArmorCommand>
+    public class RegisterArmorCommandHandler : AsyncRequestHandler<RegisterArmorCommand>
     {
         private readonly IMongoDatabase _database;
 
@@ -21,7 +21,7 @@ namespace DMWorkshop.Handlers.Items
             _database = database;
         }
 
-        public Task Handle(RegisterArmorCommand command, CancellationToken cancellationToken)
+        protected override Task Handle(RegisterArmorCommand command, CancellationToken cancellationToken)
         {
             var armor = new Armor(
                 command.Name,

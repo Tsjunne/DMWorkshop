@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DMWorkshop.Handlers.Characters
 {
-    public class CopyContentCommandHandler : IRequestHandler<CopyContentCommand>
+    public class CopyContentCommandHandler : AsyncRequestHandler<CopyContentCommand>
     {
         private readonly IMongoDatabase _source;
         private readonly IMongoDatabase _destination;
@@ -24,7 +24,7 @@ namespace DMWorkshop.Handlers.Characters
             _destination = destination;
         }
 
-        public async Task Handle(CopyContentCommand message, CancellationToken cancellationToken)
+        protected override async Task Handle(CopyContentCommand message, CancellationToken cancellationToken)
         {
             await MigrateGear(cancellationToken);
             await MigrateCreatures(cancellationToken);

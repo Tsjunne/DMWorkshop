@@ -12,7 +12,7 @@ using DMWorkshop.Model.Characters;
 
 namespace DMWorkshop.Handlers.Characters
 {
-    public class RegisterPlayerCommandHandler : IRequestHandler<RegisterPlayerCommand>
+    public class RegisterPlayerCommandHandler : AsyncRequestHandler<RegisterPlayerCommand>
     {
         private readonly IMongoDatabase _database;
 
@@ -21,12 +21,12 @@ namespace DMWorkshop.Handlers.Characters
             _database = database;
         }
 
-        public Task Handle(RegisterPlayerCommand command, CancellationToken cancellationToken)
+        protected override Task Handle(RegisterPlayerCommand command, CancellationToken cancellationToken)
         {
             var player = new Player(
                 command.Name,
                 command.Scores,
-                Enum.Parse<Classes>(command.Class),
+                (Classes)Enum.Parse(typeof(Classes), command.Class),
                 command.Race,
                 command.MaxHp,
                 command.Level,

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DMWorkshop.Handlers.Characters
 {
-    public class RegisterPortraitCommandHandler : IRequestHandler<RegisterPortraitCommand>
+    public class RegisterPortraitCommandHandler : AsyncRequestHandler<RegisterPortraitCommand>
     {
         private IMongoDatabase _database;
 
@@ -19,7 +19,7 @@ namespace DMWorkshop.Handlers.Characters
             _database = database;
         }
 
-        public async Task Handle(RegisterPortraitCommand command, CancellationToken cancellationToken)
+        protected override async Task Handle(RegisterPortraitCommand command, CancellationToken cancellationToken)
         {
             var bucket = new GridFSBucket(_database, new GridFSBucketOptions
             {

@@ -1,6 +1,7 @@
 ﻿using DMWorkshop.DTO.Characters;
 using DMWorkshop.Handlers.Characters;
 using DMWorkshop.Handlers.Mapping;
+using MediatR;
 using MongoDB.Driver;
 using System;
 using System.Threading;
@@ -20,9 +21,9 @@ namespace DMWorkshop.DataMigrator
 
             var source = GetDb(sourceConnection);
             var target = GetDb(targetConnection);
-
+            
             var handler = new CopyContentCommandHandler(source, target);
-            handler.Handle(new CopyContentCommand(), CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();            
+            ((IRequestHandler<CopyContentCommand, Unit>)handler).Handle(new CopyContentCommand(), CancellationToken.None).ConfigureAwait(false).GetAwaiter().GetResult();            
         }
 
         static IMongoDatabase GetDb(string connectionString)
