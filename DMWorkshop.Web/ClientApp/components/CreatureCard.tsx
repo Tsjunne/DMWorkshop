@@ -25,7 +25,7 @@ export class CreatureCard extends React.Component<CreatureCardProps, {}> {
                     <Popup
                         trigger={
                             <Button floated='right' icon='plus' compact color='green' onClick={() => { this.props.addCreature(this.props.creature) }} />}
-                        content='Add creature to encounter'
+                        content='Add this creature to encounter'
                     />
                     <Card.Header>
                         <h4>{this.props.creature.name}</h4>
