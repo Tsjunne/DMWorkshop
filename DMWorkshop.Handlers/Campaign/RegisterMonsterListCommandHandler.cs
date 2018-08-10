@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DMWorkshop.Handlers.Campaign
 {
-    public class RegisterMonsterListCommandHandler : IRequestHandler<RegisterMonsterListCommand>
+    public class RegisterMonsterListCommandHandler : AsyncRequestHandler<RegisterMonsterListCommand>
     {
         private readonly IMongoDatabase _database;
 
@@ -19,7 +19,7 @@ namespace DMWorkshop.Handlers.Campaign
             _database = database;
         }
 
-        public Task Handle(RegisterMonsterListCommand command, CancellationToken cancellationToken)
+        protected override Task Handle(RegisterMonsterListCommand command, CancellationToken cancellationToken)
         {
             var list = new MonsterList(
                 command.Name,

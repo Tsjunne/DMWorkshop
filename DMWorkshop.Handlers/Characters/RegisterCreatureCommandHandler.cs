@@ -14,7 +14,7 @@ using DMWorkshop.DTO.Core;
 
 namespace DMWorkshop.Handlers.Characters
 {
-    public class RegisterCreatureCommandHandler : IRequestHandler<RegisterCreatureCommand>
+    public class RegisterCreatureCommandHandler : AsyncRequestHandler<RegisterCreatureCommand>
     {
         private readonly IMongoDatabase _database;
         private readonly IMapper _mapper;
@@ -25,7 +25,7 @@ namespace DMWorkshop.Handlers.Characters
             _mapper = mapper;
         }
 
-        public Task Handle(RegisterCreatureCommand command, CancellationToken cancellationToken)
+        protected override Task Handle(RegisterCreatureCommand command, CancellationToken cancellationToken)
         {
             var creature = new Creature(
                 command.Name,

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DMWorkshop.Handlers.Campaign
 {
-    public class RegisterPartyCommandHandler : IRequestHandler<RegisterPartyCommand>
+    public class RegisterPartyCommandHandler : AsyncRequestHandler<RegisterPartyCommand>
     {
         private readonly IMongoDatabase _database;
 
@@ -19,7 +19,7 @@ namespace DMWorkshop.Handlers.Campaign
             _database = database;
         }
 
-        public Task Handle(RegisterPartyCommand command, CancellationToken cancellationToken)
+        protected override Task Handle(RegisterPartyCommand command, CancellationToken cancellationToken)
         {
             var party = new Party(
                 command.Name,
