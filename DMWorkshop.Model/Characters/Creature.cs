@@ -50,7 +50,7 @@ namespace DMWorkshop.Model.Characters
                                {
                                    Name = attack.Name,
                                    Type = attack.Type,
-                                   Hit = attack.Bonus + AbilityScores[ability].Modifier + Proficiency,
+                                   Hit = attack.Bonus + AbilityScores[ability].Modifier + (attack.Proficient == false ? 0 : Proficiency),
                                    Info = attack.Info,
                                    Range = attack.Range,
                                    MaxRange = attack.MaxRange,

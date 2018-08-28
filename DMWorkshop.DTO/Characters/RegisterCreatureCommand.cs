@@ -43,6 +43,7 @@ namespace DMWorkshop.DTO.Characters
         public string Info { get; set; }
         public int Type { get; set; }
         public bool Finesse { get; set; }
+        public bool? Proficient { get; set; }
         public int? Hit { get; set; }
         public int Range { get; set; } = 5;
         public int? MaxRange { get; set; }

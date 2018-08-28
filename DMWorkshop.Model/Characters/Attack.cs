@@ -10,6 +10,7 @@ namespace DMWorkshop.Model.Characters
         public IEnumerable<Damage> Damage { get; set; }
         public AttackType Type { get; set; }
         public bool Finesse { get; set; }
+        public bool? Proficient { get; set; }
         public int Range { get; set; }
         public int? MaxRange { get; set; }
         public bool? Reaction { get; set; }
