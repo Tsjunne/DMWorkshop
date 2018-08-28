@@ -16,6 +16,7 @@
         NonMagical,
         NonSilvered,
         Psychic,
-        Spells
+        Spells,
+        Force
     }
 }
