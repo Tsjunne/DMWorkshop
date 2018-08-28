@@ -51,8 +51,9 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
                         {this.props.creature.specialAbilities.map(sa =>
                             <SimpleInfo label={sa.name} info={sa.info} />
                         )}
-                        <Actions label='Actions' actions={this.props.creature.attacks.filter(a => !a.reaction)} />
+                        <Actions label='Actions' actions={this.props.creature.attacks.filter(a => !a.reaction && !a.legendary)} />
                         <Actions label='Reactions' actions={this.props.creature.attacks.filter(a => a.reaction)} />
+                        <Actions label='Legendary Actions' actions={this.props.creature.attacks.filter(a => a.legendary)} />
                     </Modal.Description>
                 </Modal.Content>
             </Modal>

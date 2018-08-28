@@ -14,6 +14,7 @@ namespace DMWorkshop.Model.Characters
         public int Range { get; set; }
         public int? MaxRange { get; set; }
         public bool? Reaction { get; set; }
+        public bool? Legendary { get; set; }
         public int Bonus { get; set; }
     }
 }

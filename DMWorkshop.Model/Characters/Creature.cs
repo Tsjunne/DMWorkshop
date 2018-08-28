@@ -55,6 +55,7 @@ namespace DMWorkshop.Model.Characters
                                    Range = attack.Range,
                                    MaxRange = attack.MaxRange,
                                    Reaction = attack.Reaction,
+                                   Legendary = attack.Legendary,
                                    Damage = attack.Damage.Select((d, i) => new Damage
                                    {
                                        Type = d.Type,
@@ -81,6 +82,7 @@ namespace DMWorkshop.Model.Characters
         public int? MaxRange { get; set; }
         public string Info { get; set; }
         public bool? Reaction { get; set; }
+        public bool? Legendary { get; set; }
     }
 }
 

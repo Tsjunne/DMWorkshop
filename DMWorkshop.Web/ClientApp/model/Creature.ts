@@ -45,6 +45,7 @@ export interface Attack {
     info: string;
     damage: Damage[];
     reaction?: boolean;
+    legendary?: boolean;
 }
 
 export interface Damage {
