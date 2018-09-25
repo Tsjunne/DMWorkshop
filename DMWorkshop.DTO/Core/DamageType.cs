@@ -15,6 +15,7 @@
         Radiant,
         NonMagical,
         NonSilvered,
+        NonAdamantine,
         Psychic,
         Spells,
         Force
