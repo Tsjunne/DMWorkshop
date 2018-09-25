@@ -69,7 +69,8 @@ export enum DamageType {
     Necrotic = "necrotic",
     Radiant = "radiant",
     NonMagical = "nonMagical",
-    NonSilvered = "nonSilvered"
+    NonSilvered = "nonSilvered",
+    NonAdamantine = "nonAdamantine"
 }
 
 export enum AttackType {

@@ -113,6 +113,7 @@ export class CreatureDetails extends React.Component<CreatureDetailsProps> {
     formatDamageType(type: Creature.DamageType): string {
         if (type == Creature.DamageType.NonMagical) return 'bludgeoning, piercing, and slashing damage from non magical attacks';
         if (type == Creature.DamageType.NonSilvered) return 'bludgeoning, piercing, and slashing damage from non magical weapons that aren’t silvered';
+        if (type == Creature.DamageType.NonAdamantine) return 'bludgeoning, piercing, and slashing damage from non magical weapons that aren’t adamantine';
 
         return type;
     }
