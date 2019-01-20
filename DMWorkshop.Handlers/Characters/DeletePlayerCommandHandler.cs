@@ -2,6 +2,7 @@
 using DMWorkshop.Model.Campaign;
 using MediatR;
 using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,10 +20,26 @@ namespace DMWorkshop.Handlers.Campaign
             _database = database;
         }
 
-        protected override Task Handle(DeletePlayerCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(DeletePlayerCommand request, CancellationToken cancellationToken)
         {
             var collection = _database.GetCollection<Party>("players");
-            return collection.DeleteOneAsync(x => x.Name == request.Name, cancellationToken);
+            await collection.DeleteOneAsync(x => x.Name == request.Name, cancellationToken);
+
+            var bucket = new GridFSBucket(_database, new GridFSBucketOptions
+            {
+                BucketName = "portraits"
+            });
+
+            var filter = Builders<GridFSFileInfo>.Filter.And(
+                Builders<GridFSFileInfo>.Filter.Eq(x => x.Filename, request.Name));
+
+            var files = await bucket.FindAsync(filter, null, cancellationToken);
+            var file = await files.FirstOrDefaultAsync(cancellationToken);
+
+            if (file != null)
+            {
+                await bucket.DeleteAsync(file.Id, cancellationToken);
+            }
         }
     }
 }
