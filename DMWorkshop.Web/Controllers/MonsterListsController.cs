@@ -30,5 +30,11 @@ namespace DMWorkshop.Web.Controllers
         {
             return _mediator.Send(query ?? new GetMonsterListsQuery(), cancellationToken);
         }
+
+        [HttpDelete("{id}")]
+        public Task Delete(string id, CancellationToken cancellationToken)
+        {
+            return _mediator.Send(new DeleteMonsterListCommand { Name = id }, cancellationToken);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DMWorkshop.DTO.Campaign;
 using DMWorkshop.DTO.Characters;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -57,6 +58,12 @@ namespace DMWorkshop.Web.Controllers
             await _mediator.Send(command, cancellationToken);
 
             return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public Task Delete(string id, CancellationToken cancellationToken)
+        {
+            return _mediator.Send(new DeletePlayerCommand { Name = id }, cancellationToken);
         }
     }
 }
